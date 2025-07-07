@@ -1,4 +1,4 @@
-/* TabSearch.js 의 css */
+/* sidebar.js 의 css */
 
 
 .sidebar {
@@ -11,12 +11,12 @@
   height: 100vh;
   overflow-y: auto;
 }
-.tabSearch .header{
+.sidebar .header{
     background-color: #007aff;
     padding: 10px;
 }
 
-.tabSearch .header .h1 {
+.sidebar .header span.h1 {
   color: #FFF;
   font-size: 17px;
   margin-bottom: 8px;
@@ -25,14 +25,14 @@
     display: flex;
 }
 
-.tabSearch .header .locationSearch {
+.sidebar .header .locationSearch {
   font-size: 12px;
   margin-bottom: 8px;
   display: flex;
   align-items:center;
   margin-left: auto;
 }
-.tabSearch .header .locationSearch label{
+.sidebar .header .locationSearch label{
     cursor: pointer;
     display: flex;
     align-items: flex-end;
@@ -41,7 +41,7 @@
     font-size: 10px;
     margin-left: auto;
 }
-.tabSearch .header .locationSearch label ::before{
+.sidebar .header .locationSearch label ::before{
     content: '';
    
     width: 16px;
@@ -51,7 +51,7 @@
     background: white;
 }
 
-.tabSearch .header .locationSearch label input:checked + span::before{
+.sidebar .header .locationSearch label input:checked + span::before{
     background: #007aff;
 }
 
@@ -59,7 +59,7 @@
     display: none;
 }
 
-.tabSearch .header .searchInput {
+.sidebar .header .searchInput {
   width: 100%;
   padding: 8px;
   box-sizing: border-box;
@@ -68,13 +68,13 @@
   margin-bottom: 12px;
 }
 
-.tabSearch .header .tab-menu {
+.sidebar .header .tab-menu {
   display: flex;
   justify-content: space-between;
   margin-bottom: 16px;
 }
 
-.tabSearch .header .tab-menu button {
+.sidebar .header .tab-menu button {
   flex: 1;
   margin: 0 2px;
   padding: 6px 0;
@@ -84,7 +84,7 @@
   cursor: pointer;
 }
 
-.tabSearch .section {
+.sidebar .section {
   padding-bottom: 16px;
   padding-top: 16px;
   border-bottom: #ddd solid 1px;
@@ -96,51 +96,67 @@
 
 
 
-.tabSearch .section .container.title{
+.sidebar .section .container.title{
     display: flex;
     width: 100%;
     height: auto;
     margin-bottom: 10px;
     gap: 10px;
+    justify-content: flex-start;
+    align-items: flex-end;
 }
 
-.tabSearch .section .gradeIcon{
+.sidebar .section .gradeIcon{
     width: 10px;
     height: 10px;
     border-radius: 50%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     
 }
-.tabSearch .section .gradeIcon.green{
-    background-color:#228B22;
+.sidebar .section .gradeIcon.green{
+    background-color:#1c711c;
 }
-.tabSearch .section .gradeIcon.orange{
-    background-color: #3CB371;
+.sidebar .section .gradeIcon.orange{
+    background-color: #02b643;
 }
-.tabSearch .section .gradeIcon.gray{
-    background-color:#0004ff;
+.sidebar .section .gradeIcon.gray{
+    background-color: #aaa;
 }
-.tabSearch h4 {
+.sidebar .section .gradeIcon.best{
+    background-image: url(../../assets/icon/bestResIcon.png);
+    width: 20px;
+    height: 20px;
+    background-size: cover;
+    text-align: end;
+}
+.sidebar h4 {
   font-size: 15px;
   margin-bottom: 6px;
 }
 
-.tabSearch .section .container.title .sectionTitle{
+.sidebar .section .container.title .sectionTitle{
     font-size: 15px;
     color: #111;
-    margin-right: 15px;
+    margin-right: 7px;
+    font-weight: 600;
     display: flex;
     align-items: flex-end;
 
 }
-.tabSearch .section .container.title .resType{
+.sidebar .section .container.title .resType{
     color: #aaa;
     font-size: 12px;
     display: flex;
     align-items: flex-end;
+    text-align: end;
     margin-right: 20px;
+    height: 100%;
 }
 
-.tabSearch .section .container.title .btn.favorite{
+.sidebar .section .container.title .btn.favorite{
     overflow: hidden;
     border: none;
     display: inline-block;
@@ -159,13 +175,14 @@
     z-index: 20;
 }
 
-.tabSearch .section .container.title .btn.favorite.on{
+.sidebar .section .container.title .btn.favorite.on{
     background-position: -105px -35px;
 }
-.tabSearch .section span{
-    font-size: 13px;
+.sidebar .section span{
+    font-size: 12px;
+    font-weight: 500;
 }
-.tabSearch .section .penelContent span{
+.sidebar .section .penelContent span{
     font-size: 10px;
     gap: 0px;
 }
@@ -173,20 +190,39 @@
 
 
 /* 갑 을 자율 */
-.tabSearch .section span.grade.green{
+.sidebar .section span.grade.green{
     font-size: 12px;
     font-weight: bold;
-    color: #228B22;
+    color: #1c711c;
 }
 /* 지도 관리 */
-.tabSearch .section span.grade.orange{
+.sidebar .section span.grade.orange{
     font-size: 12px;
     font-weight: bold;
-    color:  #3CB371;
+    color:  #02b643;
 }
 /* 기타, 공백 */
-.tabSearch .section span.grade.gray{
+.sidebar .section span.grade.gray{
     font-size: 12px;
     font-weight: bold;
-    color: #c9bc48;
+    color: #aaa;
+}
+.sidebar.tabMypage .myPage{
+    background-color: #007aff;
+    font-size: 14px;
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+    padding: 0px 5px 10px 10px;
+    gap: 10px;
+}
+
+.sidebar.tabMypage .myTabmenuItem{
+    background-color: rgba(0,0,0,0);
+    width: 100%;
+    border-radius: 5px;
+}
+.sidebar.tabMypage .myTabmenuItem.active{
+    background-color: rgba(13, 91, 212, .8);
+    padding: 4px 0px;
 }

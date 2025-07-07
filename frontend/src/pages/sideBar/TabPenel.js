@@ -3,7 +3,6 @@ import '../../styles/components/sideBar.css';
 
 export default function TabSearch(){
 	
-    
     //임시 데이터
     const resData =[
         {
@@ -95,76 +94,43 @@ export default function TabSearch(){
            
         }
     ]
-    const [colorList,setColorList] = useState([]);
-    const [favoriteClick,setFavoriteClick] = useState("");
-    const [favoriteList,setFavoriteList] = useState([]);
-    const [favorite,setFavorite] = useState(true);
-
-    
-    useEffect(() => {
-        const colors = resData.map((item) => {
-            if (["매우우수"].includes(item.grade)) return "green";
-            if (["우수"].includes(item.grade)) return "orange";
-            return "gray";
-        });
-        setColorList(colors);
-
-        setFavoriteList(new Array(resData.length).fill(false));
-    }, []);
-
-    // 즐겨찾기 클릭 설정
-    const handlerFavoriteClick = (idx)=>{
-        setFavoriteList((prevList) => {
-        const updated = [...prevList];
-        updated[idx] = !updated[idx]; // 해당 인덱스만 토글
-        return updated;
-    });
-        //db 저장 로직 추가
-
-   
-
-
-    };
-	 //현 지도 내 장소검색 메소드 구간
-
-
-    // 각 section별 상세페이지로 페이징 메소드 구간
-
-    return (
+    //현 지도 내 장소검색 메소드 구간
+   // 각 section별 상세페이지로 페이징 메소드 구간
+    return(
     <div className="sidebar tabSearch">
         <div className="header">
-            <h1>kakaomap</h1>
+            <span className="h1">kakaomap</span>
             <div className="locationSearch">
                 <label htmlFor="mapCheck">
                 <input type="checkbox" id="mapCheck" className="disnone"/>
                     현 지도 내 장소검색
-                    </label>
+                </label>
             </div>
             <input type="text" className="searchInput" placeholder="장소, 주소 검색" />
         </div>
         <h4>행정 처분</h4>
-        {resData.map((item, index) => (
-            // 해당 영역 클릭했을 때 상세페이지로 넘어가는 페이징
-            <div key={index} className="section" >
-            <div className="container title">
-                <div className={`gradeIcon ${colorList[index]}`}/>
-                <span className="sectionTitle">{item.name}</span>
-                <span className="resType">{item.penelCount || 0}건</span>
-              
-                <button type="button" aria-pressed={!favorite} className={`btn favorite ${favoriteList[index] ? "on" : ""}`} onClick={()=>handlerFavoriteClick(index)}  />
-               
+        {resData.map((item, index) => {
+        if (!item.penel && !item.penelContent) return null; // ⛔ 아무 내용도 없으면 렌더링 안 함
+
+        return (
+            <div key={index} className="section">
+                <div className="container title">
+                    <span className="sectionTitle">{item.name}</span>
+                    <span className="resType">{item.penelCount || 0}건</span>
+                </div>
+                <span>{item.oldAdder}</span>
+                <span>{item.tel}</span>
+
+                {/* 행정 처분 내용 표시 */}
+                <div className="penelContent">
+                    <span>행정 처분 내용</span><br />
+                    <span>{item.penel}</span>
+                    <span>{item.penelContent}</span>
+                </div>
             </div>
-            <span>{item.oldAdder}</span>
-            <span>{item.tel}</span>
-			{/* 행정 처분 내용*/}
-			<div className="penelContent">
-			<span>행정 처분 내용</span><br/>
-			<span>{item.penel}</span>
-			<span>{item.penelContent || "없음"}</span>
-			</div>
-           
-        </div>
-        ))}
+        );
+    })}
     </div>
-  );
+    
+    )
 }

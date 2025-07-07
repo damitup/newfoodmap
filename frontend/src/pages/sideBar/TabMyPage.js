@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import '../../styles/components/sideBar.css';
+import MyFavorite from "./myPage/MyFavorite.js";
+import MyReview from "./myPage/MyReview.js";
 
 export default function TabSearch(){
     
@@ -81,20 +83,37 @@ export default function TabSearch(){
             grade: "우수",
            
         }
-    ]
-    const [colorList,setColorList] = useState([]);
-    const [favoriteClick,setFavoriteClick] = useState("");
+    ];
+    const [activeTab, setActiveTab]= useState("");
+    const [tabTabFavoriteList,setTabFavoriteList] = useState([]);
+    const [tabTabReviewList,setTabReviewList]= useState([]);
     const [favoriteList,setFavoriteList] = useState([]);
-    const [favorite,setFavorite] = useState(true);
 
+
+    // mypage 즐겨찾기. 리뷰 버튼 클릭 시 메소드
+    const handleTabClick = async (tabType) => {
+    setActiveTab(tabType);
     
+    //fetch 경로는 백앤드 구조에 따라 변경될수 있음
+    if (tabType === "favorite") {
+        const res = await fetch("/api/favorite/list?userId=testUser");
+        const data = await res.json();
+        setTabFavoriteList(data);
+    }
+
+    if (tabType === "review") {
+        const res = await fetch("/api/review/list?userId=testUser");
+        const data = await res.json();
+        setTabReviewList(data);
+    }
+};
+    //mypage 즐겨찾기, 리뷰 버튼 클릭시 ui 표시
+    const isActive = (tab) => activeTab === tab ? "active" : "";
+    
+
     useEffect(() => {
-        const colors = resData.map((item) => {
-            if (["매우우수"].includes(item.grade)) return "green";
-            if (["우수"].includes(item.grade)) return "orange";
-            return "gray";
-        });
-        setColorList(colors);
+        handleTabClick("favorite");
+
 
         setFavoriteList(new Array(resData.length).fill(false));
     }, []);
@@ -108,8 +127,7 @@ export default function TabSearch(){
     });
         //db 저장 로직 추가
 
-    //현 지도 내 장소검색 메소드 구간
-
+ 
 
     // 각 section별 상세페이지로 페이징 메소드 구간
 
@@ -117,7 +135,7 @@ export default function TabSearch(){
     };
 
     return (
-    <div className="sidebar tabSearch">
+    <div className="sidebar tabMypage">
         <div className="header">
 			<div className="container">
 				<span className="h1">kakaomap</span>
@@ -128,37 +146,15 @@ export default function TabSearch(){
 			</div>
             <input type="text" className="searchInput" placeholder="장소, 주소 검색" />
         </div>
-        <h4>지역 추천</h4>
-        {resData.map((item, index) => (
-            // 해당 영역 클릭했을 때 상세페이지로 넘어가는 페이징
-            <div key={index} className="section" >
-            <div className="container title">
-                <div className={`gradeIcon ${colorList[index]}`}/>
-                <span className="sectionTitle">{item.name}</span>
-                <span className="resType">{item.type}</span>
-              
-                <button type="button" aria-pressed={!favorite} className={`btn favorite ${favoriteList[index] ? "on" : ""}`} onClick={()=>handlerFavoriteClick(index)}  />
-               
-            </div>
-            <span>{item.content}</span>
-            <span>{item.tel}</span>
-            {/* 등급 구분명 보여주기 */}
-            <span className={`grade ${colorList[index]}`}>
-             위생등급 : {["매우우수", "우수", "좋음"].includes(item.grade) ? item.grade : "등급없음"}
-			</span>
-            {/* 메뉴 리스트 보여주기 */}
-            {item.menu?.length > 0 && (      
-                <>
-                <h4>주메뉴</h4>
-                <div className="menuList">
-                {item.menu.map((menuItem, i) => (
-                    <span key={i} className="menu-item">• {menuItem}<br/></span>
-                ))}
-                </div>
-                </>      
-            )}
+        <div className="container myTab myPage">
+            <div className ={`myTabmenuItem ${isActive("favorite")}`} onClick={() => handleTabClick("favorite")}><span>즐겨찾기</span></div>
+            <div className ={`myTabmenuItem ${isActive("review")}`} onClick={() => handleTabClick("review")}><span>리뷰</span></div>
         </div>
-        ))}
+        {/*     즐겨찾기, 리뷰 클릭 시 해당 페이지 불러오기 */}
+     
+            {activeTab === "favorite" && <MyFavorite data={tabTabFavoriteList} />}
+            {activeTab === "review" && <MyReview data={tabTabReviewList} />}
+        
     </div>
   );
 }

@@ -1,6 +1,6 @@
 package kr.map.food.service.apiData.dataTrans;
 
-import kr.map.food.domain.apiData.restaurant.RestaurantDTO;
+import kr.map.food.domain.apiData.restaurant.RestaurantApiDTO;
 import kr.map.food.domain.apiData.restaurant.RestaurantKakaoAddressDTO;
 import kr.map.food.domain.apiData.restaurant.RestaurantRawDTO;
 
@@ -34,7 +34,7 @@ public class AddressTrans {
     }
 
     // 지번주소, 도로명주소, x좌표, y좌표 중 하나라도 없을 때
-    public static void setAddress ( RestaurantRawDTO raw, RestaurantDTO dto ) {
+    public static void setAddress ( RestaurantRawDTO raw, RestaurantApiDTO dto ) {
     
         // 변환할때 사용할 주소 선택
         String queryAddress = !FindNullData.isEmpty(dto.getNEWADDR()) 

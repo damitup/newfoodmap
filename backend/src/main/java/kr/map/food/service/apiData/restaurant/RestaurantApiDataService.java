@@ -1,4 +1,4 @@
-package kr.map.food.service.apiData.Restaurant;
+package kr.map.food.service.apiData.restaurant;
 
 import java.util.List;
 

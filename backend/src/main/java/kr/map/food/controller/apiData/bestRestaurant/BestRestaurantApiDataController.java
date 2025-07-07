@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import kr.map.food.domain.apiData.bestRestaurant.BestRestaurantDTO;
-import kr.map.food.mapper.apiData.bestRestaurant.BestRestaurantApiDataMapper;
+import kr.map.food.mapper.apiData.BestRestaurantApiDataMapper;
 
 @RestController
 public class BestRestaurantApiDataController {

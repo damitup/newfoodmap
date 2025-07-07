@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.map.food.mapper.test.TestMapper">
+
+  <!-- 1. INSERT -->
+  <insert id="insertClean" parameterType="kr.map.food.domain.test.TestDTO">
+    INSERT INTO cleangrade (
+      CLEANIDX, UPSONM, SITEADDR, ASSIGNGRADE, ASSIGNYEAR, clDelYn
+    ) VALUES (
+      #{cleanIdx}, #{upsoNm}, #{siteAddr}, #{assignGrade}, #{assignYear}, #{clDelYn}
+    )
+  </insert>
+
+  <!-- 2. 중복 확인 -->
+  <select id="existsClean" parameterType="kr.map.food.domain.test.TestDTO" resultType="int">
+    SELECT COUNT(*) FROM cleangrade
+    WHERE upsoNm = #{upsoNm}
+      AND siteAddr = #{siteAddr}
+      AND assignYear = #{assignYear}
+  </select>
+
+  <!-- 3. 전체를 clDelYn = 'Y' 처리 -->
+  <update id="markAllDeleted">
+    UPDATE cleangrade SET clDelYn = 'Y'
+  </update>
+
+  <!-- 4. 해당 데이터 clDelYn = 'N' 으로 복원 -->
+  <update id="markAlive" parameterType="kr.map.food.domain.test.TestDTO">
+    UPDATE cleangrade
+    SET clDelYn = 'N'
+    WHERE upsoNm = #{upsoNm}
+      AND siteAddr = #{siteAddr}
+      AND assignGrade = #{assignGrade}
+      AND assignYear = #{assignYear}
+  </update>
+
+  <!-- 5. 가장 큰 CLEANIDX 가져오기 -->
+  <select id="getMaxCleanIdx" resultType="String">
+    SELECT MAX(CLEANIDX) FROM cleangrade
+  </select>
+
+    <!-- 6. Update 지정등급 변경된 업소 -->
+    <select id="updateClean" parameterType="kr.map.food.domain.test.TestDTO">
+    UPDATE cleangrade
+    SET assignGrade = #{assignGrade},
+        clDelYn = 'N'
+    WHERE upsoNm = #{upsoNm}
+    AND siteAddr = #{siteAddr}
+    AND assignYear = #{assignYear}
+    </select>
+</mapper>

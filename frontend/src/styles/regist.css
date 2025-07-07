@@ -1,0 +1,76 @@
+
+@charset "UTF-8";
+
+        .table_container {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            width: 100vw;
+            height: 100vh;
+            padding: 0;
+            margin: 0;
+        }
+        .table_container form {
+            display: flex;
+        }
+        .table_container table {
+            top: 20%;
+            left: 30%;
+            background-color: rgba(255,255,255,0.3);
+            border-radius: 25px;
+            position: absolute;
+            border-collapse: collapse;
+            width: 700px;
+            height: 350px;
+            box-shadow: 0 1px 8px rgba(255, 255, 248, 0.8);
+        }
+        .table_container table .title{
+            font-size: 25px;
+            color: #252525;
+        }
+        .table_container table .aside{
+            color: #333;
+            font-size: 20px;
+        }
+
+        .table_container td {
+            padding: 0;
+            margin: 0;
+            background-color: rgba(255, 255, 255, 0);
+        }
+        .table_container td input{
+            padding: 3px 5px ;
+            margin-right: 10px;
+        }
+        .table_container td span{
+            color: #ddd;
+            font-size: 12px;
+        }
+
+        .table_container th,td {
+            border: 2px solid rgba(243, 137, 75, 0.055);
+        }
+        .table_container th {
+            text-align: center;
+        }
+      
+        .table_container .butBox{
+		    position: absolute;
+            top: 67%;
+            left: 41%;
+		    width: 315px;
+		    height: 55px;
+            display: flex;
+            justify-content: space-between;
+		    font-size: 1.5rem;
+		    color: #111;
+		    cursor: pointer;
+        }
+        .table_container .butBox .button{
+            border: none;
+            font-size: 20px;
+            background-color:rgba(255, 255, 248, 0.8);
+            box-shadow: 0 1px 8px rgba(255, 255, 248, 0.8);
+            border-radius: 5px;
+            text-align: center;
+            padding: 5px 0;
+            display: flex;
+        }

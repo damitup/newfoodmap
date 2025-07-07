@@ -1,0 +1,192 @@
+/* TabSearch.js 의 css */
+
+
+.sidebar {
+  width: 340px;
+  font-family: 'Malgun Gothic', sans-serif;
+  background: #fff;
+  border-right: 1px solid #ccc;
+  padding: 16px;
+  box-sizing: border-box;
+  height: 100vh;
+  overflow-y: auto;
+}
+.tabSearch .header{
+    background-color: #007aff;
+    padding: 10px;
+}
+
+.tabSearch .header .h1 {
+  color: #FFF;
+  font-size: 17px;
+  margin-bottom: 8px;
+}
+.sidebar .container{
+    display: flex;
+}
+
+.tabSearch .header .locationSearch {
+  font-size: 12px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items:center;
+  margin-left: auto;
+}
+.tabSearch .header .locationSearch label{
+    cursor: pointer;
+    display: flex;
+    align-items: flex-end;
+    padding-left: 24px;
+    color: #fff;
+    font-size: 10px;
+    margin-left: auto;
+}
+.tabSearch .header .locationSearch label ::before{
+    content: '';
+   
+    width: 16px;
+    height: 16px;
+    border: 1px solid #aaa;
+    border-radius: 2px;
+    background: white;
+}
+
+.tabSearch .header .locationSearch label input:checked + span::before{
+    background: #007aff;
+}
+
+.disnone{
+    display: none;
+}
+
+.tabSearch .header .searchInput {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+
+.tabSearch .header .tab-menu {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.tabSearch .header .tab-menu button {
+  flex: 1;
+  margin: 0 2px;
+  padding: 6px 0;
+  font-size: 12px;
+  border: none;
+  background: #f5f5f5;
+  cursor: pointer;
+}
+
+.tabSearch .section {
+  padding-bottom: 16px;
+  padding-top: 16px;
+  border-bottom: #ddd solid 1px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+}
+
+
+
+.tabSearch .section .container.title{
+    display: flex;
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+    gap: 10px;
+}
+
+.tabSearch .section .gradeIcon{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    
+}
+.tabSearch .section .gradeIcon.green{
+    background-color:#228B22;
+}
+.tabSearch .section .gradeIcon.orange{
+    background-color: #3CB371;
+}
+.tabSearch .section .gradeIcon.gray{
+    background-color:#0004ff;
+}
+.tabSearch h4 {
+  font-size: 15px;
+  margin-bottom: 6px;
+}
+
+.tabSearch .section .container.title .sectionTitle{
+    font-size: 15px;
+    color: #111;
+    margin-right: 15px;
+    display: flex;
+    align-items: flex-end;
+
+}
+.tabSearch .section .container.title .resType{
+    color: #aaa;
+    font-size: 12px;
+    display: flex;
+    align-items: flex-end;
+    margin-right: 20px;
+}
+
+.tabSearch .section .container.title .btn.favorite{
+    overflow: hidden;
+    border: none;
+    display: inline-block;
+    color: transparent;
+    background-image: url("../../assets/icon/home.png");
+    cursor: pointer;
+    font-size: 1px;
+    line-height: 1px;
+    margin-left: auto;
+    vertical-align: top;
+    background-size: 261px 186px;
+    background-position: -86px -35px;
+    width: 18px;
+    height: 17px;
+    mask-image: none;
+    z-index: 20;
+}
+
+.tabSearch .section .container.title .btn.favorite.on{
+    background-position: -105px -35px;
+}
+.tabSearch .section span{
+    font-size: 13px;
+}
+.tabSearch .section .penelContent span{
+    font-size: 10px;
+    gap: 0px;
+}
+
+
+
+/* 갑 을 자율 */
+.tabSearch .section span.grade.green{
+    font-size: 12px;
+    font-weight: bold;
+    color: #228B22;
+}
+/* 지도 관리 */
+.tabSearch .section span.grade.orange{
+    font-size: 12px;
+    font-weight: bold;
+    color:  #3CB371;
+}
+/* 기타, 공백 */
+.tabSearch .section span.grade.gray{
+    font-size: 12px;
+    font-weight: bold;
+    color: #c9bc48;
+}

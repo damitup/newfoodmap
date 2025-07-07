@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.map.food.mapper.apiData.RestaurantApiDataMapper">
+
+    <insert id="insertRestaurant" parameterType="RestaurantDTO">
+        INSERT INTO RESTAURANT (
+            RESIDX,
+            RESNAME,
+            RESRUN,
+            RESNUM,
+            TYPEIDX,
+            RESCLEANSCORE,
+            ADDRGU,
+            ADDRDONG,
+            OLDADDR,
+            NEWADDR,
+            NUMADDR,
+            XPOS,
+            YPOS
+        ) VALUES (
+            #{RESIDX},
+            #{RESNAME},
+            #{RESRUN},
+            #{RESNUM},
+            #{TYPEIDX},
+            #{RESCLEANSCORE},
+            #{ADDRGU},
+            #{ADDRDONG},
+            #{OLDADDR},
+            #{NEWADDR},
+            #{NUMADDR},
+            #{XPOS},
+            #{YPOS}
+        )
+    </insert>
+
+    <select id="selectAll" resultType="RestaurantDTO">
+        SELECT * FROM RESTAURANT
+    </select>
+
+    <select id="selectById" resultType="RestaurantDTO" parameterType="String">
+        SELECT * FROM RESTAURANT WHERE RESIDX = #{RESIDX}
+    </select>
+
+</mapper>

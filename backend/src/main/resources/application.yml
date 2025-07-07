@@ -1,0 +1,18 @@
+# db 생성 및 수정 필수!
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/foodmap_test?useSSL=false&serverTimezone=Asia/Seoul
+    username: foodmap
+    password: 12345
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis:
+  mapper-locations: classpath:mappers/*.xml
+  type-aliases-package: kr.map.food.domain.TestDTO
+
+clean:
+  excel-path: excel/clean_grade_250627.xlsx
+
+clean-test:
+  excel-path: excel/clean_grade_test.xlsx

@@ -1,0 +1,124 @@
+a {
+  text-decoration: none;
+}
+
+.tabMenuContainer{
+    position: relative;
+    max-width: 64px;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    background-color: #fafafa;
+}
+.tabMenuInbox{
+    display: flex;
+    flex-direction: column;
+}
+.tabMenuContainer .tabList{
+    display: flex;
+    align-items: center;
+    width: 64px; /* fully expanded width */
+    overflow: hidden;
+    transition: width 0.4s ease;
+    white-space: nowrap;
+}
+
+.tabMenuContainer .tabList.active{
+    max-width: 453px;
+   
+}
+.tabMenuContainer .tabIcon{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 10;
+    padding: 13px 1px 11px 0px;
+    color: rgb(51, 51, 51);
+    text-align: center;
+    width: 64px;
+}
+
+
+.tabMenuContainer .tabIcon:hover{
+    color: rgb(4, 117, 244);
+}
+.tabMenuContainer .tabIcon.active{
+    color: rgb(255, 255, 255);
+    
+}
+
+
+.tabMenuContainer .tabIcon svg path{
+    fill: #555;
+}
+.tabMenuContainer .tabIcon svg path.iconText{
+    fill: #fff;
+}
+.tabMenuContainer .tabIcon span{
+    color: #555;
+}
+.tabMenuContainer .tabIcon.active svg path{
+    fill: #fff;
+}
+.tabMenuContainer .tabIcon.active span{
+     color: #fff;
+}
+.tabMenuContainer .tabIcon.active svg path.iconText{
+    fill: rgb(4, 117, 244);
+}
+
+
+.tabMenuContainer .tabIcon.active .icon{
+    color: rgb(255, 255, 255);
+}
+.tabMenuContainer .tabIcon span{
+    font-size: 10px;
+}
+
+.tabMenuContainer .tabIcon.active::after{
+    position: absolute;
+    inset: 0px;
+    z-index: -1;
+    width: 63px;
+    background-color: rgb(4, 117, 244);
+    content: "";
+}
+
+.tabMenuContainer .sideTab{
+     position: absolute;      /* 사이드바 외부에 배치 */
+    top: 44%;
+    right: -20px;            /* 사이드바 바깥쪽 */
+    width: 20px;
+    height: 40px;
+    background-color: #0475f4;
+    border: none;
+    border-radius: 0 6px 6px 0;
+    cursor: pointer;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+    color: white;
+    font-size: 12px;
+}
+.tabMenuContainer .sideTab span.blind {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+.tabMenuContainer .sideTab.open::after{
+    content: "▶";            /* 펼치기 화살표 */
+    transform: rotate(0deg);
+    
+}
+.tabMenuContainer .sideTab.close{
+    right:-360px;
+}
+
+.tabMenuContainer .sideTab.close::after{
+    content: "◀";            /* 닫기 화살표 */
+    transform: rotate(0deg);
+}

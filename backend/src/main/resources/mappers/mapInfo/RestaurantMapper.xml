@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.map.food.mapper.mapInfo.RestaurantMapper">  
+
+    <select id="findAll" resultType="kr.map.food.domain.mapInfo.RestaurantDTO">
+        SELECT
+            RESIDX,
+            RESNAME,
+            RESRUN,
+            RESNUM,
+            TYPEIDX,
+            RESCLEANSCORE,
+            ADDRGU,
+            ADDRDONG,
+            OLDADDR,
+            NEWADDR,
+            NUMADDR,
+            XPOS,
+            YPOS
+        FROM   
+            RESTAURANT
+    </select>
+
+    <select id="findById" parameterType="String" resultType="kr.map.food.domain.mapInfo.RestaurantDTO">
+        SELECT
+            RESIDX,
+            RESNAME,
+            RESRUN,
+            RESNUM,
+            TYPEIDX,
+            RESCLEANSCORE,
+            ADDRGU,
+            ADDRDONG,
+            OLDADDR,
+            NEWADDR,
+            NUMADDR,
+            XPOS,
+            YPOS
+        FROM   
+            RESTAURANT
+        WHERE
+            RESIDX = #{RESIDX}
+    </select>

@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import '../../styles/components/sideBar.css';
+import { useNavigate } from 'react-router-dom';
 
 export default function TabSearch(){
 	
+    
     //임시 데이터
     const resData =[
         {
@@ -94,8 +95,13 @@ export default function TabSearch(){
            
         }
     ]
+    
+    const navigate = useNavigate();
+    //해당 section 클릭 시 상세페이지로 페이징
+    const handleDetailPage = (item) => {
+        navigate("/detail", { state: item }); 
+    };
     //현 지도 내 장소검색 메소드 구간
-   // 각 section별 상세페이지로 페이징 메소드 구간
     return(
     <div className="sidebar tabSearch">
         <div className="header">
@@ -113,7 +119,7 @@ export default function TabSearch(){
         if (!item.penel && !item.penelContent) return null; // ⛔ 아무 내용도 없으면 렌더링 안 함
 
         return (
-            <div key={index} className="section">
+            <div key={index} className="section" onClick={() => handleDetailPage(item)}>
                 <div className="container title">
                     <span className="sectionTitle">{item.name}</span>
                     <span className="resType">{item.penelCount || 0}건</span>

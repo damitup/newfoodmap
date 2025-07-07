@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import '../../styles/components/sideBar.css';
+import { useNavigate } from 'react-router-dom';
+
 
 export default function TabSearch(){
     
@@ -86,7 +87,12 @@ export default function TabSearch(){
     const [favoriteClick,setFavoriteClick] = useState("");
     const [favoriteList,setFavoriteList] = useState([]);
     const [favorite,setFavorite] = useState(true);
+    const navigate = useNavigate();
 
+    //해당 section 클릭 시 상세페이지로 페이징
+    const handleDetailPage = (item) => {
+        navigate("/detail", { state: item }); 
+    };
     
     useEffect(() => {
         const colors = resData.map((item) => {
@@ -129,7 +135,7 @@ export default function TabSearch(){
         <h4>지역 추천</h4>
         
         {resData.map((item, index) => (
-            <div key={index} className="section">
+            <div key={index} className="section" onClick={() => handleDetailPage(item)}>
             <div className="container title">
                 <div className="gradeIcon best"/>
                 <span className="sectionTitle">{item.name}</span>

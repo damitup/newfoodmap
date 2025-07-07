@@ -6,7 +6,6 @@
   font-family: 'Malgun Gothic', sans-serif;
   background: #fff;
   border-right: 1px solid #ccc;
-  padding: 16px;
   box-sizing: border-box;
   height: 100vh;
   overflow-y: auto;
@@ -85,12 +84,13 @@
 }
 
 .sidebar .section {
-  padding-bottom: 16px;
-  padding-top: 16px;
+  margin: 16px;
+  padding-bottom: 5px;
   border-bottom: #ddd solid 1px;
   display: flex;
   flex-direction: column;
   gap: 5px;
+
 
 }
 
@@ -134,7 +134,7 @@
 }
 .sidebar h4 {
   font-size: 15px;
-  margin-bottom: 6px;
+  margin: 16px;
 }
 
 .sidebar .section .container.title .sectionTitle{

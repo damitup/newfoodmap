@@ -7,7 +7,8 @@ import './styles/login.css';
 import './styles/regist.css';
 import './styles/components/tabMenu.css';
 import './styles/components/sideBar.css';
-import './styles/components/managePage.css'
+import './styles/components/managePage.css';
+import './styles/DetailPage.css';
 
 // Page import
 import MapPage from './pages/MapPage.js';
@@ -20,6 +21,7 @@ import BarMy from './pages/sideBar/TabMyPage.js';
 import BarPenel from './pages/sideBar/TabPenel.js';
 import BarSearch from './pages/sideBar/TabSearch.js';
 import ManagePage from './components/ManagePage.js';
+import DetailPage from './pages/DetailPage.js';
 
 function Layout() {
   const location = useLocation();
@@ -52,6 +54,7 @@ function Layout() {
           <Route path="/sidebar/mypage" element={<BarMy />} />
           <Route path="/sidebar/penel" element={<BarPenel />} />
           <Route path="/sidebar/best" element={<BarBest />} />
+          <Route path="/detail" element={<DetailPage />} />
         </Routes>
       </div>
     </div>

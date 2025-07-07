@@ -1,45 +1,52 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { Outlet } from "react-router-dom";
+import { useState } from "react";
+import BarSearch from '../pages/sideBar/TabSearch';
+import BarBest from '../pages/sideBar/TabBestRes';
+import BarClean from '../pages/sideBar/TabCleanGrd';
+import BarPenel from '../pages/sideBar/TabPenel';
+import BarMy from '../pages/sideBar/TabMyPage';
 
 export default function TabMenu() {
-    const [activeTab, setActiveTab] = useState(null);
-    const [isExpanded, setIsExpanded] = useState(false);
-    const [newPath, setNewPath] = useState("");
-    const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState("");
+  const [isExpanded, setIsExpanded] = useState(false);
 
-    const tabItems = [
-        { name: "search", label: "검색", path: "/sidebar/search" },
-        { name: "best", label: "모범음식점", path: "/sidebar/best" },
-        { name: "clean", label: "위생등급", path: "/sidebar/clean" },
-        { name: "penel", label: "행정처분", path: "/sidebar/penel" },
-        { name: "mypage", label: "MY", path: "/sidebar/mypage" }
-    ];
+  const tabItems = [
+    { name: "search", label: "검색" },
+    { name: "best", label: "모범음식점" },
+    { name: "clean", label: "위생등급" },
+    { name: "penel", label: "행정처분" },
+    { name: "mypage", label: "MY" }
+  ];
 
-    const handleTabClick = (name, path) => {
-        setActiveTab(name);
-        setIsExpanded(true);
-        setNewPath(path);
-        navigate(path);
-    };
+  const renderActiveComponent = () => {
+    switch (activeTab) {
+      case 'search': return <BarSearch />;
+      case 'best': return <BarBest />;
+      case 'clean': return <BarClean />;
+      case 'penel': return <BarPenel />;
+      case 'mypage': return <BarMy />;
+      default: return <BarSearch/>;
+    }
+  };
 
-    const togglePanel = () => {
-        const newExpanded = !isExpanded;
-        setIsExpanded(newExpanded);
+  const handleTabClick = (name) => {
+    setActiveTab(name);
+    setIsExpanded(true);
+  };
 
-        if (newExpanded) {
-            if (!newPath) {
-                const defaultItem = tabItems[0];
-                setActiveTab(defaultItem.name);
-                setNewPath(defaultItem.path);
-                navigate(defaultItem.path);
-            } else {
-                navigate(newPath);
-            }
-        } else {
-            navigate("/sidebar"); // 또는 navigate(tabItems[0].path);
-        }
-    };
+  const togglePanel = () => {
+  const newExpanded = !isExpanded;
+  setIsExpanded(newExpanded);
+
+  if (newExpanded) {
+    // 패널을 여는 시점에 activeTab이 없으면 기본값 지정
+    if (!activeTab) {
+      setActiveTab(tabItems[0].name);
+    }
+  } else {
+    // 닫을 때는 activeTab 초기화
+    setActiveTab(null);
+  }
+};
 
   return (
     <div className="tabMenuContainer">
@@ -48,7 +55,7 @@ export default function TabMenu() {
           <div
             key={item.name}
             className={`tabList ${isExpanded ? '' : 'fold'}`}
-            onClick={() => handleTabClick(item.name, item.path)}
+            onClick={() => handleTabClick(item.name)}
           >
             <div className={`tabIcon ${activeTab === item.name ? "active" : ""}`}>
               <span className="tabicon inner icon">
@@ -63,9 +70,10 @@ export default function TabMenu() {
           </div>
         ))}
       </div>
+
       {isExpanded && (
         <div className="sideBar">
-          <Outlet />
+          {renderActiveComponent()}
         </div>
       )}
 

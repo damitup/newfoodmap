@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import '../../styles/components/sideBar.css';
+import { useNavigate } from 'react-router-dom';
 import MyFavorite from "./myPage/MyFavorite.js";
 import MyReview from "./myPage/MyReview.js";
 
@@ -84,6 +84,7 @@ export default function TabSearch(){
            
         }
     ];
+    const navigate = useNavigate();
     const [activeTab, setActiveTab]= useState("");
     const [tabTabFavoriteList,setTabFavoriteList] = useState([]);
     const [tabTabReviewList,setTabReviewList]= useState([]);
@@ -109,12 +110,8 @@ export default function TabSearch(){
 };
     //mypage 즐겨찾기, 리뷰 버튼 클릭시 ui 표시
     const isActive = (tab) => activeTab === tab ? "active" : "";
-    
-
     useEffect(() => {
         handleTabClick("favorite");
-
-
         setFavoriteList(new Array(resData.length).fill(false));
     }, []);
 
@@ -130,6 +127,7 @@ export default function TabSearch(){
  
 
     // 각 section별 상세페이지로 페이징 메소드 구간
+    
 
 
     };

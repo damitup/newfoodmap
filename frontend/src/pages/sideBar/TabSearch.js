@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 
 export default function TabSearch(){
     
     //임시 데이터
     const resData =[
         {
-            name: "강남면옥",
+            name: "일반휴계1",
             newAddr:"서울 강남구 강남대로 358 강남358타워 2층 201호" ,
             oldAdder: "역삼동 826-14",
             postNum: "06241", 
@@ -15,7 +16,7 @@ export default function TabSearch(){
             grade: "갑",
             menu: [],    
         }, {
-            name: "강남면옥",
+            name: "일반휴계2",
             newAddr:"서울 강남구 강남대로 358 강남358타워 2층 201호" ,
             oldAdder: "역삼동 826-14",
             postNum: "06241", 
@@ -26,7 +27,7 @@ export default function TabSearch(){
            
         },
          {
-            name: "강남면옥",
+            name: "일반휴계3",
             newAddr:"서울 강남구 강남대로 358 강남358타워 2층 201호" ,
             oldAdder: "역삼동 826-14",
             postNum: "06241", 
@@ -37,7 +38,7 @@ export default function TabSearch(){
             menu: [],    
         },
          {
-            name: "강남면옥",
+            name: "일반휴계4",
             newAddr:"서울 강남구 강남대로 358 강남358타워 2층 201호" ,
             oldAdder: "역삼동 826-14",
             postNum: "06241", 
@@ -48,7 +49,7 @@ export default function TabSearch(){
             
         },
          {
-            name: "강남면옥",
+            name: "일반휴계5",
             newAddr:"서울 강남구 강남대로 358 강남358타워 2층 201호" ,
             oldAdder: "역삼동 826-14",
             postNum: "06241", 
@@ -59,7 +60,7 @@ export default function TabSearch(){
            
         },
          {
-            name: "강남면옥",
+            name: "일반휴계6",
             newAddr:"서울 강남구 강남대로 358 강남358타워 2층 201호" ,
             oldAdder: "역삼동 826-14",
             postNum: "06241", 
@@ -81,7 +82,7 @@ export default function TabSearch(){
            
         }
     ]
-  
+    const navigate = useNavigate();
     const [favoriteList,setFavoriteList] = useState([]);
     const [favorite,setFavorite] = useState(true);
 
@@ -93,10 +94,15 @@ export default function TabSearch(){
     const handlerFavoriteClick = (idx)=>{
         setFavoriteList((prevList) => {
         const updated = [...prevList];
-        updated[idx] = !updated[idx]; // 해당 인덱스만 토글
+        updated[idx] = !updated[idx]; 
         return updated;
     });
         //db 저장 로직 추가
+    };
+
+    //해당 section 클릭 시 상세페이지로 페이징
+    const handleDetailPage = (item) => {
+        navigate("/detail", { state: item }); 
     };
 
     return (
@@ -114,7 +120,7 @@ export default function TabSearch(){
         <h4>일반휴계음식점 추천</h4>
         
         {resData.map((item, index) => (
-            <div key={index} className="section">
+            <div key={index} className="section" onClick={() => handleDetailPage(item)}>
                 <div className="container title">
                     <span className="sectionTitle">{item.name}</span>
                     <span className="resType">{item.type}</span>

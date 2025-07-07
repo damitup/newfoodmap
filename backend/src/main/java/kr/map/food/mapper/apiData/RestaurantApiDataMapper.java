@@ -4,15 +4,15 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import kr.map.food.domain.apiData.restaurant.RestaurantDTO;
+import kr.map.food.domain.apiData.restaurant.RestaurantApiDTO;
 
 @Mapper
 public interface RestaurantApiDataMapper {
 
-    void insertRestaurant(RestaurantDTO dto);
+    void insertRestaurant(RestaurantApiDTO dto);
 
-    List<RestaurantDTO> selectAll();
+    List<RestaurantApiDTO> selectAll();
 
-    RestaurantDTO selectById(String RESIDX);
+    RestaurantApiDTO selectById(String RESIDX);
     
 }

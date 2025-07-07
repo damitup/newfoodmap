@@ -3,7 +3,7 @@ package kr.map.food.domain.apiData.restaurant;
 import lombok.Data;
 
 @Data
-public class RestaurantDTO {
+public class RestaurantApiDTO {
 
     private String RESIDX;
     private String RESNAME;

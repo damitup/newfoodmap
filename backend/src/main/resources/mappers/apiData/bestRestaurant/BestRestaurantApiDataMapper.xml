@@ -5,7 +5,7 @@
 
 <mapper namespace="kr.map.food.mapper.apiData.BestRestaurantApiDataMapper">
 
-    <insert id="insertBestRestaurant" parameterType="BestRestaurantDTO">
+    <insert id="insertBestRestaurant" parameterType="kr.map.food.domain.apiData.bestRestaurant.BestRestaurantApiDTO">
         INSERT INTO BESTRESTAURANT (
             RESIDX,
             RESMAINDISH,
@@ -17,12 +17,12 @@
         )
     </insert>
 
-    <select id="selectAll" resultType="BestRestaurantDTO">
+    <select id="selectAll" resultType="kr.map.food.domain.apiData.bestRestaurant.BestRestaurantApiDTO">
         SELECT * FROM BESTRESTAURANT
     </select>
 
-    <select id="selectById" resultType="BestRestaurantDTO" parameterType="String">
-        SELECT * FROM BESTRESTAURANT WHERE RESIDX = #{RESIDX}
+    <select id="selectById" resultType="kr.map.food.domain.apiData.bestRestaurant.BestRestaurantApiDTO" parameterType="String">
+        SELECT * FROM BESTRESTAURANT WHERE RESIDX = #{value}
     </select>
 
 </mapper>

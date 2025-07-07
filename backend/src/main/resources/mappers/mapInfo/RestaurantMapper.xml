@@ -44,3 +44,5 @@
         WHERE
             RESIDX = #{RESIDX}
     </select>
+
+</mapper>

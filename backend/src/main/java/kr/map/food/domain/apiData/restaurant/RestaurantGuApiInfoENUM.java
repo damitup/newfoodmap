@@ -1,6 +1,6 @@
 package kr.map.food.domain.apiData.restaurant;
 
-public enum GuApiInfoENUM {
+public enum RestaurantGuApiInfoENUM {
 
     GANGNAM_GENERAL(
         "http://openapi.seoul.go.kr:8088",
@@ -207,7 +207,7 @@ public enum GuApiInfoENUM {
     private final String baseUrl;
     private final String code;
 
-    GuApiInfoENUM(String baseUrl, String code) {
+    RestaurantGuApiInfoENUM(String baseUrl, String code) {
         this.baseUrl = baseUrl;
         this.code = code;
     }

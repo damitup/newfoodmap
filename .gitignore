@@ -38,6 +38,7 @@ frontend/node_modules/
 *.pack
 *.lock
 *.bin
+backend/bin/
 *.old
 
 bower_components

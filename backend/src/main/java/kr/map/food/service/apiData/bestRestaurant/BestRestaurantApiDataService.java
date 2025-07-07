@@ -1,4 +1,4 @@
-package kr.map.food.service.apiData.BestRestaurant;
+package kr.map.food.service.apiData.bestRestaurant;
 
 import java.util.List;
 

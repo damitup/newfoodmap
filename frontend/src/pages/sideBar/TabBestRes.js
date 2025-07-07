@@ -13,7 +13,7 @@ export default function TabSearch(){
             tel: "123-1234-1234",
             type: "일식"   ,
             content: "소고기 뼈로 16시간 푹 고와만든 육수베이스와의 만남",
-            grade: "갑",
+            grade: "매우우수",
             menu: [],    
         }, {
             name: "강남면옥",
@@ -23,7 +23,7 @@ export default function TabSearch(){
             tel: "123-1234-1234",
             type: "일식"   ,
             content: "소고기 뼈로 16시간 푹 고와만든 육수베이스와의 만남",
-            grade: "을",
+            grade: "우수",
            
         },
          {
@@ -34,7 +34,7 @@ export default function TabSearch(){
             tel: "123-1234-1234",
             type: "일식"   ,
             content: "소고기 뼈로 16시간 푹 고와만든 육수베이스와의 만남",
-            grade: "갑",
+            grade: "우수",
             menu: [],    
         },
          {
@@ -45,7 +45,7 @@ export default function TabSearch(){
             tel: "123-1234-1234",
             type: "일식"   ,
             content: "소고기 뼈로 16시간 푹 고와만든 육수베이스와의 만남",
-            grade: "지도",
+            grade: "매우우수",
             
         },
          {
@@ -56,7 +56,7 @@ export default function TabSearch(){
             tel: "123-1234-1234",
             type: "일식"   ,
             content: "소고기 뼈로 16시간 푹 고와만든 육수베이스와의 만남",
-            grade: "",
+            grade: "좋음",
            
         },
          {
@@ -90,8 +90,8 @@ export default function TabSearch(){
     
     useEffect(() => {
         const colors = resData.map((item) => {
-            if (["갑", "을", "자율"].includes(item.grade)) return "green";
-            if (["지도", "관리"].includes(item.grade)) return "orange";
+            if (["매우우수"].includes(item.grade)) return "green";
+            if (["우수","좋음"].includes(item.grade)) return "orange";
             return "gray";
         });
         setColorList(colors);
@@ -117,7 +117,7 @@ export default function TabSearch(){
     return (
     <div className="sidebar tabSearch">
         <div className="header">
-            <h1>kakaomap</h1>
+            <span className="h1">kakaomap</span>
             <div className="locationSearch">
                 <label htmlFor="mapCheck">
                 <input type="checkbox" id="mapCheck" className="disnone"/>
@@ -131,10 +131,9 @@ export default function TabSearch(){
         {resData.map((item, index) => (
             <div key={index} className="section">
             <div className="container title">
-                <div className={`gradeIcon ${colorList[index]}`}/>
+                <div className="gradeIcon best"/>
                 <span className="sectionTitle">{item.name}</span>
                 <span className="resType">{item.type}</span>
-              
                 <button type="button" aria-pressed={!favorite} className={`btn favorite ${favoriteList[index] ? "on" : ""}`} onClick={()=>handlerFavoriteClick(index)}  />
                
             </div>

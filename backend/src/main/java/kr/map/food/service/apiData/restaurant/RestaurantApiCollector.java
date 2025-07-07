@@ -3,20 +3,22 @@ package kr.map.food.service.apiData.restaurant;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
-import kr.map.food.domain.apiData.restaurant.GuApiInfoENUM;
+import kr.map.food.domain.apiData.restaurant.RestaurantGuApiInfoENUM;
 import kr.map.food.domain.apiData.restaurant.RestaurantRawDTO;
 import kr.map.food.domain.apiData.restaurant.RestaurantApiResponse;
 
+@Component 
 public class RestaurantApiCollector {
 
     private final RestTemplate restTemplate = new RestTemplate();
     private final XmlMapper xmlMapper = new XmlMapper();
 
-    public List<RestaurantRawDTO> collect(GuApiInfoENUM guInfo, String apiKey) {
+    public List<RestaurantRawDTO> collect(RestaurantGuApiInfoENUM guInfo, String apiKey) {
         List<RestaurantRawDTO> rawList = new ArrayList<>();
         int page = 1;
 

@@ -1,12 +1,12 @@
 package kr.map.food.service.apiData.dataTrans;
 
-import kr.map.food.domain.apiData.restaurant.RestaurantDTO;
+import kr.map.food.domain.apiData.restaurant.RestaurantApiDTO;
 
 public class TelNumTrans {
     
     public static void setTelNum( String telNum ) {
 
-        RestaurantDTO dto = new RestaurantDTO();
+        RestaurantApiDTO dto = new RestaurantApiDTO();
         
         if (telNum == null || telNum.isBlank()) {
             dto.setRESNUM("");

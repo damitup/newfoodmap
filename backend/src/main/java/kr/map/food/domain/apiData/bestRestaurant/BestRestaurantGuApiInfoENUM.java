@@ -1,6 +1,6 @@
 package kr.map.food.domain.apiData.bestRestaurant;
 
-public enum GuApiInfoENUM {
+public enum BestRestaurantGuApiInfoENUM {
 
     GANGNAM_MODEL(
         "http://openAPI.gangnam.go.kr:8088",
@@ -106,7 +106,7 @@ public enum GuApiInfoENUM {
     private final String baseUrl;
     private final String code;
 
-    GuApiInfoENUM(String baseUrl, String code) {
+    BestRestaurantGuApiInfoENUM(String baseUrl, String code) {
         this.baseUrl = baseUrl;
         this.code = code;
     }

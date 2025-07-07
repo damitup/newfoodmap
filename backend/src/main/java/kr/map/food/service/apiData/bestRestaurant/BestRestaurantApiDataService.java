@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import kr.map.food.config.ApiKeyConfig;
-import kr.map.food.domain.apiData.bestRestaurant.BestRestaurantDTO;
+import kr.map.food.domain.apiData.bestRestaurant.BestRestaurantApiDTO;
 import kr.map.food.domain.apiData.bestRestaurant.BestRestaurantRawDTO;
-import kr.map.food.domain.apiData.bestRestaurant.GuApiInfoENUM;
+import kr.map.food.domain.apiData.bestRestaurant.BestRestaurantGuApiInfoENUM;
 import kr.map.food.mapper.apiData.BestRestaurantApiDataMapper;
 import kr.map.food.service.apiData.dataTrans.DataTypeTrans;
 import kr.map.food.service.apiData.dataTrans.FindNullData;
@@ -29,7 +29,7 @@ public class BestRestaurantApiDataService {
 
     public void collectAllGuData() {
 
-        for ( GuApiInfoENUM guURL : GuApiInfoENUM.values() ) {
+        for ( BestRestaurantGuApiInfoENUM guURL : BestRestaurantGuApiInfoENUM.values() ) {
             List<BestRestaurantRawDTO> rawList = collector.collect( guURL, apiKey );
 
             for ( BestRestaurantRawDTO raw : rawList ) {
@@ -37,7 +37,7 @@ public class BestRestaurantApiDataService {
                     continue;
                 }
 
-                BestRestaurantDTO dto = buildRestaurant( raw );
+                BestRestaurantApiDTO dto = buildRestaurant( raw );
 
                 //bestRestaurantMapper.insertBestRestaurant(dto);
             }
@@ -46,8 +46,8 @@ public class BestRestaurantApiDataService {
 
     }
 
-    private BestRestaurantDTO buildRestaurant( BestRestaurantRawDTO raw ) {
-        BestRestaurantDTO r = new BestRestaurantDTO();
+    private BestRestaurantApiDTO buildRestaurant( BestRestaurantRawDTO raw ) {
+        BestRestaurantApiDTO r = new BestRestaurantApiDTO();
         r.setRESIDX(raw.getPERM_NT_NO());
         r.setRESMAINDISH(raw.getMAIN_EDF());
         r.setBESTREGYEAR(DataTypeTrans.parseIntSafe(raw.getASGN_YY()));

@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import kr.map.food.domain.apiData.restaurant.RestaurantDTO;
+import kr.map.food.domain.apiData.restaurant.RestaurantApiDTO;
 import kr.map.food.mapper.apiData.RestaurantApiDataMapper;
 
 @RestController
@@ -19,12 +19,12 @@ public class RestaurantApiDataController {
     }
 
     @GetMapping("/api/restaurant")
-    public List<RestaurantDTO> getAll() {
+    public List<RestaurantApiDTO> getAll() {
         return restaurantMapper.selectAll(); 
     }
 
     @GetMapping("/api/restaurant/{RESIDX}")
-    public RestaurantDTO getById(@PathVariable String RESIDX) {
+    public RestaurantApiDTO getById(@PathVariable String RESIDX) {
         return restaurantMapper.selectById(RESIDX);
     }
     

@@ -3,9 +3,9 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="kr.map.food.mapper.mapInfo.RestaurantMapper">  
+<mapper namespace="kr.map.food.mapper.mapInfo.BestRestaurantMapper">  
 
-    <select id="findAll" resultType="kr.map.food.domain.mapInfo.RestaurantDTO">
+    <select id="findAllBest" resultType="kr.map.food.domain.mapInfo.RestaurantDTO">
         SELECT
             r.RESIDX,
             r.RESNAME,
@@ -20,15 +20,15 @@
             r.NUMADDR,
             r.XPOS,
             r.YPOS,
-            CASE WHEN b.RESIDX IS NOT NULL THEN true ELSE false END AS ISBEST,
+            true AS ISBEST,
             b.RESMAINDISH,
             b.BESTREGYEAR
         FROM RESTAURANT r
-        LEFT JOIN BESTRESTAURANT b
+        INNER JOIN BESTRESTAURANT b
             ON r.RESIDX = b.RESIDX
     </select>
 
-    <select id="findById" parameterType="String" resultType="kr.map.food.domain.mapInfo.RestaurantDTO">
+    <select id="findByIdBest" parameterType="String" resultType="kr.map.food.domain.mapInfo.RestaurantDTO">
         SELECT
             r.RESIDX,
             r.RESNAME,
@@ -43,11 +43,11 @@
             r.NUMADDR,
             r.XPOS,
             r.YPOS,
-            CASE WHEN b.RESIDX IS NOT NULL THEN true ELSE false END AS ISBEST,
+            true AS ISBEST,
             b.RESMAINDISH,
             b.BESTREGYEAR
         FROM RESTAURANT r
-        LEFT JOIN BESTRESTAURANT b
+        INNER JOIN BESTRESTAURANT b
             ON r.RESIDX = b.RESIDX
         WHERE
             r.RESIDX = #{RESIDX}

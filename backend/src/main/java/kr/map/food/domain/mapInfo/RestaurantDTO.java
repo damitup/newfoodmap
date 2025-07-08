@@ -18,5 +18,10 @@ public class RestaurantDTO {
     private String NUMADDR;
     private Double XPOS;
     private Double YPOS;
+
+    // 모범음식점용 추가 정보
+    private Boolean ISBEST;
+    private String RESMAINDISH;
+    private int BESTREGYEAR;
     
 }

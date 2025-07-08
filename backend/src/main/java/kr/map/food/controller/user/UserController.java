@@ -23,7 +23,6 @@ public class UserController {
     
      @PostMapping("/register")
         public ResponseEntity<String> registerUser(@RequestBody UserDTO dto) {
-        log.info("dto: {}", dto.toString());
         userService.registerUser(dto);
         
         return ResponseEntity.ok("컨트롤러 회원가입 성공");

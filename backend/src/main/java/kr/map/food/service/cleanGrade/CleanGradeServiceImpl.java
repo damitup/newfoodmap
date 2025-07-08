@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import kr.map.food.domain.cleanGrade.CleanGradeDTO;
 import kr.map.food.mapper.cleanGrade.CleanGradeMapper;

@@ -9,6 +9,11 @@ a {
     display: flex;
     flex-direction: row;
     background-color: #fafafa;
+
+}
+.logo{
+    cursor: pointer;
+    
 }
 .tabMenuInbox{
     display: flex;

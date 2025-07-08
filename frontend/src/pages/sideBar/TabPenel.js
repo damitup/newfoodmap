@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
+import SideBarHeader from "./SideBarHeader";
 
 export default function TabSearch(){
 	
@@ -7,6 +8,7 @@ export default function TabSearch(){
     //임시 데이터
     const resData =[
         {
+            idx: "p1",
             name: "강남면옥",
             newAddr:"서울 강남구 강남대로 358 강남358타워 2층 201호" ,
             oldAdder: "역삼동 826-14",
@@ -18,6 +20,7 @@ export default function TabSearch(){
             penel: "식품위생법 제 74조 5항 ",
 			penelContent: "근무자 위생교육 미이수"    
         }, {
+            idx: "p2",
             name: "놀부네보쌈",
             newAddr:"서울 강남구 강남대로 142 A107" ,
             oldAdder: "역삼동 556-22",
@@ -31,6 +34,7 @@ export default function TabSearch(){
            
         },
          {
+            idx: "p3",
             name: "강남면옥",
             newAddr:"서울 강남구 강남대로 358 강남358타워 2층 201호" ,
             oldAdder: "역삼동 826-14",
@@ -43,6 +47,7 @@ export default function TabSearch(){
 			penelContent: ""      
         },
          {
+            idx:"p4",
             name: "강남면옥",
             newAddr:"서울 강남구 강남대로 358 강남358타워 2층 201호" ,
             oldAdder: "역삼동 826-14",
@@ -56,6 +61,7 @@ export default function TabSearch(){
             
         },
          {
+            idx: "p5",
             name: "강남면옥",
             newAddr:"서울 강남구 강남대로 358 강남358타워 2층 201호" ,
             oldAdder: "역삼동 826-14",
@@ -69,6 +75,7 @@ export default function TabSearch(){
            
         },
          {
+            idx: "p6",
             name: "강남면옥",
             newAddr:"서울 강남구 강남대로 358 강남358타워 2층 201호" ,
             oldAdder: "역삼동 826-14",
@@ -82,6 +89,7 @@ export default function TabSearch(){
            
         },
          {
+            idx: "p7",
             name: "강남면옥",
             newAddr:"서울 강남구 강남대로 358 강남358타워 2층 201호" ,
             oldAdder: "역삼동 826-14",
@@ -99,27 +107,18 @@ export default function TabSearch(){
     const navigate = useNavigate();
     //해당 section 클릭 시 상세페이지로 페이징
     const handleDetailPage = (item) => {
-        navigate("/detail", { state: item }); 
+       navigate(`/detail?${item.idx}`, { state: item }); 
     };
     //현 지도 내 장소검색 메소드 구간
     return(
     <div className="sidebar tabSearch">
-        <div className="header">
-            <span className="h1">kakaomap</span>
-            <div className="locationSearch">
-                <label htmlFor="mapCheck">
-                <input type="checkbox" id="mapCheck" className="disnone"/>
-                    현 지도 내 장소검색
-                </label>
-            </div>
-            <input type="text" className="searchInput" placeholder="장소, 주소 검색" />
-        </div>
+       <SideBarHeader/>
         <h4>행정 처분</h4>
         {resData.map((item, index) => {
         if (!item.penel && !item.penelContent) return null; // ⛔ 아무 내용도 없으면 렌더링 안 함
 
         return (
-            <div key={index} className="section" onClick={() => handleDetailPage(item)}>
+            <div key={item.idx} className="section" onClick={() => handleDetailPage(item)}>
                 <div className="container title">
                     <span className="sectionTitle">{item.name}</span>
                     <span className="resType">{item.penelCount || 0}건</span>

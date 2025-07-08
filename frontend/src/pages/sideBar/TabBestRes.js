@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
-
+import SideBarHeader from "./SideBarHeader";
 
 export default function TabSearch(){
     
@@ -130,18 +130,9 @@ export default function TabSearch(){
 
     return (
     <div className="sidebar tabSearch">
-        <div className="header">
-            <div className="container">
-                <span className="h1">kakaomap</span>
-                <div className="locationSearch">
-                    <label htmlFor="mapCheck">
-                    <input type="checkbox" id="mapCheck" className="disnone"/>현 지도 내 장소검색</label>
-                </div>		
-            </div>
-            <input type="text" className="searchInput" placeholder="장소, 주소 검색" />
-        </div>
+       
+        <SideBarHeader/>
         <h4>지역 추천</h4>
-        
         {resData.map((item, index) => (
             <div key={item.idx} className="section" onClick={() => handleDetailPage(item)}>
             <div className="container title">

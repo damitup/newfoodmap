@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import MyFavorite from "./myPage/MyFavorite.js";
 import MyReview from "./myPage/MyReview.js";
+import SideBarHeader from "./SideBarHeader";
 
 export default function TabSearch(){
     
@@ -134,16 +135,7 @@ export default function TabSearch(){
 
     return (
     <div className="sidebar tabMypage">
-        <div className="header">
-			 <div className="container">
-                <span className="h1">kakaomap</span>
-                <div className="locationSearch">
-                    <label htmlFor="mapCheck">
-                    <input type="checkbox" id="mapCheck" className="disnone"/>현 지도 내 장소검색</label>
-                </div>	
-			</div>
-            <input type="text" className="searchInput" placeholder="장소, 주소 검색" />
-        </div>
+        <SideBarHeader/>
         <div className="container myTab myPage">
             <div className ={`myTabmenuItem ${isActive("favorite")}`} onClick={() => handleTabClick("favorite")}><span>즐겨찾기</span></div>
             <div className ={`myTabmenuItem ${isActive("review")}`} onClick={() => handleTabClick("review")}><span>리뷰</span></div>

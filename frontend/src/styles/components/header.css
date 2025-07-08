@@ -1,11 +1,116 @@
 .headerPage{
     display: flex;
     height: 56px;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
 
 }
-.goHomeIcom{
+
+.headerPage .resName {
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+.goHomeIcon{
     position: absolute;
-    top: 17px;
-    left: 24px;
-    z-index: 10;
+    top: 2px;
+    left: 64px;
+    z-index: -11;
+}
+
+.headerPage .container.searchBox{
+    display: flex;
+    width: 240px;
+    align-items: center;
+    position: absolute;
+    right: 75px;
+    padding: 0px 10px 0px 10px;
+    border-radius: 18px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    height: 36px;
+    margin-right: 20px;
+}
+
+
+.container.searchBox .inputWrapper {
+    position: relative;
+    flex-grow: 1;
+}
+
+.inputWrapper .typing {
+   position: absolute;
+    top: 57%;
+    right: 8px;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    background-image: url(../../assets/icon/kakaoicon.svg);
+    background-position: -190px -40px;
+    background-size: 400px auto;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.headerPage .container.searchBox .screenOut{
+    overflow: hidden;
+    position: absolute;
+    width: 0;
+    height: 0;
+    line-height: 0;
+    text-indent: -9999px;
+
+}
+
+.headerPage .container.searchBox input{
+    flex-grow: 1;
+    width: 100%;
+    border: 0 none;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+    color: #333;
+}
+.kakaoIcon{
+    background-image: url(../../assets/icon/kakaoicon.svg) ;
+}
+.headerPage .container.searchBox .kakaoIcon{
+    display: inline-block;
+    overflow: hidden;
+    font-size: 1px;
+    line-height: 0;
+    background-repeat: no-repeat;
+    background-size: 400px auto;
+    color: transparent;
+    vertical-align: top;
+}
+.kakaoIcon.search{
+    width: 20px;
+    height: 20px;
+    background-position: -170px -40px;
+    background-size: 400px auto;
+    background-repeat: no-repeat;
+    margin-left: 8px;
+}
+.btn{
+    cursor: pointer;
+}
+.btn.login{
+    display: block;
+    flex-shrink: 0;
+    position: absolute;
+    right: 0px;
+    padding: 8px 11px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+    color: #333;
+    margin-right: 20px;
 }

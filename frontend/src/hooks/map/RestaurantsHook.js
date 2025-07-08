@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import apiClient from "../api/MapApiClient";
+import apiClient from "../../api/MapApiClient";
 
 export default function useRestaurants(endpoint) {
   const [data, setData] = useState([]);

@@ -12,7 +12,7 @@ public interface UserInfoMapper {
     //중복 아이디 유효성검사
     int countByUserId(String param);
     //로그인
-    void findId(UserDTO userDTO);
+    UserDTO loginId(UserDTO userDTO);
     // idx
     String getUserIdx();
 

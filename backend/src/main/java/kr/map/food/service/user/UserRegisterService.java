@@ -12,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class UserService {
+public class UserRegisterService {
 
 
     private final UserInfoMapper userMapper;
@@ -62,4 +62,11 @@ public class UserService {
 
     return String.format("user%03d", nextNumber); 
     }
+
+
+    
+
+
+
+
 }

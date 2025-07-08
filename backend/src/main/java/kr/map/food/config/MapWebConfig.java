@@ -9,8 +9,8 @@ public class MapWebConfig implements WebMvcConfigurer {
     
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/api/map/**")
-                .allowedOrigins("http://192.168.0.67:3000")
+        registry.addMapping("/api/**")
+                .allowedOrigins("*")
                 .allowedMethods("GET", "POST", "PUT", "DELETE");
     }
 

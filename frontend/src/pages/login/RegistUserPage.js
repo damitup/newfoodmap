@@ -1,59 +1,94 @@
 import { useState } from "react";
+import axios from 'axios';
 
     export default function RegistUserPage() {
-        const resetForm = () => {
-        const form = document.getElementById("registerid");
-        form.reset(); // form 초기화
-        };
+        const [formData, setFormData] = useState({
+        userId: '',
+        userPassword: '',
+        userName: '',
+        userTel: ''
+    });
+
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.id]: e.target.value
+        });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            console.log(formData);
+            const response = await axios.post(
+                                            'http://localhost:8080/api/user/register',
+                                            JSON.stringify(formData),
+                                            {
+                                                headers: {
+                                                'Content-Type': 'application/json',
+                                                },
+                                            }
+                                            );
+
+            alert('프론트회원가입 성공!');
+            document.getElementById("registerid").reset();
+            response.then(res => {
+                console.log(res);
+                
+            })
+
+        } catch (err) {
+            if (err.response && err.response.data) {
+                alert(`회원가입 실패: ${err.response.data.message || err.response.data}`);
+            } else {
+                alert('서버와의 연결에 실패했습니다.');
+            }
+        }
+    };
+
+    const resetForm = () => {
+        document.getElementById("registerid").reset();
+        setFormData({ userId: '', userPassword: '', userName: '',userTel:'' });
+    };
 
     return (
         <div className="table_container">
-            <form id="registerid" >
+            <form id="registerid" onSubmit={handleSubmit}>
                 <table className="table">
-                        <tr>
-                            <th colSpan="3" className="title">회원가입 정보</th>
-                        </tr>
-                        <tr>
-                            <th className="aside">아이디 : </th>
-                            <td> 
-                                <input type="text" id="userId" name ="id"/>
-                                <span className="subMsg">4~12자의 영문 대소문자와 숫자로만 입력</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th className="aside">비밀번호 : </th>
-                            <td><input type="password" id="userPw"/>
-                                <span className="subMsg">4~12자의 영문 대소문자와 숫자로만 입력</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th className="aside"> 비밀번호 확인 : </th>
-                            <td> <input type="password" id="userPw2" name="pw"/></td>
-                        </tr>
-                        <tr>
-                            <th className="aside">이름 : </th>
-                            <td> <input type="text" id="name" name="name" /></td>
-                        </tr>
-                       
-                        {/* <tr>
-                            <th className="aside" >관심분야 : </th>
-                            <td> <input type="checkbox" name="interest" value="컴퓨터" /><span className="content">컴퓨터</span>
-                                <input type="checkbox" className="content" name="interest" value="인터넷" /><span
-                                    className="content">인터넷</span>
-                                <input type="checkbox" className="content" name="interest" value="여행" /><span
-                                    className="content">여행</span><br/>
-                                <input type="checkbox" className="content" name="interest" value="음악감상" /><span
-                                    className="content">음악감상</span>
-                                    <input type="checkbox" className="content" name="interest" value="영화감상" /><span
-                                    className="content">영화감상</span>
-                            </td>
-                        </tr> */}
-                    </table>
+                    <tr>
+                        <th colSpan="3" className="title">회원가입 정보</th>
+                    </tr>
+                    <tr>
+                        <th className="aside">아이디 : </th>
+                        <td>
+                            <input type="text" id="userId" onChange={handleChange} />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th className="aside">비밀번호 : </th>
+                        <td>
+                            <input type="password" id="userPassword" onChange={handleChange} />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th className="aside">이름 : </th>
+                        <td>
+                            <input type="text" id="userName" onChange={handleChange} />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th className="aside">전화번호 : </th>
+                        <td>
+                            <input type="text" id="userTel" onChange={handleChange} />
+                        </td>
+                    </tr>
+                </table>
                 <div className="butBox">
-                    <input type="submit" className="button"  value = "회원 가입"/>
-                    <input type="button" className="button" value = "다시 입력" onClick={resetForm}/>
+                    <input type="submit" className="button" value="회원 가입" />
+                    <input type="button" className="button" value="다시 입력" onClick={resetForm} />
                 </div>
             </form>
         </div>
-        )
-    }
+    );
+}

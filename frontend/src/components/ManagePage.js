@@ -3,7 +3,6 @@ import {
   PieChart, Pie, Cell, Tooltip,
   BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer
 } from "recharts";
-import "../styles/components/managePage.css";
 
 const data = {
   totalRestaurants: 1200,

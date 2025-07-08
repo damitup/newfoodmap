@@ -18,6 +18,14 @@ public class PenaltyRawDTO {
     @XmlElement(name = "UPSO_NM")
     private String UPSO_NM;
 
+    // 업종명
+    @XmlElement(name = "SNT_COB_NM")
+    private String SNT_COB_NM;
+
+    // 업태명
+    @XmlElement(name = "SNT_UPTAE_NM")
+    private String SNT_UPTAE_NM;
+
     // 소재지 도로명
     @XmlElement(name = "SITE_ADDR_RD")
     private String SITE_ADDR_RD;
@@ -30,8 +38,6 @@ public class PenaltyRawDTO {
     @XmlElement(name = "VIOL_CN")
     private String VIOL_CN;
 
-    // 업태명
-    @XmlElement(name = "SNT_UPTAE_NM")
-    private String SNT_UPTAE_NM;
+    
 
 }

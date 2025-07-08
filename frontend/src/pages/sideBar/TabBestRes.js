@@ -7,6 +7,7 @@ export default function TabSearch(){
     //임시 데이터
     const resData =[
         {
+            idx: "b1",
             name: "강남면옥",
             newAddr:"서울 강남구 강남대로 358 강남358타워 2층 201호" ,
             oldAdder: "역삼동 826-14",
@@ -17,6 +18,7 @@ export default function TabSearch(){
             grade: "매우우수",
             menu: [],    
         }, {
+             idx: "b2",
             name: "강남면옥",
             newAddr:"서울 강남구 강남대로 358 강남358타워 2층 201호" ,
             oldAdder: "역삼동 826-14",
@@ -28,6 +30,7 @@ export default function TabSearch(){
            
         },
          {
+             idx: "b3",
             name: "강남면옥",
             newAddr:"서울 강남구 강남대로 358 강남358타워 2층 201호" ,
             oldAdder: "역삼동 826-14",
@@ -39,6 +42,7 @@ export default function TabSearch(){
             menu: [],    
         },
          {
+             idx: "b4",
             name: "강남면옥",
             newAddr:"서울 강남구 강남대로 358 강남358타워 2층 201호" ,
             oldAdder: "역삼동 826-14",
@@ -50,6 +54,7 @@ export default function TabSearch(){
             
         },
          {
+             idx: "b5",
             name: "강남면옥",
             newAddr:"서울 강남구 강남대로 358 강남358타워 2층 201호" ,
             oldAdder: "역삼동 826-14",
@@ -61,6 +66,7 @@ export default function TabSearch(){
            
         },
          {
+            idx: "b6",
             name: "강남면옥",
             newAddr:"서울 강남구 강남대로 358 강남358타워 2층 201호" ,
             oldAdder: "역삼동 826-14",
@@ -72,6 +78,7 @@ export default function TabSearch(){
            
         },
          {
+             idx: "b7",
             name: "강남면옥",
             newAddr:"서울 강남구 강남대로 358 강남358타워 2층 201호" ,
             oldAdder: "역삼동 826-14",
@@ -91,7 +98,8 @@ export default function TabSearch(){
 
     //해당 section 클릭 시 상세페이지로 페이징
     const handleDetailPage = (item) => {
-        navigate("/detail", { state: item }); 
+        navigate(`/detail?${item.idx}`, { state: item }); 
+
     };
     
     useEffect(() => {
@@ -123,19 +131,19 @@ export default function TabSearch(){
     return (
     <div className="sidebar tabSearch">
         <div className="header">
-            <span className="h1">kakaomap</span>
-            <div className="locationSearch">
-                <label htmlFor="mapCheck">
-                <input type="checkbox" id="mapCheck" className="disnone"/>
-                    현 지도 내 장소검색
-                    </label>
+            <div className="container">
+                <span className="h1">kakaomap</span>
+                <div className="locationSearch">
+                    <label htmlFor="mapCheck">
+                    <input type="checkbox" id="mapCheck" className="disnone"/>현 지도 내 장소검색</label>
+                </div>		
             </div>
             <input type="text" className="searchInput" placeholder="장소, 주소 검색" />
         </div>
         <h4>지역 추천</h4>
         
         {resData.map((item, index) => (
-            <div key={index} className="section" onClick={() => handleDetailPage(item)}>
+            <div key={item.idx} className="section" onClick={() => handleDetailPage(item)}>
             <div className="container title">
                 <div className="gradeIcon best"/>
                 <span className="sectionTitle">{item.name}</span>

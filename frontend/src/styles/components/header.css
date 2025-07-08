@@ -1,0 +1,11 @@
+.headerPage{
+    display: flex;
+    height: 56px;
+
+}
+.goHomeIcom{
+    position: absolute;
+    top: 17px;
+    left: 24px;
+    z-index: 10;
+}

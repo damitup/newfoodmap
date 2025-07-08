@@ -102,7 +102,7 @@ export default function TabSearch(){
 
     //해당 section 클릭 시 상세페이지로 페이징
     const handleDetailPage = (item) => {
-        navigate("/detail", { state: item }); 
+        navigate(`/detail?${item.idx}`, { state: item }); 
     };
 
     return (
@@ -120,7 +120,7 @@ export default function TabSearch(){
         <h4>일반휴계음식점 추천</h4>
         
         {resData.map((item, index) => (
-            <div key={index} className="section" onClick={() => handleDetailPage(item)}>
+            <div key={item.idx} className="section" onClick={() => handleDetailPage(item)}>
                 <div className="container title">
                     <span className="sectionTitle">{item.name}</span>
                     <span className="resType">{item.type}</span>

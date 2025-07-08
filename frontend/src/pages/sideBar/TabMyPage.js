@@ -135,12 +135,12 @@ export default function TabSearch(){
     return (
     <div className="sidebar tabMypage">
         <div className="header">
-			<div className="container">
-				<span className="h1">kakaomap</span>
-				<div className="locationSearch">
-					<label htmlFor="mapCheck">
-					<input type="checkbox" id="mapCheck" className="disnone"/>현 지도 내 장소검색</label>
-				</div>		
+			 <div className="container">
+                <span className="h1">kakaomap</span>
+                <div className="locationSearch">
+                    <label htmlFor="mapCheck">
+                    <input type="checkbox" id="mapCheck" className="disnone"/>현 지도 내 장소검색</label>
+                </div>	
 			</div>
             <input type="text" className="searchInput" placeholder="장소, 주소 검색" />
         </div>

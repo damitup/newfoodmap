@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
-
+import SideBarHeader from "./SideBarHeader";
 export default function TabSearch(){
     
     //임시 데이터
     const resData =[
         {
+            idx: "n1",
             name: "일반휴계1",
             newAddr:"서울 강남구 강남대로 358 강남358타워 2층 201호" ,
             oldAdder: "역삼동 826-14",
@@ -16,6 +17,7 @@ export default function TabSearch(){
             grade: "갑",
             menu: [],    
         }, {
+            idx: "n2",
             name: "일반휴계2",
             newAddr:"서울 강남구 강남대로 358 강남358타워 2층 201호" ,
             oldAdder: "역삼동 826-14",
@@ -27,6 +29,7 @@ export default function TabSearch(){
            
         },
          {
+            idx: "n3",
             name: "일반휴계3",
             newAddr:"서울 강남구 강남대로 358 강남358타워 2층 201호" ,
             oldAdder: "역삼동 826-14",
@@ -38,6 +41,7 @@ export default function TabSearch(){
             menu: [],    
         },
          {
+            idx: "n4",
             name: "일반휴계4",
             newAddr:"서울 강남구 강남대로 358 강남358타워 2층 201호" ,
             oldAdder: "역삼동 826-14",
@@ -49,6 +53,7 @@ export default function TabSearch(){
             
         },
          {
+            idx: "n5",
             name: "일반휴계5",
             newAddr:"서울 강남구 강남대로 358 강남358타워 2층 201호" ,
             oldAdder: "역삼동 826-14",
@@ -107,16 +112,7 @@ export default function TabSearch(){
 
     return (
     <div className="sidebar ">
-        <div className="header">
-            <div className="container">
-                <span className="h1">kakaomap</span>
-                <div className="locationSearch">
-                    <label htmlFor="mapCheck">
-                    <input type="checkbox" id="mapCheck" className="disnone"/>현 지도 내 장소검색</label>
-                </div>		
-            </div>
-            <input type="text" className="searchInput" placeholder="장소, 주소 검색" />
-        </div>
+       <SideBarHeader/>
         <h4>일반휴계음식점 추천</h4>
         
         {resData.map((item, index) => (

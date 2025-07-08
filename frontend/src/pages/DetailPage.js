@@ -10,7 +10,7 @@ export default function DetailPage() {
 
   return (
     <div >
-      <HeaderPage/>
+      <HeaderPage name={data.name}/>
       <div className="detailPage">
         <div className="header">
           <div className="title">

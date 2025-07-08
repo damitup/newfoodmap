@@ -4,13 +4,14 @@ import BarBest from '../pages/sideBar/TabBestRes';
 import BarClean from '../pages/sideBar/TabCleanGrd';
 import BarPenel from '../pages/sideBar/TabPenel';
 import BarMy from '../pages/sideBar/TabMyPage';
+import { Link } from "react-router-dom";
 
 export default function TabMenu() {
   const [activeTab, setActiveTab] = useState("");
   const [isExpanded, setIsExpanded] = useState(false);
 
   const tabItems = [
-    { name: "search", label: "검색" },
+    { name: "search", label: "검색" , },
     { name: "best", label: "모범음식점" },
     { name: "clean", label: "위생등급" },
     { name: "penel", label: "행정처분" },
@@ -51,6 +52,16 @@ export default function TabMenu() {
   return (
     <div className="tabMenuContainer">
       <div className="tabMenuInbox">
+        <div className="logo" >
+          <Link to='/'>
+        <svg width="63" height="50" viewBox="0 0 63 50" xmlns="http://www.w3.org/2000/svg">
+        <g transform="scale(0.35)">
+          <text x="15" y="70" fontFamily="Verdana" fontSize="50" fontWeight="bold" fill="#FF6347">Food</text>
+          <text x="50" y="120" fontFamily="Verdana" fontSize="50" fontWeight="bold" fill="#4CAF50">Map</text>
+        </g>
+      </svg>
+      </Link>
+      </div>
         {tabItems.map(item => (
           <div
             key={item.name}

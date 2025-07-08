@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import SideBarHeader from "./SideBarHeader";
 
 export default function TabCleanGrd(){
     const [colorList,setColorList] = useState([]);
@@ -107,16 +108,7 @@ export default function TabCleanGrd(){
         };
     return (
     <div className="sidebar">
-        <div className="header">
-            <div className="container">
-                <span className="h1">kakaomap</span>
-                <div className="locationSearch">
-                    <label htmlFor="mapCheck">
-                    <input type="checkbox" id="mapCheck" className="disnone"/>현 지도 내 장소검색</label>
-                </div>		
-            </div>
-            <input type="text" className="searchInput" placeholder="장소, 주소 검색" />
-        </div>
+       <SideBarHeader/>
         <h4>지역 추천</h4>
         {resData.map((item, index) => (
             // 해당 영역 클릭했을 때 상세페이지로 넘어가는 페이징

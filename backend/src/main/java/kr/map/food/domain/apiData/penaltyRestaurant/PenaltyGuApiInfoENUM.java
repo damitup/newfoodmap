@@ -1,6 +1,6 @@
 package kr.map.food.domain.apiData.penaltyRestaurant;
 
-public enum GuApiInfoENUM {
+public enum PenaltyGuApiInfoENUM {
 
     GANGNAM_PENALTY(
         "http://openAPI.gangnam.go.kr:8088",
@@ -107,7 +107,7 @@ public enum GuApiInfoENUM {
     private final String baseUrl;
     private final String code;
 
-    GuApiInfoENUM(String baseUrl, String code) {
+    PenaltyGuApiInfoENUM(String baseUrl, String code) {
         this.baseUrl = baseUrl;
         this.code = code;
     }

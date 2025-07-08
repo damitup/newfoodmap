@@ -20,6 +20,7 @@ public class RestaurantApiDataService {
     private final RestaurantApiCollector collector;
     private final RestaurantApiDataMapper restaurantMapper;
 
+    // properties 공부
     private static final String apiKey = ApiKeyConfig.SEOUL_OPENAPI_KEY;
 ;
 

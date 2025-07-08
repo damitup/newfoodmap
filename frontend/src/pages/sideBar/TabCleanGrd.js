@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function TabCleanGrd(){
     const [colorList,setColorList] = useState([]);
+    const navigate = useNavigate();
     //임시 데이터
     const resData =[
         {
+            idx: "c1",
             name: "강남면옥",
             newAddr:"서울 강남구 강남대로 358 강남358타워 2층 201호" ,
             oldAdder: "역삼동 826-14",
@@ -15,6 +18,7 @@ export default function TabCleanGrd(){
             grade: "매우우수",
             menu: [],    
         }, {
+            idx: "c2",
             name: "강남면옥",
             newAddr:"서울 강남구 강남대로 358 강남358타워 2층 201호" ,
             oldAdder: "역삼동 826-14",
@@ -26,6 +30,7 @@ export default function TabCleanGrd(){
            
         },
          {
+            idx: "c3",
             name: "강남면옥",
             newAddr:"서울 강남구 강남대로 358 강남358타워 2층 201호" ,
             oldAdder: "역삼동 826-14",
@@ -37,6 +42,7 @@ export default function TabCleanGrd(){
             menu: [],    
         },
          {
+            idx: "c4",
             name: "강남면옥",
             newAddr:"서울 강남구 강남대로 358 강남358타워 2층 201호" ,
             oldAdder: "역삼동 826-14",
@@ -48,6 +54,7 @@ export default function TabCleanGrd(){
             
         },
          {
+            idx: "c5",
             name: "강남면옥",
             newAddr:"서울 강남구 강남대로 358 강남358타워 2층 201호" ,
             oldAdder: "역삼동 826-14",
@@ -59,6 +66,7 @@ export default function TabCleanGrd(){
            
         },
          {
+            idx: "c6",
             name: "강남면옥",
             newAddr:"서울 강남구 강남대로 358 강남358타워 2층 201호" ,
             oldAdder: "역삼동 826-14",
@@ -70,6 +78,7 @@ export default function TabCleanGrd(){
            
         },
          {
+            idx: "c7",
             name: "강남면옥",
             newAddr:"서울 강남구 강남대로 358 강남358타워 2층 201호" ,
             oldAdder: "역삼동 826-14",
@@ -93,23 +102,25 @@ export default function TabCleanGrd(){
 
 
     // 각 section별 상세페이지로 페이징 메소드 구간
-
+    const handleDetailPage = (item) => {
+            navigate(`/detail?${item.idx}`, { state: item }); 
+        };
     return (
     <div className="sidebar">
         <div className="header">
-            <span className="h1">kakaomap</span>
-            <div className="locationSearch">
-                <label htmlFor="mapCheck">
-                <input type="checkbox" id="mapCheck" className="disnone"/>
-                    현 지도 내 장소검색
-                </label>
+            <div className="container">
+                <span className="h1">kakaomap</span>
+                <div className="locationSearch">
+                    <label htmlFor="mapCheck">
+                    <input type="checkbox" id="mapCheck" className="disnone"/>현 지도 내 장소검색</label>
+                </div>		
             </div>
             <input type="text" className="searchInput" placeholder="장소, 주소 검색" />
         </div>
         <h4>지역 추천</h4>
         {resData.map((item, index) => (
             // 해당 영역 클릭했을 때 상세페이지로 넘어가는 페이징
-            <div key={index} className="section" >
+            <div key={item.idx} className="section" onClick={() => handleDetailPage(item)} >
             <div className="container title">
                 <div className={`gradeIcon ${colorList[index]} `}/>
                 <span className="sectionTitle">{item.name}</span>

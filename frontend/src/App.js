@@ -27,13 +27,6 @@ function Layout() {
   const location = useLocation();
   const isManagePage = location.pathname === '/manage';
 
-  if (isManagePage) {
-    return (
-      <Routes>
-        <Route path="/manage" element={<ManagePage />} />
-      </Routes>
-    );
-  }
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh' }}>
@@ -47,6 +40,7 @@ function Layout() {
           <Route path="/" element={<MapPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/regist" element={<RegistUserPage />} />
+          <Route path="/manage" element={<ManagePage />} />
 
           {/* 사이드바 관련 라우트 */}
           <Route path="/sidebar/search" element={<BarSearch />} />

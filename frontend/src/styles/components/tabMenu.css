@@ -9,7 +9,7 @@ a {
     display: flex;
     flex-direction: row;
     background-color: #fafafa;
-
+    z-index: 999999;
 }
 .logo{
     cursor: pointer;
@@ -90,7 +90,7 @@ a {
 }
 
 .tabMenuContainer .sideTab{
-     position: absolute;      /* 사이드바 외부에 배치 */
+    position: absolute;      /* 사이드바 외부에 배치 */
     top: 44%;
     right: -20px;            /* 사이드바 바깥쪽 */
     width: 20px;

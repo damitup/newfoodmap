@@ -120,7 +120,7 @@ export default function TabSearch(){
                 <div className="container title">
                     <span className="sectionTitle">{item.name}</span>
                     <span className="resType">{item.type}</span>
-                    <button type="button" aria-pressed={!favorite} className={`btn favorite ${favoriteList[index] ? "on" : ""}`} onClick={()=>handlerFavoriteClick(index)}  />
+                    <button type="button" aria-pressed={!favorite} className={`btn favorite ${favoriteList[index] ? "on" : ""}`} onClick={(e)=>{handlerFavoriteClick(index); e.stopPropagation(); }}  />
                 </div>
             <span>{item.content}</span>
             <span>{item.tel}</span>

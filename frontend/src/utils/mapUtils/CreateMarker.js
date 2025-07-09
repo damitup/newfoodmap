@@ -18,10 +18,10 @@ export function createMarkerWithOverlay(map, pos, overlayContentHtml, onOverlayO
     onOverlayOpen(overlay);
   });
 
-  // content.querySelector(".close").addEventListener("click", () => {
-  //   overlay.setMap(null);
-  //   onOverlayOpen(null);
-  // });
+  content.querySelector(".close").addEventListener("click", () => {
+    overlay.setMap(null);
+    onOverlayOpen(null);
+  });
 
   return overlay;
 }

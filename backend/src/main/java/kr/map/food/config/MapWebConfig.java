@@ -9,9 +9,10 @@ public class MapWebConfig implements WebMvcConfigurer {
     
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/api/map/**")
-                .allowedOrigins("http://192.168.0.67:3000")
+        registry.addMapping("/api/**")
+                .allowedOrigins("*")
                 .allowedMethods("GET", "POST", "PUT", "DELETE");
+                // .allowedHeaders("*")
+                // .allowCredentials(false); // jwt인가정보가 없으면 백해라. true 시 : 인가정보있으면 통과 false
     }
-
 }

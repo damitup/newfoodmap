@@ -7,7 +7,7 @@ import kr.map.food.domain.cleanGrade.CleanGradeDTO;
 
 @Mapper
 public interface CleanGradeMapper {
-
+    
     // 등록
     void insertClean(CleanGradeDTO gradeDTO);
     // 중복 여부

@@ -19,5 +19,9 @@ public class PenaltyFilteredDTO {
     private String ROADADDR;
     // 위반 내용
     private String PENALTYCONTENT;
+    // Kakao API에서 받은 경도 (longitude)
+    private String PXPOS;  
+    // Kakao API에서 받은 위도 (latitude)
+    private String PYPOS;  
 
 }

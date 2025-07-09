@@ -3,6 +3,8 @@ package kr.map.food.service.apiData.penalty;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -11,8 +13,7 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import kr.map.food.domain.apiData.penaltyRestaurant.PenaltyApiResponse;
 import kr.map.food.domain.apiData.penaltyRestaurant.PenaltyGuApiInfoENUM;
 import kr.map.food.domain.apiData.penaltyRestaurant.PenaltyRawDTO;
-import kr.map.food.domain.apiData.restaurant.RestaurantApiResponse;
-import kr.map.food.domain.apiData.restaurant.RestaurantRawDTO;
+;
 
 @Component
 public class PenaltyApiCollector {
@@ -34,7 +35,7 @@ public class PenaltyApiCollector {
             );
 
             String xmlBody = restTemplate.getForObject(url, String.class);
-            PenaltyApiResponse pageResponse = xmlMapper.readValue(xmlBody, PenaltyApiResponse.class);
+            PenaltyApiResponse response = xmlMapper.readValue(xmlBody, PenaltyApiResponse.class);
 
             int listTotalCount = response.getListTotalCount();
             int totalPage = (listTotalCount + 1000 - 1) / 1000;

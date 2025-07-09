@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.map.food.mapper.mapInfo.PenaltyRestaurantMapper">
+
+    <select id="findAllPenaltyRestaurant" resultType="kr.map.food.domain.mapInfo.PenaltyRestaurantDTO">
+        SELECT
+            r.RESIDX,
+            r.RESNAME,
+            r.RESRUN,
+            r.RESNUM,
+            r.TYPEIDX,
+            r.RESCLEANSCORE,
+            r.ADDRGU,
+            r.ADDRDONG,
+            r.OLDADDR,
+            r.NEWADDR,
+            r.NUMADDR,
+            r.XPOS,
+            r.YPOS,
+            p.PENALIDX,
+            p.PENALTYCONTENT
+        FROM RESTAURANT r
+        INNER JOIN PENALTY p
+            ON r.RESIDX = p.RESIDX
+    </select>
+
+    <select id="findPenaltyRestaurantById" parameterType="String" resultType="kr.map.food.domain.mapInfo.PenaltyRestaurantDTO">
+        SELECT
+            r.RESIDX,
+            r.RESNAME,
+            r.RESRUN,
+            r.RESNUM,
+            r.TYPEIDX,
+            r.RESCLEANSCORE,
+            r.ADDRGU,
+            r.ADDRDONG,
+            r.OLDADDR,
+            r.NEWADDR,
+            r.NUMADDR,
+            r.XPOS,
+            r.YPOS,
+            p.PENALIDX,
+            p.PENALTYCONTENT
+        FROM RESTAURANT r
+        INNER JOIN PENALTY p
+            ON r.RESIDX = p.RESIDX
+        WHERE
+            r.RESIDX = #{RESIDX}
+    </select>
+
+</mapper>

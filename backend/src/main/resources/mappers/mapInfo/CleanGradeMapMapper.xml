@@ -5,7 +5,7 @@
 
 <mapper namespace="kr.map.food.mapper.mapInfo.CleanGradeMapMapper">
 
-    <select id="findAllCleanGrade" resultType="kr.map.food.domain.mapInfo.CleanGradeDTO">
+    <select id="findAllCleanGrade" resultType="kr.map.food.domain.mapInfo.CleanGradeMapDTO">
         SELECT
             CLEANIDX,
             UPSONM,
@@ -16,7 +16,7 @@
         FROM CLEANGRADE
     </select>
 
-    <select id="findByCleanIdx" parameterType="String" resultType="kr.map.food.domain.mapInfo.CleanGradeDTO">
+    <select id="findByCleanIdx" parameterType="String" resultType="kr.map.food.domain.mapInfo.CleanGradeMapDTO">
         SELECT
             CLEANIDX,
             UPSONM,

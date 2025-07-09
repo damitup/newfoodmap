@@ -20,13 +20,14 @@ public class UserLoginService {
         // 1. 아이디로 사용자 정보 조회
     UserDTO userFromDb = userMapper.loginId(userDTO);
 
+
     // 2. 사용자 존재 여부 확인
     if (userFromDb == null) {
         throw new IllegalArgumentException("존재하지 않는 아이디입니다.");
     }
 
     // 3. 비밀번호 일치 여부 확인
-    if (!userFromDb.getUserPassword().equals(userDTO.getUserPassword())) {
+    if (userFromDb.getUserPassword() == null || !userFromDb.getUserPassword().equals(userDTO.getUserPassword())) {
         throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
     }
 

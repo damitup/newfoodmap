@@ -34,6 +34,9 @@ public class UserController {
     }
     @PostMapping("/login")
     public ResponseEntity<?> loginId(@RequestBody UserDTO dto, HttpServletResponse response) {
+
+        log.info("login 체크");
+
         UserDTO user = userLoginService.loginId(dto);
     if (user == null) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("아이디 또는 비밀번호가 틀렸습니다.");

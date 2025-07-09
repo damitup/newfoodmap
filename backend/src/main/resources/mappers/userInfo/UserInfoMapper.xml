@@ -13,10 +13,10 @@
     </insert>
 
     <!--  로그인    -->
-    <select id="loginId" parameterType="UserDTO">
-        SELECT USERIDX FROM USER
+    <select id="loginId" parameterType="UserDTO" resultType="UserDTO">
+        SELECT PASSWORD AS userPassword
+        FROM USER
         WHERE USERID = #{userId}
-        AND PASSWORD = #{userPassword}
         AND DELYN = 'N'
     </select>
 

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import "../../../styles/map/bestRestaurant/BestRestaurantOverlayStyle.css";
 import useRestaurants from "../../../hooks/map/RestaurantsHook";
 import { createMapWithCurrentPosition } from "../../../utils/mapUtils/CreateCurrentPositionMap";
 import { createMarkerWithOverlay } from "../../../utils/mapUtils/CreateMarker";
@@ -11,6 +12,11 @@ const BestRestaurantMap = () => {
 
   useEffect(() => {
     if (!window.kakao) return;
+
+    if (positions.length === 0) {
+      console.log("아직 데이터 없음, 마커 생성하지 않음");
+      return;
+    }
 
     createMapWithCurrentPosition(mapRef.current, 3, (map) => {
       positions.forEach((pos) => {
@@ -30,7 +36,7 @@ const BestRestaurantMap = () => {
     });
   }, [positions]);
 
-  return <div ref={mapRef} style={{ width: "100%", height: "800px" }} />;
+  return <div ref={mapRef} style={{ width: "100%", height: "900px" }} />;
 };
 
 export default BestRestaurantMap;

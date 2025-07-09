@@ -22,6 +22,8 @@ import BarPenel from './pages/sideBar/TabPenel.js';
 import BarSearch from './pages/sideBar/TabSearch.js';
 import ManagePage from './components/ManagePage.js';
 import DetailPage from './pages/DetailPage.js';
+import RestaurantsMapPage from './pages/map/RestaurantsMapPage.js';
+import BestRestaurantsMapPage from './pages/map/BestRestaurantsMapPage.js';
 
 function Layout() {
   const location = useLocation();
@@ -49,6 +51,10 @@ function Layout() {
           <Route path="/sidebar/penel" element={<BarPenel />} />
           <Route path="/sidebar/best" element={<BarBest />} />
           <Route path="/detail" element={<DetailPage />} />
+
+          {/* 지도 페이지 */}
+          <Route path="/map/restaurants" element={<RestaurantsMapPage></RestaurantsMapPage>}></Route>
+          <Route path="/map/bests" element={<BestRestaurantsMapPage></BestRestaurantsMapPage>}></Route>
         </Routes>
       </div>
     </div>

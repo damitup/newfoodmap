@@ -3,25 +3,26 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="kr.map.food.mapper.user.UserMapper.java">
+<mapper namespace="kr.map.food.mapper.user.UserInfoMapper">
 <!-- 회원가입 -->
-    <insert id="registId" parameterType="kr.map.food.domain.user.UserDTO">
-        INSERT INTO USER (USERIDX, USERID, PASSWORD, USERNAME, USERTEL, DELYN)
+    <insert id="registId" parameterType="UserDTO">
+        INSERT INTO USER (USERIDX, USERID, PASSWORD, USERNAME, USERTEL)
         VALUES ( 
-            #{userIdx},#{userId},#{userPassword},#{userName},#{userTel},#{userDel}
+            #{userIdx},#{userId},#{userPassword},#{userName},#{userTel}
         )
     </insert>
 
     <!--  로그인    -->
-    <select id="findId" parameterType="kr.map.food.domain.user.UserDTO">
-        SELECT USERIDX FROM USER
+    <select id="loginId" parameterType="UserDTO" resultType="UserDTO">
+        SELECT PASSWORD AS userPassword
+        FROM USER
         WHERE USERID = #{userId}
-        AND PASSWORD = #{userPassword}
+        AND DELYN = 'N'
     </select>
 
     <!-- 아이디 중복검사 -->
     <select id="countByUserId" parameterType="String" resultType="int">
-        SELECT COUNT(*) FROM USER WHERE USERID = #{userId} AND DELYN = 'N'
+        SELECT COUNT(*) FROM USER WHERE USERID = #{param} AND DELYN = 'N'
     </select>
 
     <!-- idx 조회-->

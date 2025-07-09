@@ -1,27 +1,35 @@
-package kr.map.food.service.apiData.user;
+package kr.map.food.service.user;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.map.food.domain.user.UserDTO;
-import kr.map.food.mapper.user.UserMapper;
+import kr.map.food.mapper.user.UserInfoMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 
 @Service
 @RequiredArgsConstructor
-public class loginService {
+@Slf4j
+public class UserRegisterService {
 
-private final UserMapper userMapper;
 
+    private final UserInfoMapper userMapper;
+
+    @Transactional
     public void registerUser(UserDTO userDTO) {
+
         // 유효성 검사
         if (userDTO.getUserId() == null || userDTO.getUserId().isBlank()) {
             throw new IllegalArgumentException("아이디는 필수 입력입니다.");
         }
 
-        if (userMapper.countByUserID(userDTO.getUserId()) > 0) {
+        if (userMapper.countByUserId(userDTO.getUserId()) > 0) {
             throw new IllegalArgumentException("이미 사용 중인 아이디입니다.");
         }
 
+        log.info("설마?");
         if (userDTO.getUserPassword() == null || userDTO.getUserPassword().length() < 4) {
             throw new IllegalArgumentException("비밀번호는 4자 이상이어야 합니다.");
         }
@@ -30,9 +38,13 @@ private final UserMapper userMapper;
             throw new IllegalArgumentException("이름은 필수 입력입니다.");
         }
 
+        log.info("after");
+
         // 기본값 설정
         userDTO.setUserdel(false);
         userDTO.setUserIdx(generateUserIdx());
+
+        log.info("mapper 등록 전");
 
         // 등록
         userMapper.registId(userDTO);
@@ -50,4 +62,11 @@ private final UserMapper userMapper;
 
     return String.format("user%03d", nextNumber); 
     }
+
+
+    
+
+
+
+
 }

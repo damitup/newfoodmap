@@ -1,4 +1,4 @@
-# db 생성 및 수정 필수!
+# DB 생성 및 수정 필수!
 
 spring:
   datasource:
@@ -8,7 +8,6 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 mybatis:
-
   mapper-locations: classpath:mappers/**/*.xml
   type-aliases-package: kr.map.food.domain
 

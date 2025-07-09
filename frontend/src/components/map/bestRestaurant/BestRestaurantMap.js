@@ -3,7 +3,6 @@ import useRestaurants from "../../../hooks/map/RestaurantsHook";
 import { createMapWithCurrentPosition } from "../../../utils/mapUtils/CreateCurrentPositionMap";
 import { createMarkerWithOverlay } from "../../../utils/mapUtils/CreateMarker";
 import { getBestOverlayContent } from "./BestRestaurantOverlay";
-import "../../styles/Map.css";
 
 const BestRestaurantMap = () => {
   const mapRef = useRef(null);

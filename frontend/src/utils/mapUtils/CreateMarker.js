@@ -1,7 +1,7 @@
 export function createMarkerWithOverlay(map, pos, overlayContentHtml, onOverlayOpen) {
   const marker = new window.kakao.maps.Marker({
     map,
-    position: new window.kakao.maps.LatLng(pos.latitude, pos.longitude)
+    position: new window.kakao.maps.LatLng(pos.YPOS, pos.XPOS)
   });
 
   const content = document.createElement("div");

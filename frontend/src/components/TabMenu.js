@@ -2,7 +2,7 @@ import { useState } from "react";
 import BarSearch from '../pages/sideBar/TabSearch';
 import BarBest from '../pages/sideBar/TabBestRes';
 import BarClean from '../pages/sideBar/TabCleanGrd';
-import BarPenel from '../pages/sideBar/TabPenel';
+import BarPenal from '../pages/sideBar/TabPenal';
 import BarMy from '../pages/sideBar/TabMyPage';
 import { Link } from "react-router-dom";
 
@@ -14,7 +14,7 @@ export default function TabMenu() {
     { name: "search", label: "검색" , },
     { name: "best", label: "모범음식점" },
     { name: "clean", label: "위생등급" },
-    { name: "penel", label: "행정처분" },
+    { name: "penal", label: "행정처분" },
     { name: "mypage", label: "MY" }
   ];
 
@@ -23,7 +23,7 @@ export default function TabMenu() {
       case 'search': return <BarSearch />;
       case 'best': return <BarBest />;
       case 'clean': return <BarClean />;
-      case 'penel': return <BarPenel />;
+      case 'penal': return <BarPenal />;
       case 'mypage': return <BarMy />;
       default: return <BarSearch/>;
     }

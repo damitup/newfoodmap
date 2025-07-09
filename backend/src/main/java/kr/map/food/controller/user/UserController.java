@@ -1,13 +1,18 @@
 package kr.map.food.controller.user;
 
+import java.util.Collections;
+import java.util.Map;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import kr.map.food.domain.user.UserDTO;
 import kr.map.food.service.user.UserLoginService;
@@ -38,15 +43,41 @@ public class UserController {
         log.info("login 체크");
 
         UserDTO user = userLoginService.loginId(dto);
-    if (user == null) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("아이디 또는 비밀번호가 틀렸습니다.");
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("아이디 또는 비밀번호가 틀렸습니다.");
+        }
+        Cookie cookie = new Cookie("userIdx", user.getUserIdx());
+        cookie.setPath("/");
+        cookie.setHttpOnly(false); // 개발용: JS 접근 허용
+        cookie.setSecure(false);   // 개발용: HTTPS 아님
+        cookie.setMaxAge(60 * 60); // 1시간
+        response.addCookie(cookie); 
+
+        return ResponseEntity.ok("로그인 성공");
     }
+    @GetMapping("/status")
+    public ResponseEntity<Map<String, Boolean>> checkLogin(HttpServletRequest request) {
+        boolean isLoggedIn = false;
+        if (request.getCookies() != null) {
+            for (Cookie cookie : request.getCookies()) {
+                if ("userIdx".equals(cookie.getName())) {
+                    isLoggedIn = true;
+                    break;
+                }
+            }
+        }
+        return ResponseEntity.ok(Collections.singletonMap("loggedIn", isLoggedIn));
+    }
+    @PostMapping("/logout")
+        public ResponseEntity<?> logout(@RequestBody Map<String, String> body, HttpServletResponse response) {
+        String path = body.get("path"); // React에서 보낸 현재 경로
 
-    Cookie cookie = new Cookie("userIdx", user.getUserIdx());
-    cookie.setPath("/");
-    response.addCookie(cookie); 
+        Cookie cookie = new Cookie("userIdx", null);
+        cookie.setMaxAge(0);
+        cookie.setPath(path != null ? path : "/");
 
-    return ResponseEntity.ok("로그인 성공");
-}
+        response.addCookie(cookie);
+        return ResponseEntity.ok().build();
+    }
     
 }

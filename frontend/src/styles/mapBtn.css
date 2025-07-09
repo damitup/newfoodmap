@@ -1,0 +1,53 @@
+.mapBtnPage{
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-color: #ddd;
+
+}
+.container {
+    display: flex;
+}
+
+.mapBtnPage .container.top{
+    position: absolute;
+    display: flex;
+    height: 40px;
+    top: 0;
+}
+
+.mapBtnPage .container.top.left{
+    left: 10px;
+}
+
+.mapBtnPage .container.top.right{
+    right: 10px;
+}
+
+.mapBtnPage .btn.login{
+     position: absolute;
+    top: 0px;
+    right: -10px;
+    z-index: 10;
+    width: 69px;
+    padding: 1px 3px 5px;
+    background-image: url('../assets/icon/kakaomapicon.png') ;
+    background-repeat: no-repeat;
+    background-position: -290px -400px;
+}
+.mapBtnPage .btn.login span{
+   display: block;
+    overflow: hidden;
+    width: 69px;
+    height: 16px;
+    padding: 9px 0 11px;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 16px;
+    color: #1f8cff;
+    text-align: center;
+}
+.mapBtnPage .btn.login:hover{
+color: rgba(31, 140, 255, .6);
+}

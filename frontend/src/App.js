@@ -53,8 +53,8 @@ function Layout() {
           <Route path="/detail" element={<DetailPage />} />
 
           {/* 지도 페이지 */}
-          <Route path="/map/restaurants" element={<RestaurantsMapPage></RestaurantsMapPage>}></Route>
-          <Route path="/map/bests" element={<BestRestaurantsMapPage></BestRestaurantsMapPage>}></Route>
+          <Route path="/map/bests" element={<BestRestaurantsMapPage/>}></Route>
+          <Route path="/map/restaurants" element={<RestaurantsMapPage/>}></Route>
         </Routes>
       </div>
     </div>

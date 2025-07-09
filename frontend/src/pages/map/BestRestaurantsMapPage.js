@@ -1,11 +1,12 @@
 import React from "react";
 import BestRestaurantMap from "../../components/map/bestRestaurant/BestRestaurantMap";
+import MapBtn from "./MapBtn";
 
 function BestRestaurantPage() {
   return (
     <div>
-      <h1>모범 음식점 지도</h1>
       <BestRestaurantMap />
+      <MapBtn/>
     </div>
   );
 }

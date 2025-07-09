@@ -1,12 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SideBarHeader from "./SideBarHeader";
-
-export default function TabCleanGrd(){
-    const [colorList,setColorList] = useState([]);
-    const navigate = useNavigate();
-    //임시 데이터
-    const resData =[
+ export const resData =[
         {
             idx: "c1",
             name: "강남면옥",
@@ -91,6 +86,11 @@ export default function TabCleanGrd(){
            
         }
     ]
+export default function TabCleanGrd(){
+    const [colorList,setColorList] = useState([]);
+    const navigate = useNavigate();
+    //임시 데이터
+   
     useEffect(() =>{
         const colors = resData.map((item) => {
             if (["매우우수"].includes(item.grade)) return "green";
@@ -104,7 +104,7 @@ export default function TabCleanGrd(){
 
     // 각 section별 상세페이지로 페이징 메소드 구간
     const handleDetailPage = (item) => {
-            navigate(`/detail?${item.idx}`, { state: item }); 
+            navigate(`/detail/${item.idx}`, { state: item }); 
         };
     return (
     <div className="sidebar">

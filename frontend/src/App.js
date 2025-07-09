@@ -50,7 +50,7 @@ function Layout() {
           <Route path="/sidebar/mypage" element={<BarMy />} />
           <Route path="/sidebar/penel" element={<BarPenel />} />
           <Route path="/sidebar/best" element={<BarBest />} />
-          <Route path="/detail" element={<DetailPage />} />
+          <Route path="/detail/:idx" element={<DetailPage />} />
 
           {/* 지도 페이지 */}
           <Route path="/map/bests" element={<BestRestaurantsMapPage/>}></Route>

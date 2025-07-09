@@ -69,10 +69,13 @@ public class UserController {
         return ResponseEntity.ok(Collections.singletonMap("loggedIn", isLoggedIn));
     }
     @PostMapping("/logout")
-    public ResponseEntity<?> logout(HttpServletResponse response) {
+        public ResponseEntity<?> logout(@RequestBody Map<String, String> body, HttpServletResponse response) {
+        String path = body.get("path"); // React에서 보낸 현재 경로
+
         Cookie cookie = new Cookie("userIdx", null);
-        cookie.setMaxAge(0); // 즉시 만료
-        cookie.setPath("/");
+        cookie.setMaxAge(0);
+        cookie.setPath(path != null ? path : "/");
+
         response.addCookie(cookie);
         return ResponseEntity.ok().build();
     }

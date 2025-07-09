@@ -2,11 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import SideBarHeader from "./SideBarHeader";
 
-export default function TabSearch(){
-	
-    
-    //임시 데이터
-    const resData =[
+export const resData =[
         {
             idx: "p1",
             name: "강남면옥",
@@ -104,10 +100,15 @@ export default function TabSearch(){
         }
     ]
     
+export default function TabSearch(){
+	
+    
+    //임시 데이터
+    
     const navigate = useNavigate();
     //해당 section 클릭 시 상세페이지로 페이징
     const handleDetailPage = (item) => {
-       navigate(`/detail?${item.idx}`, { state: item }); 
+       navigate(`/detail/${item.idx}`, { state: item }); 
     };
     //현 지도 내 장소검색 메소드 구간
     return(

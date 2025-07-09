@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import SideBarHeader from "./SideBarHeader";
-export default function TabSearch(){
-    
-    //임시 데이터
-    const resData =[
+
+export const resData =[
         {
             idx: "n1",
             name: "일반휴계1",
@@ -87,6 +85,10 @@ export default function TabSearch(){
            
         }
     ]
+export default function TabSearch(){
+    
+    //임시 데이터
+    
     const navigate = useNavigate();
     const [favoriteList,setFavoriteList] = useState([]);
     const [favorite,setFavorite] = useState(true);
@@ -107,7 +109,7 @@ export default function TabSearch(){
 
     //해당 section 클릭 시 상세페이지로 페이징
     const handleDetailPage = (item) => {
-        navigate(`/detail?${item.idx}`, { state: item }); 
+        navigate(`/detail/${item.idx}`, { state: item }); 
     };
 
     return (

@@ -10,15 +10,23 @@ const RestaurantMap = () => {
   const { data: positions } = useRestaurants("/map/restaurants");
 
   useEffect(() => {
+    console.log("positions 데이터:", positions);
+
     console.log("kakao?", window.kakao);
 
     if (!window.kakao || !window.kakao.maps) {
       console.error("카카오맵 SDK가 로드되지 않았습니다.");
       return;
     }
+    
+    if (positions.length === 0) {
+      console.log("아직 데이터 없음, 마커 생성하지 않음");
+      return;
+    }
 
     createMapWithCurrentPosition(mapRef.current, 3, (map) => {
       positions.forEach((pos) => {
+        console.log("마커", pos.ypos, pos.xpos);
         const overlay = createMarkerWithOverlay(map, pos, getOverlayContent(pos), (newOverlay) => {
           if (currentOverlay) currentOverlay.setMap(null);
           setCurrentOverlay(newOverlay);

@@ -1,7 +1,7 @@
 export function createMarkerWithOverlay(map, pos, overlayContentHtml, onOverlayOpen) {
   const marker = new window.kakao.maps.Marker({
     map,
-    position: new window.kakao.maps.LatLng(pos.YPOS, pos.XPOS)
+    position: new window.kakao.maps.LatLng(pos.ypos, pos.xpos)
   });
 
   const content = document.createElement("div");
@@ -18,10 +18,10 @@ export function createMarkerWithOverlay(map, pos, overlayContentHtml, onOverlayO
     onOverlayOpen(overlay);
   });
 
-  content.querySelector(".close").addEventListener("click", () => {
-    overlay.setMap(null);
-    onOverlayOpen(null);
-  });
+  // content.querySelector(".close").addEventListener("click", () => {
+  //   overlay.setMap(null);
+  //   onOverlayOpen(null);
+  // });
 
   return overlay;
 }

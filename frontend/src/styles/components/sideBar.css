@@ -2,14 +2,17 @@
 
 
 .sidebar {
-  width: 340px;
-  font-family: 'Malgun Gothic', sans-serif;
-  background: #fff;
-  border-right: 1px solid #ccc;
-  box-sizing: border-box;
-  height: 100vh;
-  overflow-y: auto;
+    width: 340px;
+    font-family: 'Malgun Gothic', sans-serif;
+    background: #fff;
+    border-right: 1px solid #ccc;
+    height: 100vh;
+    box-sizing: border-box;
+    overflow-y: auto;
+
+    
 }
+
 .sideBarHeader{
     background-color: #007aff;
     padding: 10px;

@@ -1,23 +1,20 @@
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { useState } from 'react';
-import {userLogin} from '../../api/user/userLogin';
-
-
+import { UserLogin } from '../../api/user/UserLogin';
 
 export default function LoginPage() {
     const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from || "/";
     const [formData, setFormData] = useState({
         userId: '',
-        userPassword: '',
-        userTel: '',
-        userName:''
+        userPassword: ''
     });
 
+
     const handleChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.id]: e.target.value
-        });
+        const {id, value} = e.target;
+        setFormData(prev =>({...prev, [id]: e.target.value}));
     };
 
     const handleSubmit = async (e) => {
@@ -25,10 +22,10 @@ export default function LoginPage() {
 
         try {
             console.log(formData);
-            const response = await userLogin(formData);
+            const response = await UserLogin(formData);
             if (response.status === 200) {
                 alert("로그인 성공");
-                navigate("/");
+                navigate(from);
             }
         } catch (err) {
             if (err.response && err.response.data) {

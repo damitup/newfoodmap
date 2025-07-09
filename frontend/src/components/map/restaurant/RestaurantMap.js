@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import "../../../styles/map/restaurant/RestaurantOverlayStyle.css";
 import useRestaurants from "../../../hooks/map/RestaurantsHook";
 import { createMapWithCurrentPosition } from "../../../utils/mapUtils/CreateCurrentPositionMap";
 import { createMarkerWithOverlay } from "../../../utils/mapUtils/CreateMarker";

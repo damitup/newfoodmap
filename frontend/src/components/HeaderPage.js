@@ -40,7 +40,10 @@ export default function HeaderPage({ name }) {
     userLogout()
       .then(() => {
         setIsLoggedIn(false);
-        navigate(location); // 로그아웃 후 홈으로 이동 (선택)
+       alert("로그아웃 되었습니다.");
+        navigate(location.pathname+location.search); // 로그아웃 후 홈으로 이동 (선택)
+        
+        
       });
   };
 

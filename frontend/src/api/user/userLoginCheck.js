@@ -5,5 +5,7 @@ export const userLoginCheck = () => {
 };
 
 export const userLogout = () => {
-    return api.post("/user/logout");
+    return api.post("/user/logout ",{
+     path: window.location.pathname,
+    });
 };

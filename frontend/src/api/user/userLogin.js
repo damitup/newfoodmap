@@ -1,6 +1,6 @@
 import api from '../apiSetting';
 
-export const userLogin = (formData) => {
+export const UserLogin = (formData) => {
     return api.post('/user/login', formData,{
         withCredentials: true
     } );

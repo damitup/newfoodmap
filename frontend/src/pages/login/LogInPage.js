@@ -1,8 +1,6 @@
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { useState } from 'react';
-import { userLogin } from '../../api/user/UserLogin';
-
-
+import { UserLogin } from '../../api/user/UserLogin';
 
 export default function LoginPage() {
     const navigate = useNavigate();
@@ -24,7 +22,7 @@ export default function LoginPage() {
 
         try {
             console.log(formData);
-            const response = await userLogin(formData);
+            const response = await UserLogin(formData);
             if (response.status === 200) {
                 alert("로그인 성공");
                 navigate(from);

@@ -18,7 +18,7 @@ import TabMenu from './components/TabMenu.js';
 import BarBest from './pages/sideBar/TabBestRes.js';
 import BarClean from './pages/sideBar/TabCleanGrd.js';
 import BarMy from './pages/sideBar/TabMyPage.js';
-import BarPenel from './pages/sideBar/TabPenel.js';
+import BarPenal from './pages/sideBar/TabPenal.js';
 import BarSearch from './pages/sideBar/TabSearch.js';
 import ManagePage from './components/ManagePage.js';
 import DetailPage from './pages/DetailPage.js';
@@ -48,7 +48,7 @@ function Layout() {
           <Route path="/sidebar/search" element={<BarSearch />} />
           <Route path="/sidebar/clean" element={<BarClean />} />
           <Route path="/sidebar/mypage" element={<BarMy />} />
-          <Route path="/sidebar/penel" element={<BarPenel />} />
+          <Route path="/sidebar/penal" element={<BarPenal />} />
           <Route path="/sidebar/best" element={<BarBest />} />
           <Route path="/detail/:idx" element={<DetailPage />} />
 

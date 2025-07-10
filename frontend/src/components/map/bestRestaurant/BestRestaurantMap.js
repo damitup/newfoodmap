@@ -10,6 +10,7 @@ const BestRestaurantMap = () => {
   const [currentOverlay, setCurrentOverlay] = useState(null);
   const { data: positions } = useRestaurants("/bests");
 
+  
   useEffect(() => {
     if (!window.kakao) return;
     

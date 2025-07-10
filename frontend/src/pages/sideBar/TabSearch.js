@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import SideBarHeader from "./SideBarHeader";
 import { nomalResFindAll } from "../../api/map/MapList";
 
-export default function TabSearch() {
+export default function TabSearch({selectedTab}) {
     const navigate = useNavigate();
 
     const [restaurantList, setRestaurantList] = useState([]);

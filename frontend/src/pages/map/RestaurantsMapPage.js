@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import RestaurantMap from "../../components/map/restaurant/RestaurantMap";
 
 function RestaurantPage() {

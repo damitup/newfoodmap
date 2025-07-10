@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect,useState } from 'react';
+
 
 // CSS import
 import './App.css';
@@ -11,7 +12,7 @@ import './styles/components/managePage.css';
 import './styles/DetailPage.css';
 
 // Page import
-import MapPage from './pages/MapPage.js';
+import MainMap from './pages/map/MainMap.js'
 import LoginPage from './pages/login/LogInPage.js';
 import RegistUserPage from './pages/login/RegistUserPage.js';
 import TabMenu from './components/TabMenu.js';
@@ -24,39 +25,37 @@ import ManagePage from './components/ManagePage.js';
 import DetailPage from './pages/DetailPage.js';
 import RestaurantsMapPage from './pages/map/RestaurantsMapPage.js';
 import BestRestaurantsMapPage from './pages/map/BestRestaurantsMapPage.js';
-import PenaltyRestaurantMapPage from './pages/map/PenaltyRestaurantMapPage.js'
 
 function Layout() {
   const location = useLocation();
   const isManagePage = location.pathname === '/manage';
-
+  const [selectedTab, setSelectedTab] = useState(null);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh' }}>
       <div style={{ flex: 0 }}>
-        <TabMenu />
+        <div style={{display:"flex"}}>
+        <TabMenu selectedTab={selectedTab} setSelectedTab={setSelectedTab} isExpanded={isExpanded} setIsExpanded={setIsExpanded}/>
+          {/* 선택된 탭에 따라 컴포넌트 렌더링 */}
+          {isExpanded && selectedTab === "search" && <BarSearch />}
+          {isExpanded && selectedTab === "best" && <BarBest />}
+          {isExpanded && selectedTab === "clean" && <BarClean />}
+          {isExpanded && selectedTab === "penal" && <BarPenal />}
+          {isExpanded && selectedTab === "mypage" && <BarMy />}
+        </div>
       </div>
-
       <div style={{ flex: 1 }}>
         <Routes>
           {/* 일반 페이지  */}
-          <Route path="/" element={<MapPage />} />
+          <Route path="/" element={<MainMap selectedTab={selectedTab}/>} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/regist" element={<RegistUserPage />} />
           <Route path="/manage" element={<ManagePage />} />
 
-          {/* 사이드바 관련 라우트 */}
-          <Route path="/sidebar/search" element={<BarSearch />} />
-          <Route path="/sidebar/clean" element={<BarClean />} />
-          <Route path="/sidebar/mypage" element={<BarMy />} />
-          <Route path="/sidebar/penal" element={<BarPenal />} />
-          <Route path="/sidebar/best" element={<BarBest />} />
-          <Route path="/detail/:idx" element={<DetailPage />} />
-
           {/* 지도 페이지 */}
-          <Route path="/map/bests" element={<BestRestaurantsMapPage/>}></Route>
-          <Route path="/map/restaurants" element={<RestaurantsMapPage/>}></Route>
-          <Route path="/map/pens" element={<PenaltyRestaurantMapPage/>}></Route>
+          {/* <Route path="/map/bests" element={<BestRestaurantsMapPage/>}></Route>
+          <Route path="/map/restaurants" element={<RestaurantsMapPage/>}></Route> */}
         </Routes>
       </div>
     </div>

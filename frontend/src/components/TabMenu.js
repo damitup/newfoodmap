@@ -1,15 +1,6 @@
-import { useState } from "react";
-import BarSearch from '../pages/sideBar/TabSearch';
-import BarBest from '../pages/sideBar/TabBestRes';
-import BarClean from '../pages/sideBar/TabCleanGrd';
-import BarPenal from '../pages/sideBar/TabPenal';
-import BarMy from '../pages/sideBar/TabMyPage';
 import { Link } from "react-router-dom";
 
-export default function TabMenu() {
-  const [activeTab, setActiveTab] = useState("");
-  const [isExpanded, setIsExpanded] = useState(false);
-
+export default function TabMenu({selectedTab,setSelectedTab, isExpanded,setIsExpanded}) {
   const tabItems = [
     { name: "search", label: "검색" , },
     { name: "best", label: "모범음식점" },
@@ -17,36 +8,17 @@ export default function TabMenu() {
     { name: "penal", label: "행정처분" },
     { name: "mypage", label: "MY" }
   ];
+  
 
-  const renderActiveComponent = () => {
-    switch (activeTab) {
-      case 'search': return <BarSearch />;
-      case 'best': return <BarBest />;
-      case 'clean': return <BarClean />;
-      case 'penal': return <BarPenal />;
-      case 'mypage': return <BarMy />;
-      default: return <BarSearch/>;
-    }
-  };
 
   const handleTabClick = (name) => {
-    setActiveTab(name);
+    setSelectedTab(name);
     setIsExpanded(true);
   };
 
   const togglePanel = () => {
-  const newExpanded = !isExpanded;
-  setIsExpanded(newExpanded);
-
-  if (newExpanded) {
-    // 패널을 여는 시점에 activeTab이 없으면 기본값 지정
-    if (!activeTab) {
-      setActiveTab(tabItems[0].name);
-    }
-  } else {
-    // 닫을 때는 activeTab 초기화
-    setActiveTab(null);
-  }
+  setIsExpanded(prev => !prev);
+  
 };
 
   return (
@@ -68,7 +40,7 @@ export default function TabMenu() {
             className={`tabList ${isExpanded ? '' : 'fold'}`}
             onClick={() => handleTabClick(item.name)}
           >
-            <div className={`tabIcon ${activeTab === item.name ? "active" : ""}`}>
+            <div className={`tabIcon ${selectedTab === item.name ? "active" : ""}`}>
               <span className="tabicon inner icon">
                 <span className="iconinner" aria-hidden="true">
                   <svg viewBox="0 0 62 24" xmlns="http://www.w3.org/2000/svg">
@@ -82,11 +54,6 @@ export default function TabMenu() {
         ))}
       </div>
 
-      {isExpanded && (
-        <div className="sideBar">
-          {renderActiveComponent()}
-        </div>
-      )}
 
       <button
         type="button"

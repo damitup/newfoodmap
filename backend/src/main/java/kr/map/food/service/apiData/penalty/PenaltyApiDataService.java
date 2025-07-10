@@ -1,67 +1,65 @@
-// package kr.map.food.service.apiData.penalty;
+package kr.map.food.service.apiData.penalty;
 
-// import java.util.ArrayList;
-// import java.util.List;
+import java.util.ArrayList;
+import java.util.List;
 
-// import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Service;
 
-// import kr.map.food.config.ApiKeyConfig;
-// import kr.map.food.domain.apiData.penaltyRestaurant.PenaltyFilteredDTO;
-// import kr.map.food.domain.apiData.penaltyRestaurant.PenaltyGuApiInfoENUM;
-// import kr.map.food.domain.apiData.penaltyRestaurant.PenaltyKakaoAddrDTO;
-// import kr.map.food.domain.apiData.penaltyRestaurant.PenaltyRawDTO;
-// import kr.map.food.service.apiData.dataTrans.FindNullData;
-// import kr.map.food.service.apiData.dataTrans.KakaoApiClient;
+import kr.map.food.config.ApiKeyConfig;
+import kr.map.food.domain.apiData.penaltyRestaurant.PenaltyFilteredDTO;
+import kr.map.food.domain.apiData.penaltyRestaurant.PenaltyGuApiInfoENUM;
 
-// @Service
-// public class PenaltyApiDataService {
+import kr.map.food.domain.apiData.penaltyRestaurant.PenaltyRawDTO;
 
-//     private final PenaltyApiCollector penaltyCollector;
-//     private final PenaltyFilterService filterService;
+import kr.map.food.service.apiData.dataTrans.FindNullData;
+import kr.map.food.service.apiData.dataTrans.KakaoApiClient;
 
-//     private static final String apiKey = ApiKeyConfig.SEOUL_OPENAPI_KEY;
+@Service
+public class PenaltyApiDataService {
 
-//     public PenaltyApiDataService(PenaltyApiCollector penaltyCollector, PenaltyFilterService filterService) {
-//         this.penaltyCollector = penaltyCollector;
-//         this.filterService = filterService;
-//     }
+    private final PenaltyApiCollector penaltyCollector;
+    private final PenaltyFilterService filterService;
 
-//     public List<PenaltyFilteredDTO> filterAll() {
-//         List<PenaltyFilteredDTO> finalResult = new ArrayList<>();
+    private static final String apiKey = ApiKeyConfig.SEOUL_OPENAPI_KEY;
 
-//         for (PenaltyGuApiInfoENUM gu : PenaltyGuApiInfoENUM.values()) {
-//             List<PenaltyRawDTO> rawList = penaltyCollector.collectPenaltyData(gu, apiKey);
+    public PenaltyApiDataService(PenaltyApiCollector penaltyCollector, PenaltyFilterService filterService) {
+        this.penaltyCollector = penaltyCollector;
+        this.filterService = filterService;
+    }
 
-//             for (PenaltyRawDTO raw : rawList) {
-//                 // 지번주소와 도로명 주소가 모두 없으면 제외
-//                 if (FindNullData.isEmpty(raw.getSITE_ADDR()) && FindNullData.isEmpty(raw.getSITE_ADDR_RD())) {
-//                     continue;
-//                 }
+    public List<PenaltyFilteredDTO> filterAll() {
+        List<PenaltyFilteredDTO> finalResult = new ArrayList<>();
 
-//                 // 1차 필터링
-//                 List<PenaltyFilteredDTO> filteredList = filterService.filterdData(List.of(raw));
-//                 if (filteredList.isEmpty()) continue; 
+        for (PenaltyGuApiInfoENUM gu : PenaltyGuApiInfoENUM.values()) {
+            List<PenaltyRawDTO> rawList = penaltyCollector.collectPenaltyData(gu, apiKey);
 
-//                 PenaltyFilteredDTO dto = filteredList.get(0);
+            for (PenaltyRawDTO raw : rawList) {
+                // 지번주소와 도로명 주소가 모두 없으면 제외
+                if (FindNullData.isEmpty(raw.getSITE_ADDR()) && FindNullData.isEmpty(raw.getSITE_ADDR_RD())) {
+                    continue;
+                }
 
-//                 // 주소 보완 (도로명, X, Y가 없을 경우)
-//                 if (FindNullData.isEmpty(dto.getROADADDR()) 
-//                     || FindNullData.isEmpty(dto.getPXPOS()) 
-//                     || FindNullData.isEmpty(dto.getPYPOS())) {
+                // 1차 필터링
+                List<PenaltyFilteredDTO> filteredList = filterService.filterdData(List.of(raw));
+                if (filteredList.isEmpty()) continue; 
 
-//                     String queryAddress = !FindNullData.isEmpty(dto.getROADADDR()) 
-//                         ? dto.getROADADDR() 
-//                         : dto.getSITEADDR(); // 지번 주소 우선
+                PenaltyFilteredDTO dto = filteredList.get(0);
 
-                    
-//                     RestaurantKakaoAddressDTO kakaoInfo = KakaoApiClient.searchAddress(queryAddress);
+                // 주소 보완 (도로명 없을 경우)
+                if (FindNullData.isEmpty(dto.getROADADDR())) {
+                    String queryAddress = dto.getSITEADDR(); // 지번주소 사용
 
-//                     if (kakaoInfo != null) {
-//                         AddressTrans.applyKakaoInfoToPenaltyDTO(kakaoInfo, dto);
-//                     }
+                    if (!FindNullData.isEmpty(queryAddress)) {
+                        String roadAddr = KakaoApiClient.fetchRoadAddressOnly(queryAddress);
+                        if (roadAddr != null) {
+                            dto.setROADADDR(roadAddr);
+                        }
+                    }
+                }
+                finalResult.add(dto);
+            }
+        }
 
-//         }
-
-//         return result;
-//     }
-// }
+        return finalResult;
+    }
+}

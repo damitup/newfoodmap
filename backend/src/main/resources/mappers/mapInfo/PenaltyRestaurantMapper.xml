@@ -20,7 +20,7 @@
             r.NUMADDR,
             r.XPOS,
             r.YPOS,
-            p.PENALIDX,
+            p.PENALTYIDX,
             p.PENALTYCONTENT
         FROM RESTAURANT r
         INNER JOIN PENALTY p
@@ -42,7 +42,7 @@
             r.NUMADDR,
             r.XPOS,
             r.YPOS,
-            p.PENALIDX,
+            p.PENALTYIDX,
             p.PENALTYCONTENT
         FROM RESTAURANT r
         INNER JOIN PENALTY p

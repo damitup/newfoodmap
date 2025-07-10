@@ -38,6 +38,11 @@ public class PenaltyFilterService {
             if(!isValidCategory(raw.getSNT_UPTAE_NM())) continue;
             if(isExcludedBizType(raw.getSNT_COB_NM())) continue;
 
+            if (raw.getVIOL_CN() != null && (raw.getVIOL_CN().contains("폐쇄") || raw.getVIOL_CN().contains("폐업"))) {
+            continue; 
+            }
+
+
             PenaltyFilteredDTO dto = new PenaltyFilteredDTO(
                 raw.getUPSO_NM(),
                 raw.getSNT_COB_NM(),

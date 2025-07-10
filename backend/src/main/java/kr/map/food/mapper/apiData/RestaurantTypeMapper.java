@@ -5,6 +5,6 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface RestaurantTypeMapper {
 
-    int findTypeIdx(String TYPENAME);
+    Integer findTypeIdx(String TYPENAME);
     
 }

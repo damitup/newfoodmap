@@ -57,10 +57,7 @@ public class PenaltyFilterService {
                 typeIdx,
                 raw.getSITE_ADDR(),
                 raw.getSITE_ADDR_RD(),
-                raw.getVIOL_CN(),
-                null,
-                null
-
+                raw.getVIOL_CN()
             );
             result.add(dto);
         }

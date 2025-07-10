@@ -44,7 +44,9 @@ public class PenaltyFilterService {
                 raw.getSNT_UPTAE_NM(),
                 raw.getSITE_ADDR(),
                 raw.getSITE_ADDR_RD(),
-                raw.getVIOL_CN()
+                raw.getVIOL_CN(),
+                null,
+                null
 
             );
 

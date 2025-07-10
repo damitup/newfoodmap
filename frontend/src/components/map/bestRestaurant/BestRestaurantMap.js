@@ -8,17 +8,18 @@ import { getBestOverlayContent } from "./BestRestaurantOverlay";
 const BestRestaurantMap = () => {
   const mapRef = useRef(null);
   const [currentOverlay, setCurrentOverlay] = useState(null);
-  const { data: positions } = useRestaurants("/map/bests");
+  const { data: positions } = useRestaurants("/bests");
 
   useEffect(() => {
     if (!window.kakao) return;
-
-    if (positions.length === 0) {
-      console.log("아직 데이터 없음, 마커 생성하지 않음");
-      return;
-    }
-
+    
     createMapWithCurrentPosition(mapRef.current, 3, (map) => {
+
+      if (positions.length === 0) {
+        console.log("아직 데이터 없음, 마커 생성하지 않음");
+        return;
+      }
+
       positions.forEach((pos) => {
         const overlay = createMarkerWithOverlay(map, pos, getBestOverlayContent(pos), (newOverlay) => {
           if (currentOverlay) currentOverlay.setMap(null);

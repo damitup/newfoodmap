@@ -12,7 +12,7 @@ public class PenaltyFilteredDTO {
     // 업종명
     private String BIZTYPE;
     // 업태명
-    private String CATEGORYNAME;
+    private int TYPEIDX;
     // 지번 주소
     private String SITEADDR;        
     // 도로명 주소

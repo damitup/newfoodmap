@@ -24,6 +24,7 @@ import ManagePage from './components/ManagePage.js';
 import DetailPage from './pages/DetailPage.js';
 import RestaurantsMapPage from './pages/map/RestaurantsMapPage.js';
 import BestRestaurantsMapPage from './pages/map/BestRestaurantsMapPage.js';
+import PenaltyRestaurantMapPage from './pages/map/PenaltyRestaurantMapPage.js'
 
 function Layout() {
   const location = useLocation();
@@ -55,6 +56,7 @@ function Layout() {
           {/* 지도 페이지 */}
           <Route path="/map/bests" element={<BestRestaurantsMapPage/>}></Route>
           <Route path="/map/restaurants" element={<RestaurantsMapPage/>}></Route>
+          <Route path="/map/pens" element={<PenaltyRestaurantMapPage/>}></Route>
         </Routes>
       </div>
     </div>

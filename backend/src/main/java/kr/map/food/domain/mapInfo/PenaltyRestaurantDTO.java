@@ -5,21 +5,19 @@ import lombok.Data;
 @Data
 public class PenaltyRestaurantDTO {
 
-    public String RESIDX;           // RESIDX
-    public String RESNAME;          // RESNAME
-    public int RESRUN;              // RESRUN
-    public String RESNUM;           // RESNUM
-    public int TYPEIDX;             // TYPEIDX
-    public String ADDRGU;           // ADDRGU
-    public String ADDRDONG;         // ADDRDONG
-    public String OLDADDR;          // OLDADDR
-    public String NEWADDR;          // NEWADDR
-    public String NUMADDR;          // NUMADDR
-    public double XPOS;             // XPOS
-    public double YPOS;             // YPOS
-    public String RESCLEANSCORE;    // RESCLEANSCORE
-    
-    public String PENALIDX;         // PENALIDX
-    public String PENALTYCONTENT;   // PENALTYCONTENT
+    public String RESIDX;
+    public String RESNAME;
+    public int RESRUN;
+    public String RESNUM;
+    public int TYPEIDX;
+    public String ADDRGU;
+    public String ADDRDONG;
+    public String OLDADDR;
+    public String NEWADDR;
+    public String NUMADDR;
+    public double XPOS;
+    public double YPOS;
+    public String RESCLEANSCORE;
+    public int PENALTYCOUNT;
     
 }

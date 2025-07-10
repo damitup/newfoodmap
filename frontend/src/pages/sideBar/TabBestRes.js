@@ -9,6 +9,7 @@ export default function TabSearch(){
         const [restaurantList, setRestaurantList] = useState([]);
         const [favoriteList, setFavoriteList] = useState([]);
         const [favorite, setFavorite] = useState(true);
+        const [showOldList, setShowOldList] = useState(new Array(restaurantList.length).fill(false));
     
         useEffect(() => {
             bestResFindAll()
@@ -16,11 +17,18 @@ export default function TabSearch(){
                     const data = response.data;
                     setRestaurantList(data);
                     setFavoriteList(new Array(data.length).fill(false));
+                    setShowOldList(new Array(data.length).fill(false)); 
                 })
                 .catch((error) => {
                     console.error("음식점 목록을 불러오는 중 오류 발생:", error);
                 });
-        }, []);
+
+            }, []);
+            const showOldAddr = (index) => {
+                const updated = [...showOldList];
+                updated[index] = !updated[index];
+                setShowOldList(updated);
+            }
     
         const handlerFavoriteClick = (idx) => {
             setFavoriteList((prevList) => {
@@ -53,8 +61,16 @@ export default function TabSearch(){
                             onClick={(e) => { handlerFavoriteClick(index); e.stopPropagation(); }}
                         />
                     </div>
-                    <span>{item.resnum}</span>
-                    <span>{item.newaddr}</span>
+                    <span onClick={(e) => { showOldAddr(index); e.stopPropagation(); }}>
+                        {item.newaddr}
+                    </span>
+                     {showOldList[index] && (
+                        <span className="oldAddr" style={{ marginLeft: "10px" }}>
+                        {item.oldaddr}
+                        <br />
+                        <span>{item.resnum}</span>
+                        </span>
+                    )}
 
                     {/* 예시: 주메뉴가 menuList 라는 이름으로 있다면 */}
                     {item.menuList?.length > 0 && (

@@ -9,3 +9,5 @@ function PenaltyRestaurantPage() {
     </div>
   );
 }
+
+export default PenaltyRestaurantPage;

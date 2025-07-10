@@ -1,4 +1,4 @@
-export function getOverlayContent(pos) {
+export function getPenaltyOverlayContent(pos) {
   return `
     <div class="info">
       <div class="title">

@@ -3,7 +3,7 @@ import "../../../styles/map/penalty/PenaltyOverlayStyle.css";
 import useRestaurants from "../../../hooks/map/RestaurantsHook";
 import { createMapWithCurrentPosition } from "../../../utils/mapUtils/CreateCurrentPositionMap";
 import { createMarkerWithOverlay } from "../../../utils/mapUtils/CreateMarker";
-import { getBestOverlayContent } from "./PenaltyRestaurantOverlay";
+import { getPenaltyOverlayContent } from "./PenaltyRestaurantOverlay";
 
 const PenaltyRestaurantMap = () => {
   const mapRef = useRef(null);
@@ -20,7 +20,7 @@ const PenaltyRestaurantMap = () => {
 
     createMapWithCurrentPosition(mapRef.current, 3, (map) => {
       positions.forEach((pos) => {
-        const overlay = createMarkerWithOverlay(map, pos, getBestOverlayContent(pos), (newOverlay) => {
+        const overlay = createMarkerWithOverlay(map, pos, getPenaltyOverlayContent(pos), (newOverlay) => {
           if (currentOverlay) currentOverlay.setMap(null);
           setCurrentOverlay(newOverlay);
           if (newOverlay) newOverlay.setMap(map);

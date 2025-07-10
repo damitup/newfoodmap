@@ -1,14 +1,6 @@
-import { useState } from "react";
-import BarSearch from '../pages/sideBar/TabSearch';
-import BarBest from '../pages/sideBar/TabBestRes';
-import BarClean from '../pages/sideBar/TabCleanGrd';
-import BarPenal from '../pages/sideBar/TabPenal';
-import BarMy from '../pages/sideBar/TabMyPage';
 import { Link } from "react-router-dom";
 
-export default function TabMenu({selectedTab,setSelectedTab}) {
-  const [isExpanded, setIsExpanded] = useState(false);
-
+export default function TabMenu({selectedTab,setSelectedTab, isExpanded,setIsExpanded}) {
   const tabItems = [
     { name: "search", label: "검색" , },
     { name: "best", label: "모범음식점" },
@@ -16,6 +8,7 @@ export default function TabMenu({selectedTab,setSelectedTab}) {
     { name: "penal", label: "행정처분" },
     { name: "mypage", label: "MY" }
   ];
+  
 
 
   const handleTabClick = (name) => {
@@ -24,19 +17,8 @@ export default function TabMenu({selectedTab,setSelectedTab}) {
   };
 
   const togglePanel = () => {
-  const newExpanded = !isExpanded;
-  setIsExpanded(newExpanded);
-  setSelectedTab(tabItems[0].name);
-
-  if (newExpanded && !selectedTab) {
-     setSelectedTab(tabItems[0].name);
-    if (!selectedTab) {
-      setSelectedTab(tabItems[0].name);
-    }
-  } else {
-    // 닫을 때는 activeTab 초기화
-    setSelectedTab(null);
-  }
+  setIsExpanded(prev => !prev);
+  
 };
 
   return (
@@ -72,11 +54,6 @@ export default function TabMenu({selectedTab,setSelectedTab}) {
         ))}
       </div>
 
-      {isExpanded && (
-        <div className="sideBar">
-      
-        </div>
-      )}
 
       <button
         type="button"

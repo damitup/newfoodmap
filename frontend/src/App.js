@@ -12,7 +12,7 @@ import './styles/components/managePage.css';
 import './styles/DetailPage.css';
 
 // Page import
-import MapPage from './pages/map/MainMap.js';
+import MainMap from './pages/map/MainMap.js'
 import LoginPage from './pages/login/LogInPage.js';
 import RegistUserPage from './pages/login/RegistUserPage.js';
 import TabMenu from './components/TabMenu.js';
@@ -48,18 +48,10 @@ function Layout() {
       <div style={{ flex: 1 }}>
         <Routes>
           {/* 일반 페이지  */}
-          <Route path="/" element={<MapPage />} />
+          <Route path="/" element={<MainMap selectedTab={selectedTab}/>} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/regist" element={<RegistUserPage />} />
           <Route path="/manage" element={<ManagePage />} />
-
-          {/* 사이드바 관련 라우트 */}
-          {/* <Route path="/sidebar/search" element={<BarSearch />} />
-          <Route path="/sidebar/clean" element={<BarClean />} />
-          <Route path="/sidebar/mypage" element={<BarMy />} />
-          <Route path="/sidebar/penal" element={<BarPenal />} />
-          <Route path="/sidebar/best" element={<BarBest />} />
-          <Route path="/detail/:idx" element={<DetailPage />} /> */}
 
           {/* 지도 페이지 */}
           <Route path="/map/bests" element={<BestRestaurantsMapPage/>}></Route>

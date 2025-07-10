@@ -101,8 +101,6 @@
   display: flex;
   flex-direction: column;
   gap: 5px;
-
-
 }
 
 
@@ -115,6 +113,10 @@
     gap: 10px;
     justify-content: flex-start;
     align-items: flex-end;
+}
+.oldAddr{
+    font-size: 10px;
+    color: #aaa;
 }
 
 .sidebar .section .gradeIcon{

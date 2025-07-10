@@ -8,7 +8,7 @@ import { getBestOverlayContent } from "./BestRestaurantOverlay";
 const BestRestaurantMap = () => {
   const mapRef = useRef(null);
   const [currentOverlay, setCurrentOverlay] = useState(null);
-  const { data: positions } = useRestaurants("/map/best-restaurants");
+  const { data: positions } = useRestaurants("/bests");
 
   useEffect(() => {
     if (!window.kakao) return;

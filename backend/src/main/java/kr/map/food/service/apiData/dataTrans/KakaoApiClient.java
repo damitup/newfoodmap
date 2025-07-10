@@ -11,6 +11,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import kr.map.food.config.ApiKeyConfig;
+
 import kr.map.food.domain.apiData.restaurant.RestaurantKakaoAddressDTO;
 
 public class KakaoApiClient {
@@ -72,5 +73,46 @@ public class KakaoApiClient {
         }
 
     }
+
+
+    public static String fetchRoadAddressOnly(String address) {
     
+        try {
+            String apiKey = ApiKeyConfig.KAKAO_REST_API_KEY;
+            String apiUrl = "https://dapi.kakao.com/v2/local/search/address.json?query=" 
+                        + URLEncoder.encode(address, StandardCharsets.UTF_8);
+
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(apiUrl))
+                .header("Authorization", apiKey)
+                .GET()
+                .build();
+
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        
+            JSONObject json = new JSONObject(response.body());
+            JSONArray documents = json.getJSONArray("documents");
+
+            if (documents.isEmpty()) return null;
+
+            JSONObject first = documents.getJSONObject(0);
+            JSONObject road = first.optJSONObject("road_address");
+
+            if (road != null) {
+            return road.optString("address_name");
+            }
+
+            return null;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    
+
+
+
 }

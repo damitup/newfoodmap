@@ -26,6 +26,7 @@
         FROM RESTAURANT r
         INNER JOIN BESTRESTAURANT b
             ON r.RESIDX = b.RESIDX
+        WHERE r.RESRUN = 1;
     </select>
 
     <select id="findByIdBest" parameterType="String" resultType="kr.map.food.domain.mapInfo.RestaurantDTO">

@@ -31,28 +31,28 @@ public class PenaltyFilterService {
 
 
 
-    public List<PenaltyFilteredDTO> filterdData(List<PenaltyRawDTO> rawList) {
-        List<PenaltyFilteredDTO> result = new ArrayList<>();
+    // public List<PenaltyFilteredDTO> filterdData(List<PenaltyRawDTO> rawList) {
+    //     List<PenaltyFilteredDTO> result = new ArrayList<>();
 
-        for (PenaltyRawDTO raw : rawList) {
-            if(!isValidCategory(raw.getSNT_UPTAE_NM())) continue;
-            if(isExcludedBizType(raw.getSNT_COB_NM())) continue;
+    //     for (PenaltyRawDTO raw : rawList) {
+    //         if(!isValidCategory(raw.getSNT_UPTAE_NM())) continue;
+    //         if(isExcludedBizType(raw.getSNT_COB_NM())) continue;
 
-            PenaltyFilteredDTO dto = new PenaltyFilteredDTO(
-                raw.getUPSO_NM(),
-                raw.getSNT_COB_NM(),
-                raw.getSNT_UPTAE_NM(),
-                raw.getSITE_ADDR(),
-                raw.getSITE_ADDR_RD(),
-                raw.getVIOL_CN()
+    //         PenaltyFilteredDTO dto = new PenaltyFilteredDTO(
+    //             raw.getUPSO_NM(),
+    //             raw.getSNT_COB_NM(),
+    //             raw.getSNT_UPTAE_NM(),
+    //             raw.getSITE_ADDR(),
+    //             raw.getSITE_ADDR_RD(),
+    //             raw.getVIOL_CN()
 
-            );
+    //         );
 
-            result.add(dto);
-        }
+    //         result.add(dto);
+    //     }
 
-        return result;
-    }
+    //     return result;
+    // }
 
     private boolean isValidCategory(String categoryName) {
         return categoryName != null && categoryNames.contains(categoryName.trim());

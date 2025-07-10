@@ -20,8 +20,7 @@ export function createMarkerWithOverlay(map, pos, overlayContentHtml, onOverlayO
 
   content.querySelector(".close").addEventListener("click", () => {
     overlay.setMap(null);
-    onOverlayOpen(null);
   });
 
-  return overlay;
+  return {marker, overlay};
 }

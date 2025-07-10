@@ -54,8 +54,8 @@ function Layout() {
           <Route path="/manage" element={<ManagePage />} />
 
           {/* 지도 페이지 */}
-          <Route path="/map/bests" element={<BestRestaurantsMapPage/>}></Route>
-          <Route path="/map/restaurants" element={<RestaurantsMapPage/>}></Route>
+          {/* <Route path="/map/bests" element={<BestRestaurantsMapPage/>}></Route>
+          <Route path="/map/restaurants" element={<RestaurantsMapPage/>}></Route> */}
         </Routes>
       </div>
     </div>

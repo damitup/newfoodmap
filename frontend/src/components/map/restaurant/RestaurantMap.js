@@ -8,7 +8,7 @@ import { getOverlayContent } from "./RestaurantOverlay";
 const RestaurantMap = () => {
   const mapRef = useRef(null);
   const [currentOverlay, setCurrentOverlay] = useState(null);
-  const { data: positions } = useRestaurants("/map/restaurants");
+  const { data: positions } = useRestaurants("/restaurants");
 
   useEffect(() => {
     console.log("positions 데이터:", positions);

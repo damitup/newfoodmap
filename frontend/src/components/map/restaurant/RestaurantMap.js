@@ -8,7 +8,7 @@ import { getOverlayContent } from "./RestaurantOverlay";
 const RestaurantMap = () => {
   const mapRef = useRef(null);
   const [currentOverlay, setCurrentOverlay] = useState(null);
-  const { data: positions } = useRestaurants("/restaurants");
+  const { data: positions } = useRestaurants("/map/restaurants");
 
   useEffect(() => {
     console.log("positions 데이터:", positions);
@@ -20,12 +20,12 @@ const RestaurantMap = () => {
       return;
     }
     
-    if (positions.length === 0) {
-      console.log("아직 데이터 없음, 마커 생성하지 않음");
-      return;
-    }
-
+    
     createMapWithCurrentPosition(mapRef.current, 3, (map) => {
+      if (positions.length === 0) {
+        console.log("아직 데이터 없음, 마커 생성하지 않음");
+        return;
+      }
       positions.forEach((pos) => {
         console.log("마커", pos.ypos, pos.xpos);
         const overlay = createMarkerWithOverlay(map, pos, getOverlayContent(pos), (newOverlay) => {

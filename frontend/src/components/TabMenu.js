@@ -6,8 +6,7 @@ import BarPenal from '../pages/sideBar/TabPenal';
 import BarMy from '../pages/sideBar/TabMyPage';
 import { Link } from "react-router-dom";
 
-export default function TabMenu() {
-  const [activeTab, setActiveTab] = useState("");
+export default function TabMenu({selectedTab,setSelectedTab}) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const tabItems = [
@@ -18,34 +17,25 @@ export default function TabMenu() {
     { name: "mypage", label: "MY" }
   ];
 
-  const renderActiveComponent = () => {
-    switch (activeTab) {
-      case 'search': return <BarSearch />;
-      case 'best': return <BarBest />;
-      case 'clean': return <BarClean />;
-      case 'penal': return <BarPenal />;
-      case 'mypage': return <BarMy />;
-      default: return <BarSearch/>;
-    }
-  };
 
   const handleTabClick = (name) => {
-    setActiveTab(name);
+    setSelectedTab(name);
     setIsExpanded(true);
   };
 
   const togglePanel = () => {
   const newExpanded = !isExpanded;
   setIsExpanded(newExpanded);
+  setSelectedTab(tabItems[0].name);
 
-  if (newExpanded) {
-    // 패널을 여는 시점에 activeTab이 없으면 기본값 지정
-    if (!activeTab) {
-      setActiveTab(tabItems[0].name);
+  if (newExpanded && !selectedTab) {
+     setSelectedTab(tabItems[0].name);
+    if (!selectedTab) {
+      setSelectedTab(tabItems[0].name);
     }
   } else {
     // 닫을 때는 activeTab 초기화
-    setActiveTab(null);
+    setSelectedTab(null);
   }
 };
 
@@ -68,7 +58,7 @@ export default function TabMenu() {
             className={`tabList ${isExpanded ? '' : 'fold'}`}
             onClick={() => handleTabClick(item.name)}
           >
-            <div className={`tabIcon ${activeTab === item.name ? "active" : ""}`}>
+            <div className={`tabIcon ${selectedTab === item.name ? "active" : ""}`}>
               <span className="tabicon inner icon">
                 <span className="iconinner" aria-hidden="true">
                   <svg viewBox="0 0 62 24" xmlns="http://www.w3.org/2000/svg">
@@ -84,7 +74,7 @@ export default function TabMenu() {
 
       {isExpanded && (
         <div className="sideBar">
-          {renderActiveComponent()}
+      
         </div>
       )}
 

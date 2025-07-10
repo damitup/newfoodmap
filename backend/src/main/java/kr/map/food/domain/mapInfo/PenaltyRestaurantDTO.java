@@ -18,7 +18,6 @@ public class PenaltyRestaurantDTO {
     public double XPOS;
     public double YPOS;
     public String RESCLEANSCORE;
-    public String PENALTYIDX;
-    public String PENALTYCONTENT;
+    public int PENALTYCOUNT;
     
 }

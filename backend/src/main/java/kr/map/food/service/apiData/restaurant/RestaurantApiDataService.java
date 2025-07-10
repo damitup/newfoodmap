@@ -12,21 +12,23 @@ import kr.map.food.mapper.apiData.RestaurantApiDataMapper;
 import kr.map.food.service.apiData.dataTrans.AddressTrans;
 import kr.map.food.service.apiData.dataTrans.DataTypeTrans;
 import kr.map.food.service.apiData.dataTrans.FindNullData;
+import kr.map.food.service.apiData.dataTrans.RestaurantTypeTrans;
 import kr.map.food.service.apiData.dataTrans.TelNumTrans;
 
 @Service
 public class RestaurantApiDataService {
-    
+
     private final RestaurantApiCollector collector;
     private final RestaurantApiDataMapper restaurantMapper;
+    private final RestaurantTypeTrans restaurantTypeTrans;
 
-    // properties 공부
     private static final String apiKey = ApiKeyConfig.SEOUL_OPENAPI_KEY;
 ;
 
-    public RestaurantApiDataService( RestaurantApiCollector collector, RestaurantApiDataMapper restaurantMapper ) {
+    public RestaurantApiDataService( RestaurantApiCollector collector, RestaurantApiDataMapper restaurantMapper, RestaurantTypeTrans restaurantTypeTrans ) {
         this.collector = collector;
         this.restaurantMapper = restaurantMapper;
+        this.restaurantTypeTrans = restaurantTypeTrans;
     }
 
     public void collectAllGuData() {
@@ -40,7 +42,18 @@ public class RestaurantApiDataService {
                     continue;
                 }
 
-                RestaurantApiDTO dto = buildRestaurant(raw);
+                // 업태구분idx
+                Integer TYPEIDX = restaurantTypeTrans.getTypeIdx( raw.getUPTAENM() );
+                if ( TYPEIDX == null ) {
+                    continue;
+                }
+                
+                // 폐업 가게 찾기
+                if ( !"1".equals(raw.getDTLSTATEGBN()) ) {
+                    continue;
+                }
+
+                RestaurantApiDTO dto = buildRestaurant(raw, TYPEIDX);
 
                 // 주소 가공
                 if ( FindNullData.isEmpty( raw.getSITEWHLADDR() ) 
@@ -54,19 +67,19 @@ public class RestaurantApiDataService {
                 // 전화번호 가공
                 TelNumTrans.setTelNum( dto.getRESNUM() );
 
-                // restaurantMapper.insertRestaurant(dto);
+                restaurantMapper.insertRestaurant(dto);
 
             }
         }
     }
 
-    private RestaurantApiDTO buildRestaurant(RestaurantRawDTO raw) {
+    private RestaurantApiDTO buildRestaurant(RestaurantRawDTO raw, Integer TYPEIDX) {
         RestaurantApiDTO r = new RestaurantApiDTO();
         r.setRESIDX(raw.getMGTNO());
         r.setRESNAME(raw.getBPLCNM());
-        r.setRESRUN(DataTypeTrans.parseIntSafe(raw.getDTLSTATEGBN()));
+        r.setRESRUN(1);
         r.setRESNUM(raw.getSITETEL());
-        r.setTYPEIDX(1); // 업태구분은 임시
+        r.setTYPEIDX(TYPEIDX);
         r.setRESCLEANSCORE(raw.getLVSENM());
         r.setOLDADDR(raw.getSITEWHLADDR());
         r.setNEWADDR(raw.getRDNWHLADDR());

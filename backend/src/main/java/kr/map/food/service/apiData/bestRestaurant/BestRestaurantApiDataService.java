@@ -39,7 +39,7 @@ public class BestRestaurantApiDataService {
 
                 BestRestaurantApiDTO dto = buildRestaurant( raw );
 
-                //bestRestaurantMapper.insertBestRestaurant(dto);
+                bestRestaurantMapper.insertBestRestaurant(dto);
             }
 
         }

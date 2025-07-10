@@ -11,9 +11,9 @@
             UPSONM,
             SITEADDR,
             ASSIGNGRADE,
-            ASSIGNYEAR,
-            CLDELYN
+            ASSIGNYEAR
         FROM CLEANGRADE
+        WHERE CLDELYN = 'N';
     </select>
 
     <select id="findByCleanIdx" parameterType="String" resultType="kr.map.food.domain.mapInfo.CleanGradeMapDTO">
@@ -22,8 +22,7 @@
             UPSONM,
             SITEADDR,
             ASSIGNGRADE,
-            ASSIGNYEAR,
-            CLDELYN
+            ASSIGNYEAR
         FROM CLEANGRADE
         WHERE
             CLEANIDX = #{CLEANIDX}

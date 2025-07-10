@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 import kr.map.food.config.ApiKeyConfig;
 import kr.map.food.domain.apiData.penaltyRestaurant.PenaltyFilteredDTO;
 import kr.map.food.domain.apiData.penaltyRestaurant.PenaltyGuApiInfoENUM;
-import kr.map.food.domain.apiData.penaltyRestaurant.PenaltyKakaoAddrDTO;
+
 import kr.map.food.domain.apiData.penaltyRestaurant.PenaltyRawDTO;
-import kr.map.food.service.apiData.dataTrans.AddressTrans;
+
 import kr.map.food.service.apiData.dataTrans.FindNullData;
 import kr.map.food.service.apiData.dataTrans.KakaoApiClient;
 
@@ -45,22 +45,16 @@ public class PenaltyApiDataService {
 
                 PenaltyFilteredDTO dto = filteredList.get(0);
 
-                // 주소 보완 (도로명, X, Y가 없을 경우)
-                if (FindNullData.isEmpty(dto.getROADADDR()) 
-                    || FindNullData.isEmpty(dto.getPXPOS()) 
-                    || FindNullData.isEmpty(dto.getPYPOS())) {
+                // 주소 보완 (도로명 없을 경우)
+                if (FindNullData.isEmpty(dto.getROADADDR())) {
+                    String queryAddress = dto.getSITEADDR(); // 지번주소 사용
 
-                    String queryAddress = !FindNullData.isEmpty(dto.getROADADDR()) 
-                        ? dto.getROADADDR() 
-                        : dto.getSITEADDR(); // 지번 주소 우선
-
-                    
-                    PenaltyKakaoAddrDTO kakaoInfo = KakaoApiClient.searchAddrForPenalty(queryAddress);
-
-                    if (kakaoInfo != null) {
-                        AddressTrans.applyKakaoInfoToPenaltyDTO(kakaoInfo, dto);
+                    if (!FindNullData.isEmpty(queryAddress)) {
+                        String roadAddr = KakaoApiClient.fetchRoadAddressOnly(queryAddress);
+                        if (roadAddr != null) {
+                            dto.setROADADDR(roadAddr);
+                        }
                     }
-
                 }
                 finalResult.add(dto);
             }

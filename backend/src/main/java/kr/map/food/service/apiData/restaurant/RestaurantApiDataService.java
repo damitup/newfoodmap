@@ -42,17 +42,17 @@ public class RestaurantApiDataService {
                     continue;
                 }
 
+                // 폐업 가게 찾기
+                if ( !"1".equals(raw.getDTLSTATEGBN()) ) {
+                    continue;
+                }
+                
                 // 업태구분idx
                 Integer TYPEIDX = restaurantTypeTrans.getTypeIdx( raw.getUPTAENM() );
                 if ( TYPEIDX == null ) {
                     continue;
                 }
                 
-                // 폐업 가게 찾기
-                if ( !"1".equals(raw.getDTLSTATEGBN()) ) {
-                    continue;
-                }
-
                 RestaurantApiDTO dto = buildRestaurant(raw, TYPEIDX);
 
                 // 주소 가공

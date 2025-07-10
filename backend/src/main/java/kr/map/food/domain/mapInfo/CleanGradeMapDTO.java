@@ -10,6 +10,5 @@ public class CleanGradeMapDTO {
     private String SITEADDR;
     private String ASSIGNGRADE;
     private int ASSIGNYEAR;
-    private String CLDELYN;
     
 }

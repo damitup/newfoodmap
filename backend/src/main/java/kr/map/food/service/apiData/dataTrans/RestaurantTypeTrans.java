@@ -14,6 +14,15 @@ public class RestaurantTypeTrans {
     }
 
     public Integer getTypeIdx(String TYPENAME) {
+
+        if ( FindNullData.isEmpty(TYPENAME) ) {
+            TYPENAME = "기타";
+        }
+
+        if ( TYPENAME.equals("회집")) {
+            TYPENAME = "횟집";
+        }
+        
         return restaurantTypeMapper.findTypeIdx(TYPENAME);
     }
     

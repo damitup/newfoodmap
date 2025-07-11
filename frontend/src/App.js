@@ -29,8 +29,12 @@ import BestRestaurantsMapPage from './pages/map/BestRestaurantsMapPage.js';
 function Layout() {
   const location = useLocation();
   const isManagePage = location.pathname === '/manage';
+
+  const isDetailPage = location.pathname.startsWith('./detail');
   const [selectedTab, setSelectedTab] = useState(null);
   const [isExpanded, setIsExpanded] = useState(false);
+
+  
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh' }}>
@@ -52,6 +56,7 @@ function Layout() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/regist" element={<RegistUserPage />} />
           <Route path="/manage" element={<ManagePage />} />
+          <Route path="/detail/:residx" element={<DetailPage/>}/>
 
           {/* 지도 페이지 */}
           {/* <Route path="/map/bests" element={<BestRestaurantsMapPage/>}></Route>

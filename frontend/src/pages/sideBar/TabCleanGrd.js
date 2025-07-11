@@ -51,16 +51,8 @@ export default function TabCleanGrd() {
             <div className="container title">
               <div className={`gradeIcon ${gradeClass}`} />
               <span className="sectionTitle">{item.upsonm}</span>
-              <span className="resType">{item.assigngrade}</span>
-              <button
-                type="button"
-                aria-pressed={!favorite}
-                className={`btn favorite ${favoriteList[index] ? "on" : ""}`}
-                onClick={(e) => {
-                  handlerFavoriteClick(index);
-                  e.stopPropagation();
-                }}
-              />
+              <span className={`grade ${gradeClass}`}>{item.assigngrade}</span>
+              
             </div>
             <span>{item.resnum}</span>
             <span>{item.newaddr}</span>

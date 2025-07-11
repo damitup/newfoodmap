@@ -157,6 +157,7 @@
     font-weight: 600;
     display: flex;
     align-items: flex-end;
+    width: 240px;
 
 }
 .sidebar .section .container.title .resType{
@@ -165,8 +166,8 @@
     display: flex;
     align-items: center;
     text-align: center;
-    width: auto;
-    margin-right: 0px;
+    width: 33px;
+    margin-left: auto;
     height: 100%;
 }
 
@@ -201,24 +202,22 @@
     gap: 0px;
 }
 
-
+.sidebar .section span.grade{
+    font-size: 14px;
+    font-weight: bold;
+    width: 33px;
+}
 
 /* 갑 을 자율 */
 .sidebar .section span.grade.green{
-    font-size: 12px;
-    font-weight: bold;
     color: #1c711c;
 }
 /* 지도 관리 */
 .sidebar .section span.grade.orange{
-    font-size: 12px;
-    font-weight: bold;
     color:  #02b643;
 }
 /* 기타, 공백 */
 .sidebar .section span.grade.gray{
-    font-size: 12px;
-    font-weight: bold;
     color: #aaa;
 }
 .sidebar.tabMypage .myPage{

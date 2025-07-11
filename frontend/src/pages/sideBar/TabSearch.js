@@ -17,6 +17,7 @@ export default function TabSearch({selectedTab}) {
     const userIdx = getCookie("userIdx"); // 사용자 ID
     const isLoggedIn = !!userIdx;
 
+    //사이드바 리스트 생성
     useEffect(() => {
         nomalResFindAll()
             .then((response) => {
@@ -32,29 +33,26 @@ export default function TabSearch({selectedTab}) {
 
 
     useEffect(() => {
-  const fetchFavorites = async () => {
-    if (!isLoggedIn) return;
+    const fetchFavorites = async () => {
+        if (!isLoggedIn) return;
+        const initList = await Promise.all(
+            restaurantList.map(async (item) => {
+                try {
+                    const res = await FavoriteCheck(userIdx, item.residx);
+                    return res.data === true; // ← API에서 true/false 반환한다고 가정
+                } catch (error) {
+                    console.error("즐겨찾기 확인 실패:", item.residx, error);
+                    return false; // 실패한 경우 false 처리
+                }
+            })
+        );
 
-    const initList = await Promise.all(
-      restaurantList.map(async (item) => {
-        try {
-          const res = await FavoriteCheck(userIdx, item.residx);
-          return res.data === true; // ← API에서 true/false 반환한다고 가정
-        } catch (error) {
-          console.error("즐겨찾기 확인 실패:", item.residx, error);
-          return false; // 실패한 경우 false 처리
-        }
-      })
-    );
+        setFavoriteList(initList);
+        console.log(favoriteList);
+    };
 
-    setFavoriteList(initList);
-    console.log(favoriteList);
-  };
-
-  fetchFavorites();
-}, [isLoggedIn, restaurantList, userIdx]);
-
-
+    fetchFavorites();
+    }, [isLoggedIn, restaurantList, userIdx]);
 
     const showOldAddr = (index) => {
         const updated = [...showOldList];
@@ -75,8 +73,6 @@ export default function TabSearch({selectedTab}) {
     updated[idx] = isNowFavorite;
     setFavoriteList(updated);
 
-    console.log("로그들이다. ",userIdx, resIdx,"idx  넌 누구냐",idx);
-    console.log(isNowFavorite);
     try {
         if (isNowFavorite) {
         await addFavorite(userIdx, resIdx);

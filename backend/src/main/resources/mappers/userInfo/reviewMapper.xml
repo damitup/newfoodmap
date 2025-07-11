@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.map.food.mapper.user.ReviewRepository">
+
+<!-- 리뷰 작성 -->
+<insert id="writeReview" parameterType="kr.map.food.dto.ReviewDTO">
+    INSERT INTO REVIEW (USERIDX, RESIDX, CONTENT, WRITEDATE)
+    VALUES (
+        #{userIdx}, #{resIdx}, #{content}, NOW()
+    )
+</insert>
+
+<!-- 가게리뷰 조회-->
+<select id="getReviewsByResidx" parameterType="ReviewDTO" resultType="kr.map.food.dto.ReviewDTO">
+    SELECT 
+        r.REVIEWID,
+        r.USERIDX,
+        u.USERNAME,
+        r.RESIDX,
+        r.CONTENT,
+        r.WRITEDATE
+    FROM REVIEW r
+    JOIN USER u ON r.USERIDX = u.USERIDX
+    WHERE r.RESIDX = #{resIdx}
+    ORDER BY r.WRITEDATE DESC
+</select>
+
+<!-- ✅ 특정 사용자가 작성한 리뷰 조회 -->
+<select id="getReviewsByUserIdx" parameterType="String" resultType="kr.map.food.dto.ReviewDTO">
+    SELECT 
+        r.REVIEWID,
+        r.USERIDX,
+        u.USERNAME,
+        r.RESIDX,
+        r.CONTENT,
+        r.WRITEDATE
+    FROM REVIEW r
+    JOIN USER u ON r.USERIDX = u.USERIDX
+    WHERE r.USERIDX = #{userIdx}
+    ORDER BY r.WRITEDATE DESC
+</select>

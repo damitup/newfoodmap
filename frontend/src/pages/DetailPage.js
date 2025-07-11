@@ -1,86 +1,63 @@
 import { useState, useEffect } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import HeaderPage from '../components/HeaderPage';
+import { getCookie } from '../util/cookie';
+import { writeReview } from '../api/user/userAction';
+
 import {
-    nomalResGoDetail,
-    bestResGoDetail,
-    cleanResGoDetail,
-    penaltyGoDetail
-  } from '../api/map/MapList';
+  nomalResGoDetail,
+  bestResGoDetail,
+  cleanResGoDetail,
+  penaltyGoDetail
+} from '../api/map/MapList';
 
 export default function DetailPage() {
-  const { idx } = useParams(); // residx
+  const { residx } = useParams();
   const location = useLocation();
+  const userIdx = getCookie("userIdx"); // 로그인한 사용자
   const [data, setData] = useState(location.state || null);
+  const [reviewContent, setReviewContent] = useState("");
 
-  useEffect(() => {
-  const changeDetailData = async () => {
+  const handleReviewSubmit = async () => {
+    if (!reviewContent.trim()) {
+      alert("리뷰 내용을 입력해주세요.");
+      return;
+    }
+
     try {
-      if (location.state) {
-        setData(location.state);
-        return;
-      }
-
-      const res1 = await nomalResGoDetail(idx);
-      if (res1.data) return setData(res1.data);
-
-      const res2 = await bestResGoDetail(idx);
-      if (res2.data) return setData(res2.data);
-
-      const res3 = await cleanResGoDetail(idx);
-      if (res3.data) return setData(res3.data);
-
-      const res4 = await penaltyGoDetail(idx);
-      if (res4.data) return setData(res4.data);
-
-      setData(null);
-    } catch (e) {
-      setData(null);
+      await writeReview({ userIdx, resIdx: residx, content: reviewContent });
+      alert("리뷰가 등록되었습니다.");
+      setReviewContent("");
+      // TODO: 등록 후 리뷰 목록 다시 불러오기
+    } catch (err) {
+      console.error("리뷰 등록 실패:", err);
+      alert("리뷰 등록 중 문제가 발생했습니다.");
     }
   };
 
-  changeDetailData();
-}, [idx, location.state]); // 여기 의존성 중요!!
-
-  if (!data) {
-    return <div className="detailPage">정보가 없습니다.</div>;
-  }
-
   return (
     <div>
-      <HeaderPage name={data.resname} />
+      <HeaderPage name={data?.resname} />
       <div className="detailPage">
-        <div className="header">
-          <div className="title">
-            {["우수", "매우우수", "좋음"].includes(data.rescleanscore) && (
-              <div className="gradeIcon best" />
-            )}
-            <span>{data.resname}</span>
-          </div>
-
-          <p className="rating">후기 DB에서 count개</p>
-          <div className="actions">
-            <button onClick={() => window.open(`tel:${data.resnum}`)}>전화</button>
-            <button onClick={() => window.open(`https://map.kakao.com/?q=${data.resname}`)}>길찾기</button>
-            <button onClick={() => navigator.clipboard.writeText(window.location.href)}>공유</button>
-          </div>
-        </div>
-
-        <div className="info">
-          <h3>음식점 정보</h3>
-          <ul>
-            <li><strong>음식 종류:</strong> {data.typeidx || "정보 없음"}</li>
-            <li><strong className="icon map"></strong><strong>주소:</strong> {data.newaddr}</li>
-            <li><strong className="icon call"></strong><strong>전화:</strong> {data.resnum || "정보 없음"}</li>
-            <li><strong className="icon grade"></strong><strong>등급:</strong> {data.rescleanscore || "미지정"}</li>
-          </ul>
-          <strong>음식점 설명</strong>
-          <p className="description">{data.resmaindish || "설명 정보가 없습니다."}</p>
-        </div>
-
-        <div className='line'></div>
+        {/* ... 생략 ... */}
         <div className="reviewSection">
-          <h3>리뷰 (총 개)</h3>
+          <h3>리뷰 (총 <strong>0개</strong>)</h3>
+
+          {/* ✅ 로그인한 사용자만 리뷰 작성 가능 */}
+          {userIdx && (
+            <div className="review Wirte">
+              <p><strong>{userIdx}</strong></p>
+              <textarea
+                id="reviewWrite"
+                value={reviewContent}
+                onChange={(e) => setReviewContent(e.target.value)}
+                placeholder="리뷰를 입력하세요"
+              />
+              <button onClick={handleReviewSubmit}>작성</button>
+            </div>
+          )}
+
+          {/* 기존 리뷰 예시 */}
           <div className="review">
             <p><strong>리뷰작성자이름</strong></p>
             <p>리뷰내용 예시1</p>

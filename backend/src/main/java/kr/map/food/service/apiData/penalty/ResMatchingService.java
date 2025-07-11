@@ -3,6 +3,7 @@ package kr.map.food.service.apiData.penalty;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.map.food.domain.apiData.penaltyRestaurant.PenaltyApiDTO;
 import kr.map.food.domain.apiData.penaltyRestaurant.PenaltyFilteredDTO;
@@ -20,12 +21,31 @@ public class ResMatchingService {
     private final RestaurantApiDataMapper resMapper;
     private final PenaltyApiDataMapper penaltyMapper;
 
-
     public ResMatchingService(RestaurantApiDataMapper resMapper, PenaltyApiDataMapper penaltyMapper) {
         this.resMapper = resMapper;
         this.penaltyMapper = penaltyMapper;
     }
-    
+
+
+    private String newPenaltyIdx() {
+        String lastIdx = penaltyMapper.getLastIdx();
+
+        int lastNum = 1;
+
+        if(lastIdx != null && lastIdx.startsWith("PN")) {
+            try {
+                lastNum = Integer.parseInt(lastIdx.substring(1)) + 1;
+            }
+            catch (NumberFormatException e) {
+                lastNum = 1;
+            }
+        }
+
+        return String.format("PN%06d", lastNum);
+    }
+
+
+
     public void matchAndSave(List<PenaltyFilteredDTO> penaltyList) {
         List<RestaurantApiDTO> allRestaurant = resMapper.selectAll();
 
@@ -34,16 +54,22 @@ public class ResMatchingService {
 
 
             if (match != null) {
+
                 PenaltyApiDTO insert = new PenaltyApiDTO();
+
+                insert.setPENALTYIDX(newPenaltyIdx());
                 insert.setRESIDX(match.getRESIDX());
                 insert.setPENALTYCONTENT(penalty.getPENALTYCONTENT());
+
                 penaltyMapper.insertPenalty(insert);
             }
         }
     }
 
 
+    
 
+    @Transactional
     private RestaurantApiDTO findMatchStore(PenaltyFilteredDTO filteredDTO, List<RestaurantApiDTO> restaurantDTO) {
 
         String pRoad = filteredDTO.getROADADDR();

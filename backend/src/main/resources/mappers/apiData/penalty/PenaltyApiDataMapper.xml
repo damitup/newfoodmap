@@ -13,6 +13,10 @@
   </select>
 
   <select id="selectById" resultType="kr.map.food.domain.apiData.penaltyRestaurant.PenaltyApiDTO">
+    SELECT * FROM PENALTY WHERE PENALTYIDX = #{penaltyidx}
+  </select>
+
+  <select id="selectById" resultType="kr.map.food.domain.apiData.penaltyRestaurant.PenaltyApiDTO">
     SELECT PENALTYIDX FROM PENALTY ORDER BY PENALTYIDX DESC LIMIT 1
   </select>
 

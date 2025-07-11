@@ -16,7 +16,7 @@
     SELECT * FROM PENALTY WHERE PENALTYIDX = #{penaltyidx}
   </select>
 
-  <select id="selectById" resultType="kr.map.food.domain.apiData.penaltyRestaurant.PenaltyApiDTO">
+  <select id="getLastIdx" resultType="string">
     SELECT PENALTYIDX FROM PENALTY ORDER BY PENALTYIDX DESC LIMIT 1
   </select>
 

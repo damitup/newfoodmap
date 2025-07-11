@@ -8,47 +8,49 @@
   <!-- 1. INSERT -->
   <insert id="insertClean" parameterType="kr.map.food.domain.cleanGrade.CleanGradeDTO">
     INSERT INTO cleangrade (
-      CLEANIDX, UPSONM, SITEADDR, ASSIGNGRADE, ASSIGNYEAR, delYN
-    ) VALUES (
-      #{cleanIdx}, #{upsoNm}, #{siteAddr}, #{assignGrade}, #{assignYear}, #{delYN}
+      CLIDX, CLNAME, ASSIGNGRADE, ASSIGNYEAR, ADDRGU, ADDRDONG, OLDADDR, NEWADDR, NUMADDR, XPOS, YPOS, DELYN
+    ) 
+    VALUES (
+      #{CLIDX}, #{CLNAME}, #{ASSIGNGRADE}, #{ASSIGNYEAR}, #{ADDRGU}, #{ADDRDONG}, #{OLDADDR}, #{NEWADDR}, #{NUMADDR}, #{XPOS}, #{YPOS}, #{DELYN}
     )
   </insert>
 
   <!-- 2. 중복 확인 -->
   <select id="existsClean" parameterType="kr.map.food.domain.cleanGrade.CleanGradeDTO" resultType="int">
-    SELECT COUNT(*) FROM cleangrade
-    WHERE upsoNm = #{upsoNm}
+    SELECT COUNT(*) FROM CLEANGRADE
+    WHERE CLNAME = #{CLNAME}
       AND siteAddr = #{siteAddr}
-      AND assignYear = #{assignYear}
+      AND ASSIGNYEAR = #{ASSIGNYEAR}
   </select>
 
   <!-- 3. 전체를 clDelYn = 'Y' 처리 -->
   <update id="markAllDeleted">
-    UPDATE cleangrade SET clDelYn = 'Y'
+    UPDATE CLEANGRADE 
+    SET DELYN = 'Y'
   </update>
 
   <!-- 4. 해당 데이터 clDelYn = 'N' 으로 복원 -->
   <update id="markAlive" parameterType="kr.map.food.domain.cleanGrade.CleanGradeDTO">
-    UPDATE cleangrade
+    UPDATE CLEANGRADE
     SET clDelYn = 'N'
-    WHERE upsoNm = #{upsoNm}
-      AND siteAddr = #{siteAddr}
-      AND assignGrade = #{assignGrade}
-      AND assignYear = #{assignYear}
+    WHERE CLNAME = #{CLNAME}
+      AND NEWADDR = #{NEWADDR}        <!-- 수정 필요 -->
+      AND ASSIGNYEAR = #{ASSIGNYEAR}
   </update>
 
   <!-- 5. 가장 큰 CLEANIDX 가져오기 -->
   <select id="getMaxCleanIdx" resultType="String">
-    SELECT MAX(CLEANIDX) FROM cleangrade
+    SELECT MAX(CLIDX) FROM CLEANGRADE
   </select>
 
     <!-- 6. Update 지정등급 변경된 업소 -->
-    <select id="updateClean" parameterType="kr.map.food.domain.cleanGrade.CleanGradeDTO">
-    UPDATE cleangrade
-    SET assignGrade = #{assignGrade},
-        clDelYn = 'N',
-    WHERE upsoNm = #{upsoNm}
-    AND siteAddr = #{siteAddr}
-    AND assignYear = #{assignYear}
-    </select>
+  <update id="updateClean" parameterType="kr.map.food.domain.cleanGrade.CleanGradeDTO">
+    UPDATE CLEANGRADE
+    SET ASSIGNGRADE = #{ASSIGNGRADE},
+        DELYN = 'N'
+    WHERE CLNAME = #{CLNAME}
+      AND NEWADDR = #{NEWADDR}
+      AND ASSIGNYEAR = #{ASSIGNYEAR}
+  </update>
+
 </mapper>

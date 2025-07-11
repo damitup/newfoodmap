@@ -41,7 +41,7 @@ public class CleanGradeServiceImpl {
             if(mapper.existsClean(dto) > 0) {
                 mapper.updateClean(dto);
             } else {
-                dto.setCleanIdx(generateNextCleanIdx());
+                dto.setCLIDX(generateNextCleanIdx());
                 mapper.insertClean(dto);
             }
         }
@@ -51,6 +51,6 @@ public class CleanGradeServiceImpl {
         String max = mapper.getMaxCleanIdx();
         int next = (max != null) ? Integer.parseInt(max) + 1 : 1;
 
-        return String.format("%05d", next);
+        return String.format("%06d", next);
     }
 }

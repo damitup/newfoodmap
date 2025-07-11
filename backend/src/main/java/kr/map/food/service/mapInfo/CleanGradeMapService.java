@@ -18,8 +18,8 @@ public class CleanGradeMapService {
         return cleanGradeMapMapper.findAllCleanGrade();
     }
 
-    public CleanGradeMapDTO getCleanGradeById(String CLEANIDX) {
-        return cleanGradeMapMapper.findByCleanIdx(CLEANIDX);
+    public CleanGradeMapDTO getCleanGradeById(String CLIDX) {
+        return cleanGradeMapMapper.findByCleanIdx(CLIDX);
     }
     
 }

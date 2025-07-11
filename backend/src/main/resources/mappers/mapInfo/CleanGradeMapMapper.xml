@@ -8,10 +8,17 @@
     <select id="findAllCleanGrade" resultType="kr.map.food.domain.mapInfo.CleanGradeMapDTO">
         SELECT
             CLEANIDX,
-            UPSONM,
-            SITEADDR,
+            CLNAME,
             ASSIGNGRADE,
-            ASSIGNYEAR
+            ASSIGNYEAR,
+            ADDRGU,
+            ADDRDONG,
+            OLDADDR,
+            NEWADDR,
+            NUMADDR,
+            XPOS,
+            YPOS,
+            DELYN
         FROM CLEANGRADE
         WHERE CLDELYN = 'N';
     </select>
@@ -19,10 +26,17 @@
     <select id="findByCleanIdx" parameterType="String" resultType="kr.map.food.domain.mapInfo.CleanGradeMapDTO">
         SELECT
             CLEANIDX,
-            UPSONM,
-            SITEADDR,
+            CLNAME,
             ASSIGNGRADE,
-            ASSIGNYEAR
+            ASSIGNYEAR,
+            ADDRGU,
+            ADDRDONG,
+            OLDADDR,
+            NEWADDR,
+            NUMADDR,
+            XPOS,
+            YPOS,
+            DELYN
         FROM CLEANGRADE
         WHERE
             CLEANIDX = #{CLEANIDX}

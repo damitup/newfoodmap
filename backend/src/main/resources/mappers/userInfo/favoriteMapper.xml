@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.map.food.mapper.user.FavoriteRepository">
+
+    <insert id="insertFavorite" parameterType="kr.map.food.domain.user.FavoriteDTO">
+        INSERT INTO FAVORITE (RESIDX, USERIDX)
+        VALUES (#{resIdx},#{userIdx})
+    </insert>
+
+    <delete id="deleteFavorite" parameterType="kr.map.food.domain.user.FavoriteDTO">
+        DELETE FROM FAVORITE
+        WHERE USERIDX = #{userIdx}
+          AND RESIDX = #{resIdx}
+    </delete>
+
+    <select id="isFavorite" parameterType="kr.map.food.domain.user.FavoriteDTO" resultType="boolean">
+        SELECT COUNT(*) > 0
+        FROM FAVORITE
+        WHERE USERIDX = #{userIdx}
+          AND RESIDX = #{resIdx}
+    </select>
+
+</mapper>

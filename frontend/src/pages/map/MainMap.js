@@ -2,7 +2,7 @@ import { useRef, useEffect } from "react";
 import useRestaurants from "../../hooks/map/RestaurantsHook";
 import { createMarkerWithOverlay } from "../../utils/mapUtils/CreateMarker";
 import { getOverlayContent } from "../../components/map/restaurant/RestaurantOverlay";
-import { mpabtn} from "../map/MapBtn";
+import  MapBtn from "./MapBtn";
 
 export default function MainMap({ selectedTab }) {
   const mapRef = useRef(null);
@@ -20,6 +20,7 @@ export default function MainMap({ selectedTab }) {
 
   // ✅ 지도 초기 생성
   useEffect(() => {
+    const container = document.getElementById('map');
     if (!window.kakao || !mapRef.current) return;
 
     const map = new window.kakao.maps.Map(mapRef.current, {
@@ -59,21 +60,22 @@ export default function MainMap({ selectedTab }) {
       오버레이관리.push(overlay);
     });
 
-
     // ✅ cleanup
     return () => {
-
+      
       오버레이관리.forEach(overlay => overlay.setMap(null));
       마커관리.forEach(marker => marker.setMap(null));
-
-
+      
+      
     };
   }, [data, selectedTab]);
+  console.log( "현재위치 " ,mapRef.current);
 
   return ( 
   
     <div style={{ position: "relative", width: "100%", height: "900px" }}>
       <div ref={mapRef} style={{ width: "100%", height: "100%" }} />
+      
       <MapBtn /> {/* ✅ 지도 위에 겹쳐짐 */}
     </div>
     );

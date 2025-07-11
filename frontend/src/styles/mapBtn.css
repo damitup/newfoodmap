@@ -28,7 +28,7 @@
 
 .mapBtnPage .btn.login{
      position: absolute;
-    top: 0px;
+    top: 10px;
     right: -10px;
     z-index: 10;
     width: 69px;
@@ -51,4 +51,24 @@
 }
 .mapBtnPage .btn.login:hover{
 color: rgba(31, 140, 255, .6);
+}
+.mapBtnPage .rightView{
+    display:flex;
+    flex-direction: column;
+    position: absolute;
+    right: 10px;
+    top : 200px;
+    z-index: 10;;
+}
+.mapBtnPage .rightView .setMyPos{
+    display: block;
+    position: relative;
+    width: 32px;
+    height: 32px;
+    padding: 1px 3px 5px;
+    background-color: #fff;
+    border-radius: 2px;
+    background-image: url("../assets/icon/kakaomapicon.png");
+    background-repeat: no-repeat;
+    background-position:   -150px -450px;
 }

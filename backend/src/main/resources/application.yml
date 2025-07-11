@@ -16,3 +16,9 @@ clean:
 
 clean-test:
   excel-path: excel/clean_grade_test.xlsx
+
+logging:
+  level:
+    kr.map.food.mapper: DEBUG
+    org.mybatis: DEBUG
+    jdbc.sqlonly: DEBUG

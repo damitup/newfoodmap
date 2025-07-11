@@ -10,6 +10,11 @@ const BestRestaurantMap = () => {
   const [currentOverlay, setCurrentOverlay] = useState(null);
   const { data: positions } = useRestaurants("/bests");
 
+  const userIdx = localStorage.getItem("userIdx"); // 또는 Cookie 등에서 가져올 수도 있음
+  const isLoggedIn = !!userIdx;
+
+
+  
   
   useEffect(() => {
     if (!window.kakao) return;

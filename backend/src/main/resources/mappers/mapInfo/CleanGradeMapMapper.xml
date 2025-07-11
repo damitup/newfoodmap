@@ -20,7 +20,7 @@
             YPOS,
             DELYN
         FROM CLEANGRADE
-        WHERE CLDELYN = 'N';
+        WHERE DELYN = 'N';
     </select>
 
     <select id="findByCleanIdx" parameterType="String" resultType="kr.map.food.domain.mapInfo.CleanGradeMapDTO">

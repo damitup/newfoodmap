@@ -12,7 +12,7 @@ import kr.map.food.service.stats.RestaurantCountService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/stats/restaurants")
+@RequestMapping("/api/stats")
 @RequiredArgsConstructor
 public class RestaurantCountController {
 

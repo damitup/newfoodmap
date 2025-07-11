@@ -68,24 +68,5 @@ public class AddressTrans {
     }
 
 
-    public static void applyKakaoInfoToPenaltyDTO(PenaltyKakaoAddrDTO kakaoInfo, PenaltyFilteredDTO dto) {
-
-        if (kakaoInfo == null || dto == null) return;
-
-        if(FindNullData.isEmpty(dto.getROADADDR()) && kakaoInfo.getRoadAddress() != null) {
-            dto.setROADADDR(kakaoInfo.getRoadAddress());
-        }
-
-        if(FindNullData.isEmpty(dto.getSITEADDR()) && kakaoInfo.getJibunAddress() != null) {
-            dto.setSITEADDR(kakaoInfo.getJibunAddress());
-        }
-
-        if(FindNullData.isEmpty(dto.getPXPOS()) && kakaoInfo.getLongitude() != null) {
-            dto.setPXPOS(String.valueOf(kakaoInfo.getLongitude()));
-        }
-        
-        if(FindNullData.isEmpty(dto.getPYPOS()) && kakaoInfo.getLatitude() != null) {
-            dto.setPYPOS(String.valueOf(kakaoInfo.getLatitude()));
-        }
-    }
+    
 }    

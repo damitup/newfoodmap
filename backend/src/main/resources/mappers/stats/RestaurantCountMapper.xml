@@ -7,16 +7,25 @@
 
     <select id="findAllRestaurantsCount" parameterType="String" resultType="kr.map.food.domain.stats.RestaurantCountDTO">
         SELECT
-            ADDRDONG,
-            COUNT(*) AS TOTALCOUNT
+            r.ADDRDONG,
+            COUNT(*) AS totalRestaurantCount,
+            COUNT(DISTINCT br.RESIDX) AS bestRestaurantCount,
+            COUNT(DISTINCT CASE WHEN p.PENALTYIDX IS NOT NULL THEN r.RESIDX END) AS penaltyRestaurantCount,
+            COUNT(p.PENALTYIDX) AS penaltyCount
         FROM
-            RESTAURANT
+            RESTAURANT r
+        LEFT JOIN
+            BESTRESTAURANT br
+            ON r.RESIDX = br.RESIDX
+        LEFT JOIN
+            PENALTY p
+            ON r.RESIDX = p.RESIDX
         WHERE
-            ADDRGU = #{ADDRGU}
+            r.ADDRGU = #{ADDRGU}
         GROUP BY
-            ADDRDONG
+            r.ADDRDONG
         ORDER BY
-            ADDRDONG;
+            r.ADDRDONG
     </select>
 
 </mapper>

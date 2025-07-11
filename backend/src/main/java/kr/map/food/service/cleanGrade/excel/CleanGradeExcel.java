@@ -1,6 +1,9 @@
 package kr.map.food.service.cleanGrade.excel;
 
+import kr.map.food.domain.apiData.restaurant.RestaurantKakaoAddressDTO;
 import kr.map.food.domain.cleanGrade.CleanGradeDTO;
+import kr.map.food.service.apiData.dataTrans.AddressTrans;
+import kr.map.food.service.apiData.dataTrans.KakaoApiClient;
 import lombok.RequiredArgsConstructor;
 
 import java.io.InputStream;
@@ -28,24 +31,35 @@ public class CleanGradeExcel {
 
             if(row == null) continue;
 
-            String upsoNm = getCellValue(row.getCell(1));
-            String siteAddr = getCellValue(row.getCell(2));
-            String assignGrade = getCellValue(row.getCell(3));
+            String CLNAME = getCellValue(row.getCell(1));
+            String rawAddress = getCellValue(row.getCell(2));
+            String ASSIGNGRAD = getCellValue(row.getCell(3));
             String assignDate = getCellValue(row.getCell(5));
 
-            if(!siteAddr.startsWith("서울특별시")) continue;
+            if(!rawAddress.startsWith("서울특별시")) continue;
 
-            int assignYear = 0;
+            int ASSIGNYEAR = 0;
             if (assignDate != null && assignDate.length() >= 4) {
-                assignYear = Integer.parseInt(assignDate.substring(0, 4));
+                ASSIGNYEAR = Integer.parseInt(assignDate.substring(0, 4));
             }
 
+            RestaurantKakaoAddressDTO kakaoInfo = KakaoApiClient.searchAddress(rawAddress);
+
             CleanGradeDTO dto = new CleanGradeDTO();
-            dto.setUpsoNm(upsoNm);
-            dto.setSiteAddr(siteAddr);
-            dto.setAssignGrade(assignGrade);
-            dto.setAssignYear(assignYear);
-            dto.setClDelYn("N");
+            
+                dto.setCLNAME(CLNAME);
+                dto.setASSIGNGRADE(ASSIGNGRAD);
+                dto.setASSIGNYEAR(ASSIGNYEAR);
+
+                dto.setOLDADDR(kakaoInfo.getJibunAddress());
+                dto.setNEWADDR(kakaoInfo.getRoadAddress());
+                dto.setADDRGU(kakaoInfo.getGu());
+                dto.setADDRDONG(kakaoInfo.getDong());
+                dto.setNUMADDR(kakaoInfo.getPostCode());
+                dto.setXPOS(kakaoInfo.getLongitude());
+                dto.setYPOS(kakaoInfo.getLatitude());
+
+                dto.setDELYN("N");
 
             list.add(dto);
         }

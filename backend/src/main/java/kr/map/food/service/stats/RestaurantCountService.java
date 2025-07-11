@@ -15,7 +15,22 @@ public class RestaurantCountService {
     public final RestaurantCountMapper restaurantCountMapper;
 
     public List<RestaurantCountDTO> getAllRestaurantsCount(String ADDRGU) {
-        return restaurantCountMapper.findAllRestaurantsCount(ADDRGU);
+        List<RestaurantCountDTO> list = restaurantCountMapper.findAllRestaurantsCount(ADDRGU);
+        calculateAvgPerRestaurant(list);
+        return list;
+    }
+
+    private void calculateAvgPerRestaurant(List<RestaurantCountDTO> list) {
+        for (RestaurantCountDTO dto : list) {
+            if (dto.getPenaltyRestaurantCount() > 0) {
+                dto.setAvgPenaltyPerRestaurant(
+                    (double) dto.getPenaltyCount() / dto.getPenaltyRestaurantCount()
+                );
+            } 
+            else {
+                dto.setAvgPenaltyPerRestaurant(0.0);
+            }
+        }
     }
     
 }

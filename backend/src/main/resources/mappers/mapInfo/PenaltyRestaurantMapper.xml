@@ -20,7 +20,7 @@
             r.NUMADDR,
             r.XPOS,
             r.YPOS,
-            COUNT(p.RESIDX) AS PENALTYCOUNT
+            COUNT(p.PENALTYIDX) AS PENALTYCOUNT
         FROM RESTAURANT r
         INNER JOIN PENALTY p
             ON r.RESIDX = p.RESIDX
@@ -44,7 +44,7 @@
             r.NUMADDR,
             r.XPOS,
             r.YPOS,
-            COUNT(p.RESIDX) AS PENALTYCOUNT
+            COUNT(p.PENALTYIDX) AS PENALTYCOUNT
         FROM RESTAURANT r
         INNER JOIN PENALTY p
             ON r.RESIDX = p.RESIDX

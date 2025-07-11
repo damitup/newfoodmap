@@ -2,6 +2,7 @@ import { useRef, useEffect } from "react";
 import useRestaurants from "../../hooks/map/RestaurantsHook";
 import { createMarkerWithOverlay } from "../../utils/mapUtils/CreateMarker";
 import { getOverlayContent } from "../../components/map/restaurant/RestaurantOverlay";
+import { mpabtn} from "../map/MapBtn";
 
 export default function MainMap({ selectedTab }) {
   const mapRef = useRef(null);
@@ -69,5 +70,11 @@ export default function MainMap({ selectedTab }) {
     };
   }, [data, selectedTab]);
 
-  return <div ref={mapRef} style={{ width: "100%", height: "900px" }} />;
+  return ( 
+  
+    <div style={{ position: "relative", width: "100%", height: "900px" }}>
+      <div ref={mapRef} style={{ width: "100%", height: "100%" }} />
+      <MapBtn /> {/* ✅ 지도 위에 겹쳐짐 */}
+    </div>
+    );
 }

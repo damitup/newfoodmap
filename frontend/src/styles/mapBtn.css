@@ -4,6 +4,7 @@
     margin: 0;
     padding: 0;
     background-color: #ddd;
+    z-index: 1000;
 
 }
 .container {

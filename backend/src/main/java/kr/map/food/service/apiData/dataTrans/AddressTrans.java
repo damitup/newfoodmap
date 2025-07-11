@@ -1,7 +1,6 @@
 package kr.map.food.service.apiData.dataTrans;
 
 import kr.map.food.domain.apiData.penaltyRestaurant.PenaltyFilteredDTO;
-import kr.map.food.domain.apiData.penaltyRestaurant.PenaltyKakaoAddrDTO;
 import kr.map.food.domain.apiData.restaurant.RestaurantApiDTO;
 import kr.map.food.domain.apiData.restaurant.RestaurantKakaoAddressDTO;
 import kr.map.food.domain.apiData.restaurant.RestaurantRawDTO;

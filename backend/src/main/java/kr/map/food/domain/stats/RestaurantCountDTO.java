@@ -6,9 +6,10 @@ import lombok.Data;
 public class RestaurantCountDTO {
 
     private String ADDRDONG;
-    private int totalCount;
-    // private int bestCount;
-    // private int penaltyCount;
-    // private int totalPenaltyCount;
+    private int totalRestaurantCount;
+    private int bestRestaurantCount;
+    private int penaltyRestaurantCount;
+    private int penaltyCount;
+    private double avgPenaltyPerRestaurant;
     
 }

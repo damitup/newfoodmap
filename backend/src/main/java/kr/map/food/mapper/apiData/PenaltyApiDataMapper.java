@@ -14,4 +14,5 @@ public interface PenaltyApiDataMapper {
 
     List<PenaltyApiDTO> selectAll();
 
+    PenaltyApiDTO selectById(String PENALTYIDX);
 }

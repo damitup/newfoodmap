@@ -46,7 +46,7 @@ public class CleanGradeExcel {
             RestaurantKakaoAddressDTO kakaoInfo = KakaoApiClient.searchAddress(rawAddress);
 
             CleanGradeDTO dto = new CleanGradeDTO();
-
+            
                 dto.setCLNAME(CLNAME);
                 dto.setASSIGNGRADE(ASSIGNGRAD);
                 dto.setASSIGNYEAR(ASSIGNYEAR);

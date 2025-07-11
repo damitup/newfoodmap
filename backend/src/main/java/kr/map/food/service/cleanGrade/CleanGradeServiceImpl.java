@@ -49,8 +49,17 @@ public class CleanGradeServiceImpl {
 
     private String generateNextCleanIdx() {
         String max = mapper.getMaxCleanIdx();
-        int next = (max != null) ? Integer.parseInt(max) + 1 : 1;
+        int nextNumber;
 
-        return String.format("%06d", next);
+        if (max != null && max.startsWith("CL")) {
+            // max: "CL000123"
+            String numberPart = max.substring(2); // "000123"
+            nextNumber = Integer.parseInt(numberPart) + 1;
+        } else {
+            nextNumber = 1;
+        }
+
+        return String.format("CL%06d", nextNumber);
     }
+
 }

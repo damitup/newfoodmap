@@ -45,7 +45,7 @@ public class ResMatchingService {
     }
 
 
-
+    @Transactional
     public void matchAndSave(List<PenaltyFilteredDTO> penaltyList) {
         List<RestaurantApiDTO> allRestaurant = resMapper.selectAll();
 
@@ -69,7 +69,7 @@ public class ResMatchingService {
 
     
 
-    @Transactional
+    
     private RestaurantApiDTO findMatchStore(PenaltyFilteredDTO filteredDTO, List<RestaurantApiDTO> restaurantDTO) {
 
         String pRoad = filteredDTO.getROADADDR();

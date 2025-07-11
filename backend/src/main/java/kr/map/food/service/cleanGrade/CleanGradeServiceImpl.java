@@ -52,10 +52,10 @@ public class CleanGradeServiceImpl {
         int nextNumber;
 
         if (max != null && max.startsWith("CL")) {
-            // max: "CL000123"
-            String numberPart = max.substring(2); // "000123"
+            String numberPart = max.substring(2);
             nextNumber = Integer.parseInt(numberPart) + 1;
-        } else {
+        } 
+        else {
             nextNumber = 1;
         }
 

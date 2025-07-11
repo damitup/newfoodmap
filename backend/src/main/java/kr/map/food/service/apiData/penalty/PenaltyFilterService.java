@@ -29,12 +29,12 @@ public class PenaltyFilterService {
 
     // 위반 내용 필터링
     private static final List<String> penaltyContent = Arrays.asList(
-        "폐업", "폐쇄", "유흥접객행위", "청소년주류제공", "청소년 주류제공", "청소년주류제공(1차)", 
-        "영업장 외 영업", "영업장외 영업", "영업장 외 영업 - 1차", "ㅇ 청소년주류제공", "차량 변경 미신고", 
-        "재난배상책임보험 미가입", "노래반주기설치", "노래방기기설치", "ㅇ 유흥접객행위", "집단급식소식품판매업",
-        "휴업", "유흥", "접객", "청소년", "주류", "주류제공", "주류전문", "노래", "음향", "반주", "재난배상",
-        "변경신고", "시설철거", "사업자등록"
-    );
+        "객실잠금장치", "국세", "기타", "도박", "단란주점", "단란형태", "멸실", "면적변경", "무단확장", "무도", "무도장", "무허가", "반주",
+          "반주장치", "변경신고", "사업자등록", "사업자", "사행성", "성매매", "성매매 알선", "성매매알선", "손님", "시설물", "시설철거", "음향",
+        "음향반주기기", "자동반주장치", "재난배상", "재난배상책임보험", "주류", "주류만취급", "주류전문", "주류제공",
+        "잠금장치", "집단급식소식품판매업", "집합금지", "청소년", "청소년 주류제공",
+        "청소년주류제공", "춤", "영업장외 영업행위(1차)", "영업장외 영업행위(2차)", "영업장외 영업행위(3차)",
+         "유흥", "유흥접객", "유흥접객행위", "음향", "ㅇ 유흥접객행위", "ㅇ 청소년주류제공", "폐업", "폐쇄");
 
 
 
@@ -53,12 +53,10 @@ public class PenaltyFilterService {
             // 업종명 필터링
             if(isExcludedBizType(raw.getSNT_COB_NM())) continue;
 
-            // '폐쇄' or '폐업' 포함 시 제외
-            if (raw.getVIOL_CN() != null && 
-                (raw.getVIOL_CN().contains("폐쇄") || raw.getVIOL_CN().contains("폐업"))) {
-                continue; 
-            }
+            // 위반 내용 필터링
+            if (isExcludedPenaltyContent(raw.getVIOL_CN())) continue;
 
+            
 
             PenaltyFilteredDTO dto = new PenaltyFilteredDTO(
                 raw.getUPSO_NM(),
@@ -76,5 +74,16 @@ public class PenaltyFilterService {
 
     private boolean isExcludedBizType(String bizType) {
         return bizType != null && bizTypes.contains(bizType.trim());
+    }
+
+    private boolean isExcludedPenaltyContent(String violCn) {
+    if (violCn == null) return false;
+
+    for (String keyword : penaltyContent) {
+        if (violCn.contains(keyword)) {
+            return true;
+        }
+    }
+    return false;
     }
 }

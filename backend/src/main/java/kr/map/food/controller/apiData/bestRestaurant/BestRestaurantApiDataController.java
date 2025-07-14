@@ -15,7 +15,7 @@ public class BestRestaurantApiDataController {
         this.bestRestaurantService = bestRestaurantService;
     }
 
-    @PostMapping("/restaurant/collect")
+    @PostMapping("/bests/collect")
     public void collect() {
         bestRestaurantService.collectAllGuData();
     }

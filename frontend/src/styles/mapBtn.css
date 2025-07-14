@@ -3,9 +3,11 @@
     height: 100vh;
     margin: 0;
     padding: 0;
-    background-color: #ddd;
     z-index: 1000;
-
+    position: absolute;
+    top:0;
+    left: 0;
+    pointer-events: none;
 }
 .container {
     display: flex;
@@ -36,7 +38,9 @@
     background-image: url('../assets/icon/kakaomapicon.png') ;
     background-repeat: no-repeat;
     background-position: -290px -400px;
+    pointer-events: auto;
 }
+
 .mapBtnPage .btn.login span{
    display: block;
     overflow: hidden;
@@ -71,4 +75,5 @@ color: rgba(31, 140, 255, .6);
     background-image: url("../assets/icon/kakaomapicon.png");
     background-repeat: no-repeat;
     background-position:   -150px -450px;
+    pointer-events: auto;
 }

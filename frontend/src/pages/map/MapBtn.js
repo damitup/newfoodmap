@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom"; // ✅ 추가
+import { useNavigate } from "react-router-dom";
 import { userLoginCheck, userLogout } from "../../api/user/userLoginCheck";
 import "../../styles/mapBtn.css";
 
-export default function MapBtn({map}) {
+export default function MapBtn({ map }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const navigate = useNavigate(); // ✅ 사용 준비
-
+  const navigate = useNavigate();
 
   const goMyPosition = () => {
     if (!navigator.geolocation) {
@@ -19,16 +18,16 @@ export default function MapBtn({map}) {
         const lat = position.coords.latitude;
         const lon = position.coords.longitude;
 
+        console.log("사용자의 현재 gps 위치:", lat, lon);
+
+        if (!map) {
+          alert("지도가 로드되지 않았습니다.");
+          return;
+        }
+
         const locPosition = new window.kakao.maps.LatLng(lat, lon);
 
-        // 마커 생성
-        const marker = new window.kakao.maps.Marker({
-          map: map,
-          position: locPosition,
-          title: "내 위치",
-        });
-
-        // 지도 중심 이동
+        // ✅ 지도 중심 이동
         map.setCenter(locPosition);
       },
       (error) => {
@@ -37,7 +36,6 @@ export default function MapBtn({map}) {
       }
     );
   };
-
 
   useEffect(() => {
     userLoginCheck()
@@ -52,7 +50,7 @@ export default function MapBtn({map}) {
   };
 
   const handleLogin = () => {
-    navigate("/login"); // ✅ 로그인 페이지로 이동
+    navigate("/login");
   };
 
   return (
@@ -67,7 +65,7 @@ export default function MapBtn({map}) {
           )}
         </div>
         <div className="controller rightView">
-          <div className="setMyPos" /*onClick={goMyPosition}*/></div>
+          <div className="setMyPos" onClick={goMyPosition}></div>
         </div>
       </div>
     </div>

@@ -78,9 +78,10 @@
 
 .kakaoIcon.search.inBox{
     position: absolute;
-    right: -321px;
+    left: 358px;
     top: 66px;
     background-color: white;
+    z-index: 100;
 }
 
 

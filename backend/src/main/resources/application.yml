@@ -14,5 +14,3 @@ mybatis:
 clean:
   excel-path: excel/clean_grade_250627.xlsx
 
-clean-test:
-  excel-path: excel/clean_grade_test.xlsx

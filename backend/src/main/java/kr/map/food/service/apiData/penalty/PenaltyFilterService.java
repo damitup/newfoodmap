@@ -96,7 +96,6 @@ public class PenaltyFilterService {
             
         }
 
-        log.info("필터링 완료 - 저장 {}건", result.size());
         return result;
     }
 
@@ -107,17 +106,18 @@ public class PenaltyFilterService {
     private boolean isExcludedPenaltyContent(String violCn) {
         if (violCn == null) return false;
 
+        for (String exclude : outPenaltyKeyworld) {
+            if (violCn.contains(exclude)) {
+                return true;
+            }
+        }
+
         for (String include : includePenaltyKeyword) {
             if (violCn.contains(include)) {
                 return false;
             }
         }
 
-        for (String exclude : outPenaltyKeyworld) {
-            if (violCn.contains(exclude)) {
-                return true;
-            }
-        }
         return false;
     }
 }

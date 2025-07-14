@@ -38,7 +38,7 @@ public class PenaltyApiCollector {
             PenaltyApiResponse response = xmlMapper.readValue(xmlBody, PenaltyApiResponse.class);
 
             int listTotalCount = response.getListTotalCount();
-            int totalPage = 2;// (listTotalCount + 1000 - 1) / 1000;
+            int totalPage = (listTotalCount + 1000 - 1) / 1000;
 
             while (page <= totalPage) {
                 int fromNum = (page - 1) * 1000 + 1;

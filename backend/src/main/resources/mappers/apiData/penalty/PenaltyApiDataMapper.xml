@@ -5,7 +5,7 @@
 <mapper namespace="kr.map.food.mapper.apiData.PenaltyApiDataMapper"> 
 
   <insert id="insertPenalty" parameterType="kr.map.food.domain.apiData.penaltyRestaurant.PenaltyApiDTO">
-    INSERT INTO PENALTY (RESIDX, PENALTYCONTENT) VALUES (#{residx}, #{penaltyContent})
+    INSERT INTO PENALTY (PENALTYIDX, RESIDX, PENALTYCONTENT) VALUES (#{penaltyIdx}, #{resIdx}, #{penaltyContent})
   </insert>
 
   <select id="selectAll" resultType="kr.map.food.domain.apiData.penaltyRestaurant.PenaltyApiDTO">
@@ -13,7 +13,7 @@
   </select>
 
   <select id="selectById" resultType="kr.map.food.domain.apiData.penaltyRestaurant.PenaltyApiDTO">
-    SELECT * FROM PENALTY WHERE PENALTYIDX = #{penaltyidx}
+    SELECT * FROM PENALTY WHERE PENALTYIDX = #{penaltyIdx}
   </select>
 
   <select id="getLastIdx" resultType="string">

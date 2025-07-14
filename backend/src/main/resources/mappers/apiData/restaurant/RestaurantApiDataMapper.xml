@@ -37,4 +37,12 @@
         )
     </insert>
 
+    <select id="selectAll" resultType="kr.map.food.domain.apiData.restaurant.RestaurantApiDTO">
+        SELECT * FROM RESTAURANT
+    </select>
+
+    <select id="selectById" resultType="kr.map.food.domain.apiData.restaurant.RestaurantApiDTO" parameterType="String">
+        SELECT * FROM RESTAURANT WHERE RESIDX = #{value}
+    </select>
+
 </mapper>

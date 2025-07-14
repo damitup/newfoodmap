@@ -20,6 +20,5 @@ public class RestaurantApiDataController {
     public void collect() {
         restaurantService.collectAllGuData();
     }
-
     
 }

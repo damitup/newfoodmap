@@ -34,7 +34,7 @@ public class RestaurantApiCollector {
             RestaurantApiResponse response = xmlMapper.readValue(xmlBody, RestaurantApiResponse.class);
 
             int listTotalCount = response.getListTotalCount();
-            int totalPage = 1; // 테스트용 임시 주석 처리 (listTotalCount + 1000 - 1) / 1000;
+            int totalPage = (listTotalCount + 1000 - 1) / 1000;
 
             while (page <= totalPage) {
                 int fromNum = (page - 1) * 1000 + 1;
@@ -54,9 +54,12 @@ public class RestaurantApiCollector {
 
                 List<RestaurantRawDTO> rows = pageResponse.getRow();
                 if (rows == null || rows.isEmpty()) {
+                    System.out.println("데이터가 없습니다. 루프 종료.");
                     break;
                 }
-
+            
+                System.out.println("가져온 row 수: " + rows.size());
+            
                 rawList.addAll(rows);
                 page++;
             }

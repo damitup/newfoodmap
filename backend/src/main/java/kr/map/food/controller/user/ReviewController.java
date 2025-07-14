@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import kr.map.food.domain.user.ReviewDTO;
 import kr.map.food.service.user.ReviewService;
+import lombok.extern.log4j.Log4j2;
 
 @RestController
+@Log4j2
 @RequestMapping("/api/review")
 public class ReviewController {
 
@@ -25,16 +27,14 @@ public class ReviewController {
     @PostMapping("/write")
     public ResponseEntity<String> writeReview(@RequestBody ReviewDTO dto) {
         try {
-            reviewService.writeReview(dto);
+            reviewService.writeReview(dto);           
             return ResponseEntity.ok("success");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("fail");
         }
     }
-      @GetMapping("/res/{resIdx}")
+    @GetMapping("/{resIdx}")
     public ResponseEntity<List<ReviewDTO>> getReviewsByResidx(@PathVariable String resIdx) {
-        ReviewDTO dto = new ReviewDTO();
-        dto.setResIdx(resIdx);
         List<ReviewDTO> reviews = reviewService.getReviewsByResidx(resIdx);
         return ResponseEntity.ok(reviews);
     }

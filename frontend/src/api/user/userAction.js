@@ -16,9 +16,19 @@ export const FavoriteCheck = (userIdx, resIdx) => {
   });
 };
 
-// 
+// 리뷰 작성
 export const writeReview = (data) => {
+  console.log(data);
   return api.post("/review/write", data); // POST 요청
 };
 
+//가게 리뷰 조회
+export const selReviewRes = (resIdx, data={}) => {
+  return api.get(`/review/${resIdx}`,data);
+}
+
+// 유저 리뷰 조회
+export const selReviewUSer = (userIdx, data={}) => {
+  return api.get(`/review/${userIdx}`,data);
+}
 

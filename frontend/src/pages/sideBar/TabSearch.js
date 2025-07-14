@@ -99,7 +99,7 @@ export default function TabSearch({selectedTab}) {
         <div className="sidebar">
             <SideBarHeader />
             <h4>일반휴계음식점 추천</h4>
-
+        
             {restaurantList.map((item, index) => (
                 <div key={item.residx} className="section" onClick={() => handleDetailPage(item)}>
                     <div className="container title">

@@ -31,5 +31,6 @@
     <select id="getUserIdx" resultType="String">
         SELECT MAX(USERIDX) FROM USER
     </select>
+ 
 
 </mapper>

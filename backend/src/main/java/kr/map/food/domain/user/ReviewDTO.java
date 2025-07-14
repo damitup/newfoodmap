@@ -9,4 +9,5 @@ public class ReviewDTO {
     private String reviewDate;
     private String userIdx;
     private String resIdx;
+    private String userName;
 }

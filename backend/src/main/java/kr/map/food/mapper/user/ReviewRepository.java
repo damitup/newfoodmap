@@ -13,4 +13,8 @@ public interface ReviewRepository {
     List<ReviewDTO> getReviewsByResidx(String resIdx);
 
     List<ReviewDTO> getReviewsByUserIdx(String userIdx);
+
+    String getLastReviewIdx(ReviewDTO dto);
+
+    String findUserNameByIdx(String userIdx);
 }

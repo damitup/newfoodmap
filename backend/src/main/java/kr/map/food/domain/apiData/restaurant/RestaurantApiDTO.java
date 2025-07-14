@@ -1,8 +1,10 @@
 package kr.map.food.domain.apiData.restaurant;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class RestaurantApiDTO {
 
     private String RESIDX;

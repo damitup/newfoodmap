@@ -1,50 +1,46 @@
 package kr.map.food.domain.apiData.restaurant;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
-import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@XmlRootElement(name = "row")
-@XmlAccessorType(XmlAccessType.FIELD)
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Data
-@Builder
+@NoArgsConstructor
 public class RestaurantRawDTO {
 
-    @XmlElement(name = "MGTNO")
+    @JacksonXmlProperty(localName = "MGTNO")
     private String MGTNO;
 
-    @XmlElement(name = "BPLCNM")
+    @JacksonXmlProperty(localName = "BPLCNM")
     private String BPLCNM;
 
-    @XmlElement(name = "DTLSTATEGBN")
+    @JacksonXmlProperty(localName = "DTLSTATEGBN")
     private String DTLSTATEGBN;
 
-    @XmlElement(name = "SITETEL")
+    @JacksonXmlProperty(localName = "SITETEL")
     private String SITETEL;
 
-    @XmlElement(name = "UPTAENM")
+    @JacksonXmlProperty(localName = "UPTAENM")
     private String UPTAENM;
 
-    @XmlElement(name = "LVSENM")
+    @JacksonXmlProperty(localName = "LVSENM")
     private String LVSENM;
 
-    @XmlElement(name = "SITEWHLADDR")
+    @JacksonXmlProperty(localName = "SITEWHLADDR")
     private String SITEWHLADDR;
 
-    @XmlElement(name = "RDNWHLADDR")
+    @JacksonXmlProperty(localName = "RDNWHLADDR")
     private String RDNWHLADDR;
 
-    @XmlElement(name = "RDNPOSTNO")
+    @JacksonXmlProperty(localName = "RDNPOSTNO")
     private String RDNPOSTNO;
 
-    @XmlElement(name = "X")
+    @JacksonXmlProperty(localName = "X")
     private String X;
 
-    @XmlElement(name = "Y")
+    @JacksonXmlProperty(localName = "Y")
     private String Y;
-    
 }

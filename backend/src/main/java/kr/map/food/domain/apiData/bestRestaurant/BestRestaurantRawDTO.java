@@ -1,26 +1,23 @@
 package kr.map.food.domain.apiData.bestRestaurant;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
-import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@XmlRootElement(name = "row")
-@XmlAccessorType(XmlAccessType.FIELD)
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Data
-@Builder
+@NoArgsConstructor
 public class BestRestaurantRawDTO {
 
-    @XmlElement(name = "PERM_NT_NO")
+    @JacksonXmlProperty(localName = "PERM_NT_NO")
     private String PERM_NT_NO;
 
-    @XmlElement(name = "MAIN_EDF")
+    @JacksonXmlProperty(localName = "MAIN_EDF")
     private String MAIN_EDF;
 
-    @XmlElement(name = "ASGN_YY")
+    @JacksonXmlProperty(localName = "ASGN_YY")
     private String ASGN_YY;
     
 }

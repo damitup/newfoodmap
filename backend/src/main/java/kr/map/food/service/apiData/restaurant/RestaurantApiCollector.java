@@ -54,9 +54,12 @@ public class RestaurantApiCollector {
 
                 List<RestaurantRawDTO> rows = pageResponse.getRow();
                 if (rows == null || rows.isEmpty()) {
+                    System.out.println("데이터가 없습니다. 루프 종료.");
                     break;
                 }
-
+            
+                System.out.println("가져온 row 수: " + rows.size());
+            
                 rawList.addAll(rows);
                 page++;
             }

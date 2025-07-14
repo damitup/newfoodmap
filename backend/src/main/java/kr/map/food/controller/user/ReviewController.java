@@ -33,14 +33,13 @@ public class ReviewController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("fail");
         }
     }
-    @GetMapping("/{resIdx}")
+    @GetMapping("/store/{resIdx}")
     public ResponseEntity<List<ReviewDTO>> getReviewsByResidx(@PathVariable String resIdx) {
         List<ReviewDTO> reviews = reviewService.getReviewsByResidx(resIdx);
         return ResponseEntity.ok(reviews);
     }
-
-    // ✅ 2. 특정 사용자의 리뷰 조회 (ex. 마이페이지)
-    @GetMapping("/user/{userIdx}")
+    // 마이페이지 리뷰내역보기
+    @GetMapping("/my/{userIdx}")
     public ResponseEntity<List<ReviewDTO>> getReviewsByUserIdx(@PathVariable String userIdx) {
         ReviewDTO dto = new ReviewDTO();
         dto.setUserIdx(userIdx);

@@ -3,13 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import MyFavorite from "./myPage/MyFavorite.js";
 import MyReview from "./myPage/MyReview.js";
 import SideBarHeader from "./SideBarHeader";
+import { selReviewUser , FavoriteCheck} from "../../api/user/userAction.js";
+import { getCookie } from "../../util/cookie.js";
 
 export default function MySidePage(){
     const navigate = useNavigate();
     const [tabTabFavoriteList,setTabFavoriteList] = useState([]);
     const [tabTabReviewList,setTabReviewList]= useState([]);
-    const [favoriteList,setFavoriteList] = useState([]);
     const [activeTab,setActiveTab]= useState("");
+    const [data,setData] =useState([]);
 
 
     // mypage 즐겨찾기. 리뷰 버튼 클릭 시 메소드
@@ -18,14 +20,12 @@ export default function MySidePage(){
     
     //fetch 경로는 백앤드 구조에 따라 변경될수 있음
     if (tabType === "favorite") {
-        const res = await fetch("/api/favorite/list?userId=testUser");
-        const data = await res.json();
+        const res = await selReviewUser(getCookie("userIdx"),data);
         setTabFavoriteList(data);
     }
 
     if (tabType === "review") {
-        const res = await fetch("/api/review/list?userId=testUser");
-        const data = await res.json();
+        const res = await FavoriteCheck(getCookie("userIdx"));
         setTabReviewList(data);
     }
 };
@@ -33,6 +33,7 @@ export default function MySidePage(){
     const isActive = (tab) => activeTab === tab ? "active" : "";
     useEffect(() => {
         handleTabClick("favorite");
+
         // setFavoriteList(new Array(resData.length).fill(false));
     }, []);
 

@@ -9,10 +9,11 @@ export const addFavorite = (userIdx, resIdx) => {
 export const removeFavorite = (userIdx, resIdx) => {
   return api.delete("/user/favorite", { data: { userIdx, resIdx } });
 };
+
 //즐겨찾기 리스트 출력
-export const FavoriteCheck = (userIdx, resIdx) => {
-  return api.get(`/user/favorite/${userIdx}`, {
-    params: { userIdx, resIdx }
+export const FavoriteCheck = (userIdx) => {
+  return api.get(`/user/favorite/show/${userIdx}`, {
+    params: { userIdx }
   });
 };
 
@@ -24,11 +25,13 @@ export const writeReview = (data) => {
 
 //가게 리뷰 조회
 export const selReviewRes = (resIdx, data={}) => {
-  return api.get(`/review/${resIdx}`,data);
+  return api.get(`/review/store/${resIdx}`,data);
 }
 
 // 유저 리뷰 조회
-export const selReviewUSer = (userIdx, data={}) => {
-  return api.get(`/review/${userIdx}`,data);
+export const selReviewUser = (userIdx, data={}) => {
+  return api.get(`/review/my/${userIdx}`,data);
 }
+
+
 

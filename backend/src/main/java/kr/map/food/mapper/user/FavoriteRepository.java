@@ -1,5 +1,7 @@
 package kr.map.food.mapper.user;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import kr.map.food.domain.user.FavoriteDTO;
@@ -11,5 +13,6 @@ public interface FavoriteRepository {
 
     void deleteFavorite(FavoriteDTO dto);
 
-    boolean isFavorite(FavoriteDTO dto);
+    List<FavoriteDTO> getFavoritesByUser(String userIdx);
+
 }

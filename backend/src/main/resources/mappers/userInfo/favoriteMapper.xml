@@ -16,11 +16,19 @@
           AND RESIDX = #{resIdx}
     </delete>
 
-    <select id="isFavorite" parameterType="kr.map.food.domain.user.FavoriteDTO" resultType="boolean">
-        SELECT COUNT(*) > 0
-        FROM FAVORITE
-        WHERE USERIDX = #{userIdx}
-          AND RESIDX = #{resIdx}
-    </select>
+    <select id="getFavoritesByUser" parameterType="String" resultType="kr.map.food.domain.user.FavoriteDTO">
+    SELECT 
+        f.USERIDX,
+        u.USERNAME,
+        f.RESIDX,
+        r.RESNAME,
+        r.NEWADDR,
+        r.OLDADDR,
+        r.RESNUM
+    FROM FAVORITE f
+    JOIN USER u ON f.USERIDX = u.USERIDX
+    JOIN RESTAURANT r ON f.RESIDX = r.RESIDX
+    WHERE f.USERIDX = #{userIdx}
+</select>
 
 </mapper>

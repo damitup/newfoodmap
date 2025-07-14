@@ -239,3 +239,9 @@
     background-color: rgba(13, 91, 212, .8);
     padding: 4px 0px;
 }
+.no-favorite {
+  padding: 20px;
+  text-align: center;
+  color: #888;
+  font-style: italic;
+}

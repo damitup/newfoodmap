@@ -1,5 +1,7 @@
 package kr.map.food.service.user;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +24,8 @@ public class FavoriteService implements UserAction {
         favoriteRepository.deleteFavorite(dto);
     }
 
-    @Override
-    public boolean isFavorite(FavoriteDTO dto) {
-        return favoriteRepository.isFavorite(dto);
+   @Override
+    public List<FavoriteDTO> getFavoritesByUser(String userIdx) {
+        return favoriteRepository.getFavoritesByUser(userIdx);
     }
 }

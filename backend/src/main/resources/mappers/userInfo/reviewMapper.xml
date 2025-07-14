@@ -34,13 +34,15 @@
     <select id="getReviewsByUserIdx" parameterType="String" resultType="kr.map.food.domain.user.ReviewDTO">
         SELECT 
             u.USERIDX,
+            rev.RESIDX,
             r.RESNAME,
-            r.REVIEWCONTENT,
-            r.REVIEWEDATE
-        FROM REVIEW r
-        JOIN USER u ON r.USERIDX = u.USERIDX
-        WHERE r.USERIDX = #{userIdx}
-        ORDER BY r.REVIEWDATE DESC
+            rev.REVIEWCONTENT,
+            rev.REVIEWDATE
+        FROM REVIEW rev
+        JOIN USER u ON rev.USERIDX = u.USERIDX
+        JOIN RESTAURANT r ON r.RESIDX = rev.RESIDX
+        WHERE rev.USERIDX = #{userIdx}
+        ORDER BY rev.REVIEWDATE DESC
     </select>
 
     

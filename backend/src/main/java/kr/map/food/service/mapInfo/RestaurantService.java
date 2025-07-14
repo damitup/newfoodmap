@@ -21,5 +21,9 @@ public class RestaurantService {
     public RestaurantDTO getRestaurantById(String RESIDX) {
         return restaurantMapper.findById(RESIDX);
     }
+
+    public List<RestaurantDTO> getRestaurantByLocation(double blY, double urY, double blX, double urX) {
+        return restaurantMapper.findByLocation(blY, urY, blX, urX);
+    }
     
 }

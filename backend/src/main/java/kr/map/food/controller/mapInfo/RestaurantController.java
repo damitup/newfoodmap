@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import kr.map.food.domain.mapInfo.RestaurantDTO;
@@ -27,5 +28,15 @@ public class RestaurantController {
     public RestaurantDTO getById(@PathVariable String RESIDX) {
         return restaurantService.getRestaurantById(RESIDX);
     }
+
+    @GetMapping("/here")
+    public List<RestaurantDTO> getByLocation(
+        @RequestParam double blY,
+        @RequestParam double urY,
+        @RequestParam double blX,
+        @RequestParam double urX ) {
+        return restaurantService.getRestaurantByLocation(blY, urY, blX, urX);
+    }
+
     
 }

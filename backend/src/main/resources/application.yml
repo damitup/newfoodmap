@@ -12,6 +12,6 @@ mybatis:
   type-aliases-package: kr.map.food.domain
 
 clean:
-  excel-path: excel/clean_grade_250627.xlsx
+  excel-path: excel/clean_grade_250711.xlsx
 
 

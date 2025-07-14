@@ -10,6 +10,7 @@ import kr.map.food.domain.apiData.bestRestaurant.BestRestaurantApiDTO;
 import kr.map.food.domain.apiData.bestRestaurant.BestRestaurantRawDTO;
 import kr.map.food.domain.apiData.bestRestaurant.BestRestaurantGuApiInfoENUM;
 import kr.map.food.mapper.apiData.BestRestaurantApiDataMapper;
+import kr.map.food.mapper.apiData.RestaurantIDXMapper;
 import kr.map.food.service.apiData.dataTrans.DataTypeTrans;
 import kr.map.food.service.apiData.dataTrans.FindNullData;
 
@@ -19,13 +20,14 @@ public class BestRestaurantApiDataService {
 
     private final BestRestaurantApiCollector collector;
     private final BestRestaurantApiDataMapper bestRestaurantMapper;
+    private final RestaurantIDXMapper restaurantIDXMapper;
 
     private static final String apiKey = ApiKeyConfig.SEOUL_OPENAPI_KEY;
-;
 
-    public BestRestaurantApiDataService( BestRestaurantApiCollector collector, BestRestaurantApiDataMapper bestRestaurantMapper ) {
+    public BestRestaurantApiDataService( BestRestaurantApiCollector collector, BestRestaurantApiDataMapper bestRestaurantMapper, RestaurantIDXMapper restaurantIDXMapper ) {
         this.collector = collector;
         this.bestRestaurantMapper = bestRestaurantMapper;
+        this.restaurantIDXMapper = restaurantIDXMapper;
     }
 
     @Transactional
@@ -36,6 +38,14 @@ public class BestRestaurantApiDataService {
 
             for ( BestRestaurantRawDTO raw : rawList ) {
                 if ( FindNullData.isEmpty( raw.getPERM_NT_NO() ) ) {
+                    System.out.println(">>> SKIP: PERM_NT_NO 없음 -> " + raw.getPERM_NT_NO() );
+                    continue;
+                }
+
+                String resIdx = raw.getPERM_NT_NO();
+                Integer exists = restaurantIDXMapper.countByResIdx(resIdx);
+                if (exists == null || exists == 0) {
+                    System.out.println(">>> SKIP: RESIDX " + resIdx + " 는 restaurant 테이블에 없음");
                     continue;
                 }
 

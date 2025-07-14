@@ -20,7 +20,7 @@ public class CleanGradeController {
 
     // resources에 저장된 엑셀 파일을 읽어 DB에 저장하는 수동 API
 
-    @GetMapping("/load-res")
+    @GetMapping("/upload")
     public ResponseEntity<String> localCleanGradeExcel() {
         try {
             cleanGradeService.uploadExcel();

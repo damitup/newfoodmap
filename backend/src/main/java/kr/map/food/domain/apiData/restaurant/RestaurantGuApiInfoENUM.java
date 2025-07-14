@@ -10,198 +10,199 @@ public enum RestaurantGuApiInfoENUM {
         "http://openapi.seoul.go.kr:8088",
         "LOCALDATA_072405_GN"
     ),
-    GANGDONG_GENERAL(
-        "http://openapi.seoul.go.kr:8088",
-        "LOCALDATA_072404_GD"
-    ),
-    GANGDONG_SNACK(
-        "http://openapi.seoul.go.kr:8088",
-        "LOCALDATA_072405_GD"
-    ),
-    GANGBUK_GENERAL(
-        "http://openapi.seoul.go.kr:8088",
-        "LOCALDATA_072404_GB"
-    ),
-    GANGBUK_SNACK(
-        "http://openapi.seoul.go.kr:8088",
-        "LOCALDATA_072405_GB"
-    ),
-    GANGSEO_GENERAL(
-        "http://openapi.seoul.go.kr:8088",
-        "LOCALDATA_072404_GS"
-    ),
-    GANGSEO_SNACK(
-        "http://openapi.seoul.go.kr:8088",
-        "LOCALDATA_072405_GS"
-    ),
-    GAWANAK_GENERAL(
-        "http://openapi.seoul.go.kr:8088",
-        "LOCALDATA_072404_GA"
-    ),
-    GAWANAK_SNACK(
-        "http://openapi.seoul.go.kr:8088",
-        "LOCALDATA_072405_GA"
-    ),
-    GWANJIN_GENERAL(
-        "http://openapi.seoul.go.kr:8088",
-        "LOCALDATA_072404_GJ"
-    ),
-    GWANJIN_SNACK(
-        "http://openapi.seoul.go.kr:8088",
-        "LOCALDATA_072405_GJ"
-    ),
-    GURO_GENERAL(
-        "http://openapi.seoul.go.kr:8088",
-        "LOCALDATA_072404_GR"
-    ),
-    GURO_SNACK(
-        "http://openapi.seoul.go.kr:8088",
-        "LOCALDATA_072405_GR"
-    ),
-    GEUMCHEON_GENERAL(
-        "http://openapi.seoul.go.kr:8088",
-        "LOCALDATA_072404_GC"
-    ),
-    GEUMCHEON_SNACK(
-        "http://openapi.seoul.go.kr:8088",
-        "LOCALDATA_072405_GC"
-    ),
-    NOWON_GENERAL(
-        "http://openapi.seoul.go.kr:8088",
-        "LOCALDATA_072404_NW"
-    ),
-    NOWON_SNACK(
-        "http://openapi.seoul.go.kr:8088",
-        "LOCALDATA_072405_NW"
-    ),
-    DOBONG_GENERAL(
-        "http://openapi.seoul.go.kr:8088",
-        "LOCALDATA_072404_DB"
-    ),
-    DOBONG_SNACK(
-        "http://openapi.seoul.go.kr:8088",
-        "LOCALDATA_072405_DB"
-    ),
-    DONGDAEMUN_GENERAL(
-        "http://openapi.seoul.go.kr:8088",
-        "LOCALDATA_072404_DD"
-    ),
-    DONGDAEMUN_SNACK(
-        "http://openapi.seoul.go.kr:8088",
-        "LOCALDATA_072405_DD"
-    ),
-    DONGJAK_GENERAL(
-        "http://openapi.seoul.go.kr:8088",
-        "LOCALDATA_072404_DJ"
-    ),
-    DONGJAK_SNACK(
-        "http://openapi.seoul.go.kr:8088",
-        "LOCALDATA_072405_DJ"
-    ),
-    MAPO_GENERAL(
-        "http://openapi.seoul.go.kr:8088",
-        "LOCALDATA_072404_MP"
-    ),
-    MAPO_SNACK(
-        "http://openapi.seoul.go.kr:8088",
-        "LOCALDATA_072405_MP"
-    ),
-    SEONGNAM_GENERAL(
-        "http://openapi.seoul.go.kr:8088",
-        "LOCALDATA_072404_SM"
-    ),
-    SEONGNAM_SNACK(
-        "http://openapi.seoul.go.kr:8088",
-        "LOCALDATA_072405_SM"
-    ),
-    SEOCHEO_GENERAL(
-        "http://openapi.seoul.go.kr:8088",
-        "LOCALDATA_072404_SC"
-    ),
-    SEOCHEO_SNACK(
-        "http://openapi.seoul.go.kr:8088",
-        "LOCALDATA_072405_SC"
-    ),
-    SEODAEMUN_GENERAL(
-        "http://openapi.seoul.go.kr:8088",
-        "LOCALDATA_072404_SD"
-    ),
-    SEODAEMUN_SNACK(
-        "http://openapi.seoul.go.kr:8088",
-        "LOCALDATA_072405_SD"
-    ),
-    SEONGBUK_GENERAL(
-        "http://openapi.seoul.go.kr:8088",
-        "LOCALDATA_072404_SB"
-    ),
-    SEONGBUK_SNACK(
-        "http://openapi.seoul.go.kr:8088",
-        "LOCALDATA_072405_SB"
-    ),
-    SONGPA_GENERAL(
-        "http://openapi.seoul.go.kr:8088",
-        "LOCALDATA_072404_SP"
-    ),
-    SONGPA_SNACK(
-        "http://openapi.seoul.go.kr:8088",
-        "LOCALDATA_072405_SP"
-    ),
-    YANGCHEON_GENERAL(
-        "http://openapi.seoul.go.kr:8088",
-        "LOCALDATA_072404_YC"
-    ),
-    YANGCHEON_SNACK(
-        "http://openapi.seoul.go.kr:8088",
-        "LOCALDATA_072405_YC"
-    ),
-    YEONGDEUNGPO_GENERAL(
-        "http://openapi.seoul.go.kr:8088",
-        "LOCALDATA_072404_YD"
-    ),
-    YEONGDEUNGPO_SNACK(
-        "http://openapi.seoul.go.kr:8088",
-        "LOCALDATA_072405_YD"
-    ),
-    YONGSAN_GENERAL(
-        "http://openapi.seoul.go.kr:8088",
-        "LOCALDATA_072404_YS"
-    ),
-    YONGSAN_SNACK(
-        "http://openapi.seoul.go.kr:8088",
-        "LOCALDATA_072405_YS"
-    ),
-    EUNPYEONG_GENERAL(
-        "http://openapi.seoul.go.kr:8088",
-        "LOCALDATA_072404_EP"
-    ),
-    EUNPYEONG_SNACK(
-        "http://openapi.seoul.go.kr:8088",
-        "LOCALDATA_072405_EP"
-    ),
-    JUNGNANG_GENERAL(
-        "http://openapi.seoul.go.kr:8088",
-        "LOCALDATA_072404_JN"
-    ),
-    JUNGNANG_SNACK(
-        "http://openapi.seoul.go.kr:8088",
-        "LOCALDATA_072405_JN"
-    ),
-    JUNGGU_GENERAL(
-        "http://openapi.seoul.go.kr:8088",
-        "LOCALDATA_072404_JG"
-    ),
-    JUNGGU_SNACK(
-        "http://openapi.seoul.go.kr:8088",
-        "LOCALDATA_072405_JG"
-    ),
-    JONGRO_GENERAL(
-        "http://openapi.seoul.go.kr:8088",
-        "LOCALDATA_072404_JR"
-    ),
-    JONGRO_SNACK(
-        "http://openapi.seoul.go.kr:8088",
-        "LOCALDATA_072405_JR"
-    );
+    // GANGDONG_GENERAL(
+    //     "http://openapi.seoul.go.kr:8088",
+    //     "LOCALDATA_072404_GD"
+    // ),
+    // GANGDONG_SNACK(
+    //     "http://openapi.seoul.go.kr:8088",
+    //     "LOCALDATA_072405_GD"
+    // ),
+    // GANGBUK_GENERAL(
+    //     "http://openapi.seoul.go.kr:8088",
+    //     "LOCALDATA_072404_GB"
+    // ),
+    // GANGBUK_SNACK(
+    //     "http://openapi.seoul.go.kr:8088",
+    //     "LOCALDATA_072405_GB"
+    // ),
+    // GANGSEO_GENERAL(
+    //     "http://openapi.seoul.go.kr:8088",
+    //     "LOCALDATA_072404_GS"
+    // ),
+    // GANGSEO_SNACK(
+    //     "http://openapi.seoul.go.kr:8088",
+    //     "LOCALDATA_072405_GS"
+    // ),
+    // GAWANAK_GENERAL(
+    //     "http://openapi.seoul.go.kr:8088",
+    //     "LOCALDATA_072404_GA"
+    // ),
+    // GAWANAK_SNACK(
+    //     "http://openapi.seoul.go.kr:8088",
+    //     "LOCALDATA_072405_GA"
+    // ),
+    // GWANJIN_GENERAL(
+    //     "http://openapi.seoul.go.kr:8088",
+    //     "LOCALDATA_072404_GJ"
+    // ),
+    // GWANJIN_SNACK(
+    //     "http://openapi.seoul.go.kr:8088",
+    //     "LOCALDATA_072405_GJ"
+    // ),
+    // GURO_GENERAL(
+    //     "http://openapi.seoul.go.kr:8088",
+    //     "LOCALDATA_072404_GR"
+    // ),
+    // GURO_SNACK(
+    //     "http://openapi.seoul.go.kr:8088",
+    //     "LOCALDATA_072405_GR"
+    // ),
+    // GEUMCHEON_GENERAL(
+    //     "http://openapi.seoul.go.kr:8088",
+    //     "LOCALDATA_072404_GC"
+    // ),
+    // GEUMCHEON_SNACK(
+    //     "http://openapi.seoul.go.kr:8088",
+    //     "LOCALDATA_072405_GC"
+    // ),
+    // NOWON_GENERAL(
+    //     "http://openapi.seoul.go.kr:8088",
+    //     "LOCALDATA_072404_NW"
+    // ),
+    // NOWON_SNACK(
+    //     "http://openapi.seoul.go.kr:8088",
+    //     "LOCALDATA_072405_NW"
+    // ),
+    // DOBONG_GENERAL(
+    //     "http://openapi.seoul.go.kr:8088",
+    //     "LOCALDATA_072404_DB"
+    // ),
+    // DOBONG_SNACK(
+    //     "http://openapi.seoul.go.kr:8088",
+    //     "LOCALDATA_072405_DB"
+    // ),
+    // DONGDAEMUN_GENERAL(
+    //     "http://openapi.seoul.go.kr:8088",
+    //     "LOCALDATA_072404_DD"
+    // ),
+    // DONGDAEMUN_SNACK(
+    //     "http://openapi.seoul.go.kr:8088",
+    //     "LOCALDATA_072405_DD"
+    // ),
+    // DONGJAK_GENERAL(
+    //     "http://openapi.seoul.go.kr:8088",
+    //     "LOCALDATA_072404_DJ"
+    // ),
+    // DONGJAK_SNACK(
+    //     "http://openapi.seoul.go.kr:8088",
+    //     "LOCALDATA_072405_DJ"
+    // ),
+    // MAPO_GENERAL(
+    //     "http://openapi.seoul.go.kr:8088",
+    //     "LOCALDATA_072404_MP"
+    // ),
+    // MAPO_SNACK(
+    //     "http://openapi.seoul.go.kr:8088",
+    //     "LOCALDATA_072405_MP"
+    // ),
+    // SEONGNAM_GENERAL(
+    //     "http://openapi.seoul.go.kr:8088",
+    //     "LOCALDATA_072404_SM"
+    // ),
+    // SEONGNAM_SNACK(
+    //     "http://openapi.seoul.go.kr:8088",
+    //     "LOCALDATA_072405_SM"
+    // ),
+    // SEOCHEO_GENERAL(
+    //     "http://openapi.seoul.go.kr:8088",
+    //     "LOCALDATA_072404_SC"
+    // ),
+    // SEOCHEO_SNACK(
+    //     "http://openapi.seoul.go.kr:8088",
+    //     "LOCALDATA_072405_SC"
+    // ),
+    // SEODAEMUN_GENERAL(
+    //     "http://openapi.seoul.go.kr:8088",
+    //     "LOCALDATA_072404_SD"
+    // ),
+    // SEODAEMUN_SNACK(
+    //     "http://openapi.seoul.go.kr:8088",
+    //     "LOCALDATA_072405_SD"
+    // ),
+    // SEONGBUK_GENERAL(
+    //     "http://openapi.seoul.go.kr:8088",
+    //     "LOCALDATA_072404_SB"
+    // ),
+    // SEONGBUK_SNACK(
+    //     "http://openapi.seoul.go.kr:8088",
+    //     "LOCALDATA_072405_SB"
+    // ),
+    // SONGPA_GENERAL(
+    //     "http://openapi.seoul.go.kr:8088",
+    //     "LOCALDATA_072404_SP"
+    // ),
+    // SONGPA_SNACK(
+    //     "http://openapi.seoul.go.kr:8088",
+    //     "LOCALDATA_072405_SP"
+    // ),
+    // YANGCHEON_GENERAL(
+    //     "http://openapi.seoul.go.kr:8088",
+    //     "LOCALDATA_072404_YC"
+    // ),
+    // YANGCHEON_SNACK(
+    //     "http://openapi.seoul.go.kr:8088",
+    //     "LOCALDATA_072405_YC"
+    // ),
+    // YEONGDEUNGPO_GENERAL(
+    //     "http://openapi.seoul.go.kr:8088",
+    //     "LOCALDATA_072404_YD"
+    // ),
+    // YEONGDEUNGPO_SNACK(
+    //     "http://openapi.seoul.go.kr:8088",
+    //     "LOCALDATA_072405_YD"
+    // ),
+    // YONGSAN_GENERAL(
+    //     "http://openapi.seoul.go.kr:8088",
+    //     "LOCALDATA_072404_YS"
+    // ),
+    // YONGSAN_SNACK(
+    //     "http://openapi.seoul.go.kr:8088",
+    //     "LOCALDATA_072405_YS"
+    // ),
+    // EUNPYEONG_GENERAL(
+    //     "http://openapi.seoul.go.kr:8088",
+    //     "LOCALDATA_072404_EP"
+    // ),
+    // EUNPYEONG_SNACK(
+    //     "http://openapi.seoul.go.kr:8088",
+    //     "LOCALDATA_072405_EP"
+    // ),
+    // JUNGNANG_GENERAL(
+    //     "http://openapi.seoul.go.kr:8088",
+    //     "LOCALDATA_072404_JN"
+    // ),
+    // JUNGNANG_SNACK(
+    //     "http://openapi.seoul.go.kr:8088",
+    //     "LOCALDATA_072405_JN"
+    // ),
+    // JUNGGU_GENERAL(
+    //     "http://openapi.seoul.go.kr:8088",
+    //     "LOCALDATA_072404_JG"
+    // ),
+    // JUNGGU_SNACK(
+    //     "http://openapi.seoul.go.kr:8088",
+    //     "LOCALDATA_072405_JG"
+    // ),
+    // JONGRO_GENERAL(
+    //     "http://openapi.seoul.go.kr:8088",
+    //     "LOCALDATA_072404_JR"
+    // ),
+    // JONGRO_SNACK(
+    //     "http://openapi.seoul.go.kr:8088",
+    //     "LOCALDATA_072405_JR"
+    // )
+    ;
 
 
     private final String baseUrl;

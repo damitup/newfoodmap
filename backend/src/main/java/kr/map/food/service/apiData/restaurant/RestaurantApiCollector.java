@@ -34,7 +34,7 @@ public class RestaurantApiCollector {
             RestaurantApiResponse response = xmlMapper.readValue(xmlBody, RestaurantApiResponse.class);
 
             int listTotalCount = response.getListTotalCount();
-            int totalPage = (listTotalCount + 1000 - 1) / 1000;
+            int totalPage = 1; // 테스트용 임시 주석 처리 (listTotalCount + 1000 - 1) / 1000;
 
             while (page <= totalPage) {
                 int fromNum = (page - 1) * 1000 + 1;

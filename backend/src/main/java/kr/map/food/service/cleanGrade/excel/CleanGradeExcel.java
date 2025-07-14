@@ -2,9 +2,9 @@ package kr.map.food.service.cleanGrade.excel;
 
 import kr.map.food.domain.apiData.restaurant.RestaurantKakaoAddressDTO;
 import kr.map.food.domain.cleanGrade.CleanGradeDTO;
-import kr.map.food.service.apiData.dataTrans.AddressTrans;
 import kr.map.food.service.apiData.dataTrans.KakaoApiClient;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Component;
 
 
-
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class CleanGradeExcel {
@@ -45,6 +45,13 @@ public class CleanGradeExcel {
 
             RestaurantKakaoAddressDTO kakaoInfo = KakaoApiClient.searchAddress(rawAddress);
 
+
+            if (kakaoInfo == null) {
+                log.warn("Kakao 주소 변환 실패: {}", rawAddress);
+                continue; // 해당 데이터는 건너뜀
+            }
+            
+            
             CleanGradeDTO dto = new CleanGradeDTO();
             
                 dto.setCLNAME(CLNAME);

@@ -11,7 +11,9 @@ import kr.map.food.domain.cleanGrade.CleanGradeDTO;
 import kr.map.food.mapper.cleanGrade.CleanGradeMapper;
 import kr.map.food.service.cleanGrade.excel.CleanGradeExcel;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class CleanGradeServiceImpl {
@@ -40,11 +42,23 @@ public class CleanGradeServiceImpl {
         for(CleanGradeDTO dto : list) {
             if(mapper.existsClean(dto) > 0) {
                 mapper.updateClean(dto);
+                log.info("업데이트: {} / {} / {} → {}", 
+                            dto.getCLNAME(), 
+                            dto.getASSIGNYEAR(), 
+                            dto.getADDRGU(), 
+                            dto.getASSIGNGRADE()
+                        );
             } else {
                 dto.setCLIDX(generateNextCleanIdx());
                 mapper.insertClean(dto);
+                log.info("삽입: {} / {} / {} → {}", 
+                            dto.getCLNAME(), 
+                            dto.getASSIGNYEAR(), 
+                            dto.getADDRGU(), 
+                            dto.getASSIGNGRADE());
             }
         }
+        log.info("업로드 완료. 총 {}건 처리됨", list.size());
     }
 
     private String generateNextCleanIdx() {

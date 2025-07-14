@@ -3,6 +3,7 @@ package kr.map.food.service.apiData.bestRestaurant;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.map.food.config.ApiKeyConfig;
 import kr.map.food.domain.apiData.bestRestaurant.BestRestaurantApiDTO;
@@ -27,6 +28,7 @@ public class BestRestaurantApiDataService {
         this.bestRestaurantMapper = bestRestaurantMapper;
     }
 
+    @Transactional
     public void collectAllGuData() {
 
         for ( BestRestaurantGuApiInfoENUM guURL : BestRestaurantGuApiInfoENUM.values() ) {

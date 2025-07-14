@@ -36,34 +36,46 @@ public class AddressTrans {
 
     // 지번주소, 도로명주소, x좌표, y좌표 중 하나라도 없을 때
     public static void setAddress ( RestaurantRawDTO raw, RestaurantApiDTO dto ) {
+
+        System.out.println("setAddress 호출됨, 주소 변환 시도: " + raw.getSITEWHLADDR());
     
         // 변환할때 사용할 주소 선택
         String queryAddress = !FindNullData.isEmpty(dto.getNEWADDR()) 
             ? dto.getNEWADDR()
             : dto.getOLDADDR();
 
+        System.out.println("카카오 API 호출 주소: " + queryAddress);
 
         // 카카오맵 api 호출
         RestaurantKakaoAddressDTO kakaoInfo = KakaoApiClient.searchAddress(queryAddress);
 
-        if (kakaoInfo == null) {
-            return;
+        if (kakaoInfo == null || kakaoInfo.getLongitude() == null || kakaoInfo.getLatitude() == null) {
+            System.out.println("카카오 API에서 좌표 정보 없음, 저장 취소");
+            return;  // 저장 중단 또는 적절한 조치
         }
+
+        System.out.println("카카오 API 결과 있음 - 좌표: (" + kakaoInfo.getLongitude() + ", " + kakaoInfo.getLatitude() + ")");
 
         // 결과값 세팅
         if (FindNullData.isEmpty(dto.getNEWADDR())) {
             dto.setNEWADDR(kakaoInfo.getRoadAddress());
+            System.out.println("NEWADDR 세팅: " + dto.getNEWADDR());
         }
         if (FindNullData.isEmpty(dto.getOLDADDR())) {
             dto.setOLDADDR(kakaoInfo.getJibunAddress());
+            System.out.println("OLDADDR 세팅: " + dto.getOLDADDR());
         }
         if (FindNullData.isEmpty(dto.getNUMADDR())) {
             dto.setNUMADDR(kakaoInfo.getPostCode());
+            System.out.println("NUMADDR 세팅: " + dto.getNUMADDR());
         }
         dto.setADDRGU(kakaoInfo.getGu());
         dto.setADDRDONG(kakaoInfo.getDong());
         dto.setXPOS(kakaoInfo.getLongitude());
         dto.setYPOS(kakaoInfo.getLatitude());
+
+        System.out.println("XPOS 세팅: " + dto.getXPOS());
+        System.out.println("YPOS 세팅: " + dto.getYPOS());
     
     }
 

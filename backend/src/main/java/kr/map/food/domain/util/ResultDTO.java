@@ -1,20 +1,18 @@
 package kr.map.food.domain.util;
 
-import javax.xml.bind.annotation.XmlElement;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
+@Data
 public class ResultDTO {
 
-    @XmlElement(name = "CODE")
+    @JacksonXmlProperty(localName = "CODE")
     private String code;
 
-    @XmlElement(name = "MESSAGE")
+    @JacksonXmlProperty(localName = "MESSAGE")
     private String message;
-
-    // Getter & Setter
-    public String getCode() { return code; }
-    public void setCode(String code) { this.code = code; }
-
-    public String getMessage() { return message; }
-    public void setMessage(String message) { this.message = message; }
     
 }
+

@@ -203,7 +203,6 @@ public enum RestaurantGuApiInfoENUM {
         "LOCALDATA_072405_JR"
     );
 
-
     private final String baseUrl;
     private final String code;
 

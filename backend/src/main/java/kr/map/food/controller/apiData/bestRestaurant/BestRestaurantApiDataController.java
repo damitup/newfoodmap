@@ -1,31 +1,23 @@
 package kr.map.food.controller.apiData.bestRestaurant;
 
-import java.util.List;
-
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import kr.map.food.domain.apiData.bestRestaurant.BestRestaurantApiDTO;
-import kr.map.food.mapper.apiData.BestRestaurantApiDataMapper;
+
+import kr.map.food.service.apiData.bestRestaurant.BestRestaurantApiDataService;
 
 @RestController
 public class BestRestaurantApiDataController {
 
-    private final BestRestaurantApiDataMapper bestMapper;
+    private final BestRestaurantApiDataService bestRestaurantService;
 
-    public BestRestaurantApiDataController(BestRestaurantApiDataMapper bestMapper) {
-        this.bestMapper = bestMapper;
+    public BestRestaurantApiDataController(BestRestaurantApiDataService bestRestaurantService) {
+        this.bestRestaurantService = bestRestaurantService;
     }
 
-    @GetMapping("/api/bestRestaurant")
-    public List<BestRestaurantApiDTO> getAll() {
-        return bestMapper.selectAll();
-    }
-
-    @GetMapping("/api/bestRestaurant/{RESIDX}")
-    public BestRestaurantApiDTO getById(@PathVariable String RESIDX) {
-        return bestMapper.selectById(RESIDX);
+    @PostMapping("/restaurant/collect")
+    public void collect() {
+        bestRestaurantService.collectAllGuData();
     }
 
 }

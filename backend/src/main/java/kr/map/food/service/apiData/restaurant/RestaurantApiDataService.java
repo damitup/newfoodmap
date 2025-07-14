@@ -3,6 +3,7 @@ package kr.map.food.service.apiData.restaurant;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.map.food.config.ApiKeyConfig;
 import kr.map.food.domain.apiData.restaurant.RestaurantGuApiInfoENUM;
@@ -31,6 +32,7 @@ public class RestaurantApiDataService {
         this.restaurantTypeTrans = restaurantTypeTrans;
     }
 
+    @Transactional
     public void collectAllGuData() {
 
         for ( RestaurantGuApiInfoENUM guURL : RestaurantGuApiInfoENUM.values() ) {

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import kr.map.food.domain.apiData.penaltyRestaurant.PenaltyFilteredDTO;
@@ -13,7 +15,8 @@ import kr.map.food.service.apiData.dataTrans.RestaurantTypeTrans;
 @Service
 public class PenaltyFilterService {
 
-
+    private static final Logger log = LoggerFactory.getLogger(PenaltyFilterService.class);
+    
     private final RestaurantTypeTrans restaurantTypeTrans;
 
     public PenaltyFilterService(RestaurantTypeTrans restaurantTypeTrans) {
@@ -52,30 +55,48 @@ public class PenaltyFilterService {
 
         for (PenaltyRawDTO raw : rawList) {
 
+            try {
+                // 업태명 IDX 조회 typeIdx 없으면 필터
+                Integer typeIdx = restaurantTypeTrans.getTypeIdx(raw.getSNT_UPTAE_NM());
 
-            // 업태명 IDX 조회 typeIdx 없으면 필터
-            Integer typeIdx = restaurantTypeTrans.getTypeIdx(raw.getSNT_UPTAE_NM());
+                if (typeIdx == null) {
+                    log.debug("업태명 매핑 실패: {}", raw.getSNT_UPTAE_NM());
+                    continue;
+                }
 
-            if (typeIdx == null) continue;
+                // 업종명 필터링
+                if(isExcludedBizType(raw.getSNT_COB_NM())) {
+                    log.debug("제외 업종명 필터됨: {}", raw.getSNT_COB_NM());
+                    continue;
+                } 
 
-            // 업종명 필터링
-            if(isExcludedBizType(raw.getSNT_COB_NM())) continue;
+                // 위반 내용 필터링
+                if (isExcludedPenaltyContent(raw.getVIOL_CN())) {
+                    log.debug("위반 내용 필터됨: {}", raw.getVIOL_CN());
+                    continue;
+                }
 
-            // 위반 내용 필터링
-            if (isExcludedPenaltyContent(raw.getVIOL_CN())) continue;
+
+                PenaltyFilteredDTO dto = new PenaltyFilteredDTO(
+                    raw.getUPSO_NM(),
+                    raw.getSNT_COB_NM(),
+                    typeIdx,
+                    raw.getSITE_ADDR(),
+                    raw.getSITE_ADDR_RD(),
+                    raw.getVIOL_CN()
+                );
+                
+                result.add(dto);
 
 
-            PenaltyFilteredDTO dto = new PenaltyFilteredDTO(
-                raw.getUPSO_NM(),
-                raw.getSNT_COB_NM(),
-                typeIdx,
-                raw.getSITE_ADDR(),
-                raw.getSITE_ADDR_RD(),
-                raw.getVIOL_CN()
-            );
-            result.add(dto);
+            }
+            catch (Exception e) {
+                log.error("Penalty 필터링 중 오류 발생: {}", e.getMessage(), e);
+            }
+            
         }
 
+        log.info("필터링 완료 - 저장 {}건", result.size());
         return result;
     }
 

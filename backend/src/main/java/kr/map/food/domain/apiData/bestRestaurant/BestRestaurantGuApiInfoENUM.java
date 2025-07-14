@@ -4,7 +4,7 @@ public enum BestRestaurantGuApiInfoENUM {
 
     GANGNAM_MODEL(
         "http://openAPI.gangnam.go.kr:8088",
-        "GnAdminMesureFood"
+        "GnModelRestaurantDesignate"
     ),
     GANGDONG_MODEL(
         "http://openAPI.gd.go.kr:8088",

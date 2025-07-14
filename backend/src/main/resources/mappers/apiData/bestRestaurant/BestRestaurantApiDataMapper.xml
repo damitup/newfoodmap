@@ -15,6 +15,9 @@
             #{RESMAINDISH},
             #{BESTREGYEAR}
         )
+        ON DUPLICATE KEY UPDATE
+            RESMAINDISH = VALUES(RESMAINDISH),
+            BESTREGYEAR = IF(VALUES(BESTREGYEAR) &gt; BESTREGYEAR, VALUES(BESTREGYEAR), BESTREGYEAR)
     </insert>
 
 </mapper>

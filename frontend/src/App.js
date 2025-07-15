@@ -34,6 +34,14 @@ function Layout() {
   const [selectedTab, setSelectedTab] = useState(null);
   const [isExpanded, setIsExpanded] = useState(false);
   const [bounds, setBounds] = useState(null); // ✅ 지도 bounds 상태 추가
+  const [searchKeyword, setSearchKeyword] = useState("");
+  const [moveMapToFitBounds,setMoveToFitBounds] = useState(null);
+  const [selectedRestaurant, setSelectedRestaurant] = useState(null);
+
+  const handleSearch = (keyword) => {
+    setSearchKeyword(keyword);        // 검색어 저장
+    setSelectedTab("search");        // 검색 탭으로 이동
+  };
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh' }}>
@@ -47,11 +55,54 @@ function Layout() {
           />
 
           {/* 선택된 탭에 따라 사이드바 렌더링 */}
-          {isExpanded && selectedTab === "search" && <BarSearch bounds={bounds} />}
-          {isExpanded && selectedTab === "best" && <BarBest />}
-          {isExpanded && selectedTab === "clean" && <BarClean />}
-          {isExpanded && selectedTab === "penal" && <BarPenal />}
-          {isExpanded && selectedTab === "mypage" && <BarMy />}
+          
+         {isExpanded && selectedTab === "search" && (
+            <BarSearch
+              selectedTab={selectedTab}
+              bounds={bounds}
+              moveMapToFitBounds={moveMapToFitBounds}
+              searchKeyword={searchKeyword}
+              setSearchKeyword={setSearchKeyword}
+              setSelectedRestaurant={setSelectedRestaurant}
+              handleSearch={handleSearch} // ✅ 여기 추가!
+            />
+          )}
+          {isExpanded && selectedTab === "best" && <BarBest 
+              selectedTab={selectedTab}
+              bounds={bounds}
+              moveMapToFitBounds={moveMapToFitBounds}
+              searchKeyword={searchKeyword}
+              setSearchKeyword={setSearchKeyword}
+              setSelectedRestaurant={setSelectedRestaurant}
+              handleSearch={handleSearch} // ✅ 여기 추가!/
+              />}
+          {isExpanded && selectedTab === "clean" && <BarClean 
+              selectedTab={selectedTab}
+              bounds={bounds}
+              moveMapToFitBounds={moveMapToFitBounds}
+              searchKeyword={searchKeyword}
+              setSearchKeyword={setSearchKeyword}
+              setSelectedRestaurant={setSelectedRestaurant}
+              handleSearch={handleSearch} // ✅ 여기 추가!
+              />}
+          {isExpanded && selectedTab === "penal" && <BarPenal 
+              selectedTab={selectedTab}
+              bounds={bounds}
+              moveMapToFitBounds={moveMapToFitBounds}
+              searchKeyword={searchKeyword}
+              setSearchKeyword={setSearchKeyword}
+              setSelectedRestaurant={setSelectedRestaurant}
+              handleSearch={handleSearch}
+          />}
+          {isExpanded && selectedTab === "mypage" && <BarMy 
+              selectedTab={selectedTab}
+              bounds={bounds}
+              moveMapToFitBounds={moveMapToFitBounds}
+              searchKeyword={searchKeyword}
+              setSearchKeyword={setSearchKeyword}
+              setSelectedRestaurant={setSelectedRestaurant}
+              handleSearch={handleSearch}
+          />}
         </div>
       </div>
 
@@ -63,25 +114,25 @@ function Layout() {
               <MainMap
                 selectedTab={selectedTab}
                 setBounds={setBounds} // ✅ MainMap으로 전달
+                setSearchKeyword
+                selectedRestaurant={selectedRestaurant}
               />
             }
           />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/regist" element={<RegistUserPage />} />
           <Route path="/manage" element={<ManagePage />} />
-          <Route path="/detail/:residx" element={<DetailPage />} />
+          <Route path="/restaurant/:residx" element={<DetailPage />} />
         </Routes>
       </div>
     </div>
   );
 }
 
-function App() {
+export default function App() {
   return (
     <BrowserRouter>
       <Layout />
     </BrowserRouter>
   );
 }
-
-export default App;

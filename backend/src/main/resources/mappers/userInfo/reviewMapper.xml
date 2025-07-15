@@ -34,6 +34,7 @@
     <select id="getReviewsByUserIdx" parameterType="String" resultType="kr.map.food.domain.user.ReviewDTO">
         SELECT 
             u.USERIDX,
+            u.USERNAME,
             rev.RESIDX,
             r.RESNAME,
             rev.REVIEWCONTENT,

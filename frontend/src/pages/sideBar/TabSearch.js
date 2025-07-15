@@ -4,12 +4,13 @@ import SideBarHeader from "./SideBarHeader";
 import { nomalResFindAll } from "../../api/map/MapList";
 import { addFavorite, removeFavorite, FavoriteCheck } from "../../api/user/userAction";
 import { getCookie } from "../../util/cookie";
+import { searchRestaurants } from "../../api/map/KeywoardSearch";
 
-export default function TabSearch({ selectedTab, bounds }) {
+
+export default function TabSearch({ selectedTab,bounds, moveMapToFitBounds, searchKeyword, handleSearch ,setSelectedRestaurant}) {
     const navigate = useNavigate();
-
     const [restaurantList, setRestaurantList] = useState([]);
-    const [filteredList, setFilteredList] = useState([]); // ✅ 필터된 리스트
+    const [filteredList, setFilteredList] = useState([]);
     const [favoriteList, setFavoriteList] = useState([]);
     const [favorite, setFavorite] = useState(true);
     const [showOldList, setShowOldList] = useState([]);
@@ -17,54 +18,116 @@ export default function TabSearch({ selectedTab, bounds }) {
     const userIdx = getCookie("userIdx");
     const isLoggedIn = !!userIdx;
 
-    // 전체 음식점 불러오기
+    // ✅ 전체 음식점 초기 로드
+    
     useEffect(() => {
-        nomalResFindAll()
-            .then((response) => {
-                const data = response.data;
-                setRestaurantList(data);
-                setFavoriteList(new Array(data.length).fill(false));
-                setShowOldList(new Array(data.length).fill(false));
-            })
-            .catch((error) => {
-                console.error("음식점 목록을 불러오는 중 오류 발생:", error);
-            });
+        nomalResFindAll({'num': 0})
+        .then((response) => {
+            console.log(response.data);
+            setRestaurantList(response.data);
+        })
+        .catch((error) => {
+            console.error("음식점 목록을 불러오는 중 오류 발생:", error);
+        });
+}, []);
+   /*
+    useEffect(() => {
+        const fetchAllRestaurants = async () => {
+            const allData = [];
+
+            for (let i = 0; i < 1; i++) {
+            try {
+                const response = await nomalResFindAll({ num: i });
+                allData.push(...response.data);
+                console.log(response.data);
+            } catch (error) {
+                console.error(요청 ${i} 실패:, error);
+            }
+            }
+            console.log('allData: ', allData);
+            setRestaurantList(allData);
+        };
+
+        fetchAllRestaurants();
     }, []);
+    */
 
-    // bounds가 바뀔 때마다 필터링
+    // ✅ bounds 내의 음식점만 필터링해서 보여주기
     useEffect(() => {
-        if (!bounds || restaurantList.length === 0) return;
+    if (!bounds || searchKeyword.trim() !== "") return; // 검색어가 있을 때는 필터링 X
 
-        const filtered = restaurantList.filter((item) =>
-            item.ypos >= bounds.blY &&
-            item.ypos <= bounds.urY &&
-            item.xpos >= bounds.blX &&
-            item.xpos <= bounds.urX
+    const filtered = restaurantList.filter((item) => {
+        const x = parseFloat(item.xpos);
+        const y = parseFloat(item.ypos);
+        return (
+        x >= bounds.blX && x <= bounds.urX &&
+        y >= bounds.blY && y <= bounds.urY
         );
+    });
 
+    setFilteredList(filtered);
+    setFavoriteList(new Array(filtered.length).fill(false));
+    setShowOldList(new Array(filtered.length).fill(false));
+    }, [bounds, restaurantList, searchKeyword]);
+
+
+    // ✅ 검색어로 DB에서 검색
+   useEffect(() => {
+    console.log("🧪 TabSearch received handleSearch:", typeof handleSearch);
+    const fetchSearchResult = async () => {
+    if (searchKeyword?.trim() === "") {
+    if (bounds) {
+        const filtered = restaurantList.filter((item) => {
+                const x = parseFloat(item.xpos);
+                const y = parseFloat(item.ypos);
+                return (
+                    x >= bounds.blX && x <= bounds.urX &&
+                    y >= bounds.blY && y <= bounds.urY
+                );
+            });
         setFilteredList(filtered);
-        setShowOldList(new Array(filtered.length).fill(false));
         setFavoriteList(new Array(filtered.length).fill(false));
-    }, [bounds, restaurantList]);
+        setShowOldList(new Array(filtered.length).fill(false));
+    }else {
+        setFilteredList([]); // bounds도 없으면 빈 값
+        setFavoriteList([]);
+        setShowOldList([]);
+    }   
+    return;
+}
+    try {
+        const res = await searchRestaurants(searchKeyword);
+        setFilteredList(res.data);
+        setFavoriteList(new Array(res.data.length).fill(false));
+        setShowOldList(new Array(res.data.length).fill(false));
 
-    // 즐겨찾기 체크
+        // ✅ 지도 이동 요청
+        if (res.data.length > 0 && moveMapToFitBounds) {
+            moveMapToFitBounds(res.data);
+        }
+        } catch (error) {
+        console.error("검색 실패:", error);
+        }
+    };
+        fetchSearchResult();
+    }, [searchKeyword,restaurantList, bounds]);
+
+    // ✅ 즐겨찾기 확인
     useEffect(() => {
-     const fetchFavorites = async () => {
-  if (!isLoggedIn || filteredList.length === 0) return;
+        const fetchFavorites = async () => {
+            if (!isLoggedIn || filteredList.length === 0) return;
 
-  try {
-    const res = await FavoriteCheck(userIdx); // 전체 즐겨찾기 목록
-    const favoriteResidxList = res.data.map(fav => fav.resIdx); // 즐겨찾기한 음식점 ID 배열
-
-    const initList = filteredList.map(item =>
-      favoriteResidxList.includes(item.residx)
-    );
-
-    setFavoriteList(initList);
-  } catch (error) {
-    console.error("즐겨찾기 목록 확인 실패", error);
-  }
-};
+            try {
+                const res = await FavoriteCheck(userIdx);
+                const favoriteResidxList = res.data.map(fav => fav.resIdx);
+                const initList = filteredList.map(item =>
+                    favoriteResidxList.includes(item.residx)
+                );
+                setFavoriteList(initList);
+            } catch (error) {
+                console.error("즐겨찾기 목록 확인 실패", error);
+            }
+        };
 
         fetchFavorites();
     }, [isLoggedIn, filteredList, userIdx]);
@@ -83,35 +146,31 @@ export default function TabSearch({ selectedTab, bounds }) {
 
         const updated = [...favoriteList];
         const isNowFavorite = !updated[idx];
-
         updated[idx] = isNowFavorite;
         setFavoriteList(updated);
 
         try {
             if (isNowFavorite) {
                 await addFavorite(userIdx, resIdx);
-                console.log("즐겨찾기 등록 성공");
             } else {
                 await removeFavorite(userIdx, resIdx);
-                console.log("즐겨찾기 해제 성공");
             }
         } catch (error) {
-            console.error("즐겨찾기 처리 중 오류 발생:", error);
-            alert("처리 중 문제가 발생했습니다.");
-            const rollback = [...favoriteList];
-            rollback[idx] = !isNowFavorite;
-            setFavoriteList(rollback);
+            console.error("즐겨찾기 처리 중 오류:", error);
+            updated[idx] = !isNowFavorite; // 롤백
+            setFavoriteList(updated);
         }
     };
 
     const handleDetailPage = (item) => {
-        navigate(`/detail/${item.residx}`, { state: item });
-    };
+    //navigate(/detail/${item.residx}, { state: item }); ← 이건 일단 보류하거나 별도로
+    setSelectedRestaurant(item); // ✅ 상위로 전달
+};
 
     return (
         <div className="sidebar">
-            <SideBarHeader />
-            <h4>일반휴계음식점 추천</h4>
+            <SideBarHeader onSearch={handleSearch} />
+            <h4>검색 결과</h4>
 
             {filteredList.map((item, index) => (
                 <div key={item.residx} className="section" onClick={() => handleDetailPage(item)}>
@@ -138,16 +197,6 @@ export default function TabSearch({ selectedTab, bounds }) {
                             {item.oldaddr}<br />
                             <span>{item.resnum}</span>
                         </span>
-                    )}
-                    {item.menuList?.length > 0 && (
-                        <>
-                            <h4>주메뉴</h4>
-                            <div className="menuList">
-                                {item.menuList.map((menuItem, i) => (
-                                    <span key={i} className="menu-item">• {menuItem}<br /></span>
-                                ))}
-                            </div>
-                        </>
                     )}
                 </div>
             ))}

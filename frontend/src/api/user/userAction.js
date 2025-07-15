@@ -28,10 +28,9 @@ export const selReviewRes = (resIdx, data={}) => {
   return api.get(`/review/store/${resIdx}`,data);
 }
 
-// 유저 리뷰 조회
 export const selReviewUser = (userIdx, data={}) => {
   return api.get(`/review/my/${userIdx}`,data);
-}
+} 
 
 
 

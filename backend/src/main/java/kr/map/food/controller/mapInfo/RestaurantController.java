@@ -19,7 +19,7 @@ public class RestaurantController {
 
     private final RestaurantService restaurantService;
 
-    @GetMapping
+    @GetMapping("/")
     public List<RestaurantDTO> getAll() {
         return restaurantService.getAllRestaurants();
     }

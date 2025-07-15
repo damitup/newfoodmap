@@ -69,8 +69,27 @@ public class AddressTrans {
             dto.setNUMADDR(kakaoInfo.getPostCode());
             System.out.println("NUMADDR 세팅: " + dto.getNUMADDR());
         }
-        dto.setADDRGU(kakaoInfo.getGu());
-        dto.setADDRDONG(kakaoInfo.getDong());
+
+        String gu = kakaoInfo.getGu();
+        String dong = kakaoInfo.getDong();
+
+        // 구 못가져왔으면 OLDADDR에서 파싱
+        if (FindNullData.isEmpty(gu)) {
+            gu = parseGu(dto.getOLDADDR());
+            System.out.println("구를 OLDADDR에서 파싱: " + gu);
+        }
+
+        // 동 못가져왔으면 OLDADDR에서 파싱
+        if (FindNullData.isEmpty(dong)) {
+            dong = parseDong(dto.getOLDADDR());
+            System.out.println("동을 OLDADDR에서 파싱: " + dong);
+        }
+
+        //normalize(dong);
+
+        dto.setADDRGU(gu);
+        dto.setADDRDONG(dong);
+
         dto.setXPOS(kakaoInfo.getLongitude());
         dto.setYPOS(kakaoInfo.getLatitude());
 
@@ -79,6 +98,4 @@ public class AddressTrans {
     
     }
 
-
-    
 }    

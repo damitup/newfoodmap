@@ -38,6 +38,9 @@ dependencies {
 	// 카카오맵 api용
 	implementation 'org.json:json:20240303'
 
+	// 좌표계 변환용
+	implementation 'org.locationtech.proj4j:proj4j:1.1.0'
+
 	// 엑셀 파싱용
 	implementation 'org.apache.poi:poi-ooxml:5.2.3'
 

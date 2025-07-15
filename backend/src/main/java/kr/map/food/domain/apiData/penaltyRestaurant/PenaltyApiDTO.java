@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class PenaltyApiDTO {
 
-    private String PENALTYIDX;
-    private String RESIDX;
-    private String PENALTYCONTENT;
+    private String penaltyIdx;
+    private String resIdx;
+    private String penaltyContent;
 }

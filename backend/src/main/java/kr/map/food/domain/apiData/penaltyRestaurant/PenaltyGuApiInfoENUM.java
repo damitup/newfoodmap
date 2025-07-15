@@ -5,7 +5,7 @@ public enum PenaltyGuApiInfoENUM {
     GANGNAM_PENALTY(
         "http://openAPI.gangnam.go.kr:8088",
         "GnAdminMesureFood"
-    ),
+     ),
     GANGDONG_PENALTY(
         "http://openAPI.gd.go.kr:8088",
         "GdAdminMesureFood"

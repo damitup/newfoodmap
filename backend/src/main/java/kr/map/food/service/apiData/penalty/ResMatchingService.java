@@ -34,7 +34,7 @@ public class ResMatchingService {
 
         if(lastIdx != null && lastIdx.startsWith("PN")) {
             try {
-                lastNum = Integer.parseInt(lastIdx.substring(1)) + 1;
+                lastNum = Integer.parseInt(lastIdx.substring(2)) + 1;
             }
             catch (NumberFormatException e) {
                 lastNum = 1;
@@ -57,9 +57,9 @@ public class ResMatchingService {
 
                 PenaltyApiDTO insert = new PenaltyApiDTO();
 
-                insert.setPENALTYIDX(newPenaltyIdx());
-                insert.setRESIDX(match.getRESIDX());
-                insert.setPENALTYCONTENT(penalty.getPENALTYCONTENT());
+                insert.setPenaltyIdx(newPenaltyIdx());
+                insert.setResIdx(match.getRESIDX());
+                insert.setPenaltyContent(penalty.getPENALTYCONTENT());
 
                 penaltyMapper.insertPenalty(insert);
             }
@@ -101,7 +101,7 @@ public class ResMatchingService {
             }
 
             // 3. 도로명이 없으면 버림
-            if (FindNullData.isEmpty(pRoad) || FindNullData.isEmpty(pStore)) continue;
+            if (FindNullData.isEmpty(pRoad) || FindNullData.isEmpty(pStore) || FindNullData.isEmpty(rRoad)) continue;
 
 
             // 4. 업소명 일치, 도로명 비교

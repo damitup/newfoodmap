@@ -4,16 +4,14 @@ import kr.map.food.domain.apiData.restaurant.RestaurantApiDTO;
 
 public class TelNumTrans {
     
-    public static void setTelNum( String telNum ) {
-
-        RestaurantApiDTO dto = new RestaurantApiDTO();
+    public static void setTelNum( RestaurantApiDTO dto ) {
         
-        if (telNum == null || telNum.isBlank()) {
+        if (dto == null || dto.getRESNUM() == null || dto.getRESNUM().isBlank()) {
             dto.setRESNUM("");
             return;
         }
 
-        String cleaned = telNum.replaceAll("\\s+", "");
+        String cleaned = dto.getRESNUM().replaceAll("\\s+", "");
 
         String formatted = "";
 

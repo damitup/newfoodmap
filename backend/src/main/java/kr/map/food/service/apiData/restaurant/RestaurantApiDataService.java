@@ -11,6 +11,7 @@ import kr.map.food.domain.apiData.restaurant.RestaurantApiDTO;
 import kr.map.food.domain.apiData.restaurant.RestaurantRawDTO;
 import kr.map.food.mapper.apiData.RestaurantApiDataMapper;
 import kr.map.food.service.apiData.dataTrans.AddressTrans;
+import kr.map.food.service.apiData.dataTrans.CoordinateTrans;
 import kr.map.food.service.apiData.dataTrans.DataTypeTrans;
 import kr.map.food.service.apiData.dataTrans.FindNullData;
 import kr.map.food.service.apiData.dataTrans.RestaurantTypeTrans;
@@ -64,13 +65,9 @@ public class RestaurantApiDataService {
                 RestaurantApiDTO dto = buildRestaurant(raw, TYPEIDX);
 
                 // 주소 가공
-                if ( FindNullData.isEmpty( raw.getSITEWHLADDR() ) 
-                    || FindNullData.isEmpty( raw.getRDNWHLADDR() )
-                    || FindNullData.isEmpty( raw.getX() )
-                    || FindNullData.isEmpty( raw.getY() )
-                    ) {
-                    AddressTrans.setAddress( raw, dto );
-                }
+                AddressTrans.setAddress( raw, dto );
+
+                CoordinateTrans.setCoordinate(raw, dto);
 
                 // 좌표 체크 후 없으면 저장하지 않음
                 if (dto.getXPOS() == null || dto.getYPOS() == null) {
@@ -81,7 +78,7 @@ public class RestaurantApiDataService {
                 System.out.println(">>> 실제 INSERT 시도: " + dto);
 
                 // 전화번호 가공
-                TelNumTrans.setTelNum( dto.getRESNUM() );
+                TelNumTrans.setTelNum( dto );
 
                 restaurantMapper.insertRestaurant(dto);
 
@@ -102,8 +99,6 @@ public class RestaurantApiDataService {
         r.setOLDADDR(raw.getSITEWHLADDR());
         r.setNEWADDR(raw.getRDNWHLADDR());
         r.setNUMADDR(AddressTrans.formatPostCode(raw.getRDNPOSTNO()));
-        r.setXPOS(DataTypeTrans.parseDoubleSafe(raw.getX()));
-        r.setYPOS(DataTypeTrans.parseDoubleSafe(raw.getY()));
         return r;
     }
 

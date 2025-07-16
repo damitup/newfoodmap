@@ -15,4 +15,5 @@ public interface RestaurantMapper {
 
     List<RestaurantDTO> findByLocation(double blY, double urY, double blX, double urX);
     
+    List<RestaurantDTO> searchRestaurants(String keyword);
 }

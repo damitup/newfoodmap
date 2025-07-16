@@ -161,7 +161,7 @@
     width: 240px;
 
 }
-.sidebar .section .container.title .resType{
+.section .container.title .resType{
     color: #aaa;
     font-size: 12px;
     display: flex;
@@ -170,6 +170,12 @@
     width: 33px;
     margin-left: auto;
     height: 100%;
+}
+.resType.review{
+    width: 100%;
+    color: #aaa;
+    text-align: end;
+    margin-left: auto;
 }
 
 .sidebar .section .container.title .btn.favorite{

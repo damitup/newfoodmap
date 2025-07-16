@@ -2,6 +2,7 @@ package kr.map.food.controller.mapInfo;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +37,12 @@ public class RestaurantController {
         @RequestParam double blX,
         @RequestParam double urX ) {
         return restaurantService.getRestaurantByLocation(blY, urY, blX, urX);
+    }
+
+       @GetMapping("/search/{keyword}")
+    public ResponseEntity<List<RestaurantDTO>> searchRestaurants(@PathVariable String keyword) {
+        List<RestaurantDTO> result = restaurantService.searchRestaurants(keyword);
+        return ResponseEntity.ok(result);
     }
 
     

@@ -25,5 +25,7 @@ public class RestaurantService {
     public List<RestaurantDTO> getRestaurantByLocation(double blY, double urY, double blX, double urX) {
         return restaurantMapper.findByLocation(blY, urY, blX, urX);
     }
-    
+    public List<RestaurantDTO> searchRestaurants(String keyword) {
+        return restaurantMapper.searchRestaurants("%" + keyword + "%"); // LIKE 검색
+    }
 }

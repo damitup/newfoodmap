@@ -5,7 +5,7 @@
 
 <mapper namespace="kr.map.food.mapper.mapInfo.RestaurantMapper">  
 
-    <select id="findAll" resultType="kr.map.food.domain.mapInfo.RestaurantDTO">
+    <select id="findAll" parameterType="RestaurantDTO" resultType="kr.map.food.domain.mapInfo.RestaurantDTO">
         SELECT
             r.RESIDX,
             r.RESNAME,
@@ -27,7 +27,7 @@
             LEFT JOIN BESTRESTAURANT b
             ON r.RESIDX = b.RESIDX
             WHERE r.RESRUN = 1
-            LIMIT 500;
+            LIMIT 500 OFFSET #{num};
     </select>
 
     <select id="findById" parameterType="String" resultType="kr.map.food.domain.mapInfo.RestaurantDTO">

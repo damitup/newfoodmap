@@ -14,8 +14,8 @@ public class RestaurantService {
     
     private final RestaurantMapper restaurantMapper;
 
-    public List<RestaurantDTO> getAllRestaurants() {
-        return restaurantMapper.findAll();
+    public List<RestaurantDTO> getAllRestaurants(int num) {
+        return restaurantMapper.findAll(num);
     }
 
     public RestaurantDTO getRestaurantById(String RESIDX) {

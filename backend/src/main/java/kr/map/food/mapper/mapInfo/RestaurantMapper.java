@@ -9,7 +9,7 @@ import kr.map.food.domain.mapInfo.RestaurantDTO;
 @Mapper
 public interface RestaurantMapper {
 
-    List<RestaurantDTO> findAll();
+    List<RestaurantDTO> findAll(int num);
 
     RestaurantDTO findById(String id);
 

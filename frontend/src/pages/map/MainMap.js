@@ -22,7 +22,7 @@ export default function MainMap({ selectedTab, setBounds, onMapControlReady, sel
   // ✅ 지도 객체 초기화
   useEffect(() => {
     if (!window.kakao || !mapRef.current) return;
-
+    console.log(data);
     const map = new window.kakao.maps.Map(mapRef.current, {
       center: new window.kakao.maps.LatLng(37.5665, 126.9780),
       level: 3,

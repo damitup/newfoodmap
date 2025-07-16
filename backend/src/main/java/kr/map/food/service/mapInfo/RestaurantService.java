@@ -14,8 +14,8 @@ public class RestaurantService {
     
     private final RestaurantMapper restaurantMapper;
 
-    public List<RestaurantDTO> getAllRestaurants() {
-        return restaurantMapper.findAll();
+    public List<RestaurantDTO> getAllRestaurants(int num) {
+        return restaurantMapper.findAll(num);
     }
 
     public RestaurantDTO getRestaurantById(String RESIDX) {
@@ -25,5 +25,7 @@ public class RestaurantService {
     public List<RestaurantDTO> getRestaurantByLocation(double blY, double urY, double blX, double urX) {
         return restaurantMapper.findByLocation(blY, urY, blX, urX);
     }
-    
+    public List<RestaurantDTO> searchRestaurants(String keyword) {
+        return restaurantMapper.searchRestaurants("%" + keyword + "%"); // LIKE 검색
+    }
 }

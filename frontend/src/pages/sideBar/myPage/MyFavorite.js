@@ -1,40 +1,91 @@
 import { useState, useEffect } from "react";
+import { getCookie } from "../../../util/cookie";
+import { addFavorite, removeFavorite } from "../../../api/user/userAction";
 
-export default function MyFavorite({data}){
-    
-    const [favoriteClick,setFavoriteClick] = useState("");
-    const [favoriteList,setFavoriteList] = useState([]);
-    const [favorite,setFavorite] = useState(true);
 
-    useEffect(() => {
-        setFavoriteList(new Array(data.length).fill(false));
-    }, []);
+export default function MyFavorite({ data,setData }) {
+  const [favoriteList, setFavoriteList] = useState([]);
+  const [showOldList, setShowOldList] = useState([]);
+  const userIdx = getCookie("userIdx");
+  const isLoggedIn = !!userIdx;
 
-        // 즐겨찾기 클릭 설정
-    const handlerFavoriteClick = (idx)=>{
-        setFavoriteList((prevList) => {
-        const updated = [...prevList];
-        updated[idx] = !updated[idx]; // 해당 인덱스만 토글
-        return updated;
+  useEffect(() => {
+    if (Array.isArray(data)) {
+      setFavoriteList(new Array(data.length).fill(false));
+      setShowOldList(new Array(data.length).fill(false));
+    }
+  }, [data]);
+
+  const handlerFavoriteClick = async (index, resIdx) => {
+  const newFavoriteList = data.filter((_, i) => i !== index); // UI에서 바로 제거
+  const newFavStatus = favoriteList.filter((_, i) => i !== index);
+  const removedItem = data[index];
+
+  setFavoriteList(newFavStatus);
+  setData(newFavoriteList); // 리스트에서 즉시 제거
+
+  try {
+    await removeFavorite(userIdx, resIdx); // 서버에서 제거
+  } catch (error) {
+    console.error("❌ 즐겨찾기 해제 중 오류 발생:", error);
+
+    // 실패 시 다시 추가 (복구)
+    setFavoriteList((prev) => {
+      const rollback = [...prev];
+      rollback.splice(index, 0, true);
+      return rollback;
     });
-        //db 저장 로직 추가
-    };
-    
-    return(
-        <div className="myFavorite">
-            <h4>즐겨찾기 목록</h4>
-            {data.map((item, index) => (
-                <div key={index} className="section">
-                    <div className="container title">
-                        <span className="sectionTitle">{item.name}</span>
-                        <span className="resType">{item.type}</span>
-                        <button type="button" aria-pressed={!favorite} className={`btn favorite ${favoriteList[index] ? "on" : ""}`} onClick={()=>handlerFavoriteClick(index)}  />
-                    </div>
-                    <span>{item.content}</span>
-                    <span>{item.tel}</span>
-                </div>
-            ))}
-        </div>
 
-    )
+    setData((prev) => {
+      const rollback = [...prev];
+      rollback.splice(index, 0, removedItem);
+      return rollback;
+    });
+  }
+};
+
+
+  const showOldAddr = (index) => {
+    const updated = [...showOldList];
+    updated[index] = !updated[index];
+    setShowOldList(updated);
+  };
+
+  return (
+    <div className="myFavorite">
+      <h4>즐겨찾기 목록</h4>
+
+      {Array.isArray(data) && data.length > 0 ? (
+        data.map((item, index) => (
+          <div key={item.residx} className="section">
+            <div className="container title">
+              <span className="sectionTitle">{item.resName}</span>
+              {isLoggedIn && (
+                <button
+                  type="button"
+                  aria-pressed={!favoriteList[index]}
+                  className={`btn favorite ${favoriteList[index] ? "" : "on"}`}
+                  onClick={(e) => {
+                    handlerFavoriteClick(index, item.resIdx);
+                    e.stopPropagation();
+                  }}
+                />
+              )}
+            </div>
+            <span onClick={(e) => { showOldAddr(index); e.stopPropagation(); }}>
+              {item.newAddr}
+            </span>
+            {showOldList[index] && (
+              <span className="oldAddr" style={{ marginLeft: "10px" }}>
+                {item.oldAddr}<br />
+                <span>{item.resNum}</span>
+              </span>
+            )}
+          </div>
+        ))
+      ) : (
+        <p className="no-favorite">등록된 즐겨찾기가 없습니다.</p>
+      )}
+    </div>
+  );
 }

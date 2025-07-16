@@ -1,50 +1,51 @@
 import { useState, useEffect } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import HeaderPage from '../components/HeaderPage';
-import {
-    nomalResGoDetail,
-    bestResGoDetail,
-    cleanResGoDetail,
-    penaltyGoDetail
-  } from '../api/map/MapList';
+import { getCookie } from '../util/cookie';
+import { writeReview } from '../api/user/userAction';
+import { selReviewRes } from '../api/user/userAction';
 
 export default function DetailPage() {
-  const { idx } = useParams(); // residx
+  const { residx} = useParams();
   const location = useLocation();
+  const userIdx = getCookie("userIdx"); // 로그인한 사용자
   const [data, setData] = useState(location.state || null);
+  const [reviewList,setReviewList] = useState([]);
+  const [reviewContent, setReviewContent] = useState("");
 
-  useEffect(() => {
-  const changeDetailData = async () => {
+  //리뷰 불러오기 
+  const fetchReviews = async () => {
     try {
-      if (location.state) {
-        setData(location.state);
-        return;
-      }
-
-      const res1 = await nomalResGoDetail(idx);
-      if (res1.data) return setData(res1.data);
-
-      const res2 = await bestResGoDetail(idx);
-      if (res2.data) return setData(res2.data);
-
-      const res3 = await cleanResGoDetail(idx);
-      if (res3.data) return setData(res3.data);
-
-      const res4 = await penaltyGoDetail(idx);
-      if (res4.data) return setData(res4.data);
-
-      setData(null);
-    } catch (e) {
-      setData(null);
+      const res = await selReviewRes(residx); // 
+      console.log(res.data);
+      setReviewList(res.data); 
+    } catch (err) {
+      console.error("리뷰 조회 실패:", err);
     }
   };
 
-  changeDetailData();
-}, [idx, location.state]); // 여기 의존성 중요!!
+    useEffect(() => {
+            
+      fetchReviews(); // ⭐ 리뷰 목록 불러오기
+    }, [residx, data]);
 
-  if (!data) {
-    return <div className="detailPage">정보가 없습니다.</div>;
-  }
+
+  //리뷰 작성
+  const handleReviewSubmit = async () => {
+    if (!reviewContent.trim()) {
+      alert("리뷰 내용을 입력해주세요.");
+      return;
+    }
+    try {
+      await writeReview({ userIdx, resIdx: residx, reviewContent: reviewContent });
+      alert("리뷰가 등록되었습니다.");
+      setReviewContent("");
+      // TODO: 등록 후 리뷰 목록 다시 불러오기
+    } catch (err) {
+      console.error("리뷰 등록 실패:", err);
+      alert("리뷰 등록 중 문제가 발생했습니다.");
+    }
+  };
 
   return (
     <div>
@@ -58,7 +59,7 @@ export default function DetailPage() {
             <span>{data.resname}</span>
           </div>
 
-          <p className="rating">후기 DB에서 count개</p>
+          <p className="rating">후기 {reviewList.length}개</p>
           <div className="actions">
             <button onClick={() => window.open(`tel:${data.resnum}`)}>전화</button>
             <button onClick={() => window.open(`https://map.kakao.com/?q=${data.resname}`)}>길찾기</button>
@@ -77,15 +78,37 @@ export default function DetailPage() {
           <strong>음식점 설명</strong>
           <p className="description">{data.resmaindish || "설명 정보가 없습니다."}</p>
         </div>
-
-        <div className='line'></div>
-        <div className="reviewSection">
-          <h3>리뷰 (총 개)</h3>
+          {/* ✅ 로그인한 사용자만 리뷰 작성 가능 */}
+          
           <div className="review">
-            <p><strong>리뷰작성자이름</strong></p>
-            <p>리뷰내용 예시1</p>
-          </div>
-        </div>
+          {userIdx && (
+            <div className="review write">
+              <p><strong>리뷰 작성란</strong></p>
+              <textarea
+                id="reviewWrite"
+                value={reviewContent}
+                onChange={(e) => setReviewContent(e.target.value)}
+                placeholder="리뷰를 입력하세요"
+              />
+              <div className='reivewWriteBtn'>
+              <button onClick={handleReviewSubmit}>작성</button>
+              </div>
+            </div>
+          )}
+
+          {/* 기존 리뷰 예시 */}
+          {reviewList.length === 0 ? (
+            <span>리뷰가 없습니다.</span>
+            ) : (
+              reviewList.map((review, idx) => (
+                <div className="reviewContainer" key={idx}>
+                  <p><strong>이름 : {review.userName}</strong></p>
+                  <p>{review.reviewContent} <span className='reviewDate'>{review.reviewDate}</span></p>
+                  
+                </div>
+            ))
+          )}
+      </div>
       </div>
     </div>
   );

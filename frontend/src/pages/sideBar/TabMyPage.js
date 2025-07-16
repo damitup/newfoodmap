@@ -3,53 +3,73 @@ import { useNavigate } from 'react-router-dom';
 import MyFavorite from "./myPage/MyFavorite.js";
 import MyReview from "./myPage/MyReview.js";
 import SideBarHeader from "./SideBarHeader";
+import { selReviewUser, FavoriteCheck } from "../../api/user/userAction.js";
+import { getCookie } from "../../util/cookie.js";
 
-export default function MySidePage(){
+export default function MySidePage({ handleSearch }) {
     const navigate = useNavigate();
-    const [tabTabFavoriteList,setTabFavoriteList] = useState([]);
-    const [tabTabReviewList,setTabReviewList]= useState([]);
-    const [favoriteList,setFavoriteList] = useState([]);
-    const [activeTab,setActiveTab]= useState("");
+    const [tabTabFavoriteList, setTabFavoriteList] = useState([]);
+    const [tabTabReviewList, setTabReviewList] = useState([]);
+    const [activeTab, setActiveTab] = useState("favorite");
 
+    const userIdx = getCookie("userIdx");
 
-    // mypage 즐겨찾기. 리뷰 버튼 클릭 시 메소드
+    // ⭐ 탭 클릭 시 데이터 로드
     const handleTabClick = async (tabType) => {
-    setActiveTab(tabType);
-    
-    //fetch 경로는 백앤드 구조에 따라 변경될수 있음
-    if (tabType === "favorite") {
-        const res = await fetch("/api/favorite/list?userId=testUser");
-        const data = await res.json();
-        setTabFavoriteList(data);
-    }
+        setActiveTab(tabType);
 
-    if (tabType === "review") {
-        const res = await fetch("/api/review/list?userId=testUser");
-        const data = await res.json();
-        setTabReviewList(data);
-    }
-};
-    //mypage 즐겨찾기, 리뷰 버튼 클릭시 ui 표시
-    const isActive = (tab) => activeTab === tab ? "active" : "";
+        if (tabType === "favorite") {
+            try {
+                const res = await FavoriteCheck(userIdx);
+                setTabFavoriteList(res.data);
+            } catch (err) {
+                console.error("즐겨찾기 불러오기 실패:", err);
+            }
+        }
+
+        if (tabType === "review") {
+            try {
+                const res = await selReviewUser(userIdx);
+                setTabReviewList(res.data);
+            } catch (err) {
+                console.error("리뷰 불러오기 실패:", err);
+            }
+        }
+    };
+
+    // ⭐ 탭 활성화 여부
+    const isActive = (tab) => (activeTab === tab ? "active" : "");
+
+    // ⭐ 초기 로드시 즐겨찾기 탭 자동 로드
     useEffect(() => {
-        handleTabClick("favorite");
-        // setFavoriteList(new Array(resData.length).fill(false));
-    }, []);
+        if (userIdx) {
+            handleTabClick("favorite");
+        }
+    }, [userIdx]);
 
-        //db 저장 로직 추가
-    // 각 section별 상세페이지로 페이징 메소드 구간
     return (
-    <div className="sidebar tabMypage">
-        <SideBarHeader/>
-        <div className="container myTab myPage">
-            <div className ={`myTabmenuItem ${isActive("favorite")}`} onClick={() => handleTabClick("favorite")}><span>즐겨찾기</span></div>
-            <div className ={`myTabmenuItem ${isActive("review")}`} onClick={() => handleTabClick("review")}><span>리뷰</span></div>
-        </div>
-        {/*     즐겨찾기, 리뷰 클릭 시 해당 페이지 불러오기 */}
-     
-            {activeTab === "favorite" && <MyFavorite data={tabTabFavoriteList} />}
+        <div className="sidebar tabMypage">
+            <SideBarHeader onSearch={handleSearch} />
+            <div className="container myTab myPage">
+                <div
+                    className={`myTabmenuItem ${isActive("favorite")}`}
+                    onClick={() => handleTabClick("favorite")}
+                >
+                    <span>즐겨찾기</span>
+                </div>
+                <div
+                    className={`myTabmenuItem ${isActive("review")}`}
+                    onClick={() => handleTabClick("review")}
+                >
+                    <span>리뷰</span>
+                </div>
+            </div>
+
+            {/* 탭에 따라 컴포넌트 렌더링 */}
+            {activeTab === "favorite" && (
+                <MyFavorite data={tabTabFavoriteList} setData={setTabFavoriteList} />
+            )}
             {activeTab === "review" && <MyReview data={tabTabReviewList} />}
-        
-    </div>
-  );
+        </div>
+    );
 }

@@ -78,9 +78,10 @@
 
 .kakaoIcon.search.inBox{
     position: absolute;
-    right: -321px;
+    left: 358px;
     top: 66px;
     background-color: white;
+    z-index: 100;
 }
 
 
@@ -127,6 +128,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
     
 }
 .sidebar .section .gradeIcon.green{
@@ -153,20 +155,27 @@
 .sidebar .section .container.title .sectionTitle{
     font-size: 15px;
     color: #111;
-    margin-right: 7px;
     font-weight: 600;
     display: flex;
     align-items: flex-end;
+    width: 240px;
 
 }
-.sidebar .section .container.title .resType{
+.section .container.title .resType{
     color: #aaa;
     font-size: 12px;
     display: flex;
-    align-items: flex-end;
-    text-align: end;
-    margin-right: 20px;
+    align-items: center;
+    text-align: center;
+    width: 33px;
+    margin-left: auto;
     height: 100%;
+}
+.resType.review{
+    width: 100%;
+    color: #aaa;
+    text-align: end;
+    margin-left: auto;
 }
 
 .sidebar .section .container.title .btn.favorite{
@@ -200,24 +209,22 @@
     gap: 0px;
 }
 
-
+.sidebar .section span.grade{
+    font-size: 14px;
+    font-weight: bold;
+    width: 33px;
+}
 
 /* 갑 을 자율 */
 .sidebar .section span.grade.green{
-    font-size: 12px;
-    font-weight: bold;
     color: #1c711c;
 }
 /* 지도 관리 */
 .sidebar .section span.grade.orange{
-    font-size: 12px;
-    font-weight: bold;
     color:  #02b643;
 }
 /* 기타, 공백 */
 .sidebar .section span.grade.gray{
-    font-size: 12px;
-    font-weight: bold;
     color: #aaa;
 }
 .sidebar.tabMypage .myPage{
@@ -238,4 +245,10 @@
 .sidebar.tabMypage .myTabmenuItem.active{
     background-color: rgba(13, 91, 212, .8);
     padding: 4px 0px;
+}
+.no-favorite {
+  padding: 20px;
+  text-align: center;
+  color: #888;
+  font-style: italic;
 }

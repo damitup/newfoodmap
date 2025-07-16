@@ -25,3 +25,9 @@ export const cleanResGoDetail = (params) => {
 export const penaltyGoDetail = (params) => {
   return MapApi.get(`/penalty/${params}`);
 };
+
+export const imhere = ({ blY, urY, blX, urX }) => {
+  return MapApi.get("/restaurant/here", {
+    params: { blY, urY, blX, urX },
+  });
+};

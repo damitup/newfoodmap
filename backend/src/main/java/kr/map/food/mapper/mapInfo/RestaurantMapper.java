@@ -9,10 +9,11 @@ import kr.map.food.domain.mapInfo.RestaurantDTO;
 @Mapper
 public interface RestaurantMapper {
 
-    List<RestaurantDTO> findAll();
+    List<RestaurantDTO> findAll(int num);
 
     RestaurantDTO findById(String id);
 
     List<RestaurantDTO> findByLocation(double blY, double urY, double blX, double urX);
     
+    List<RestaurantDTO> searchRestaurants(String keyword);
 }

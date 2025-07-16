@@ -17,4 +17,9 @@ public interface ReviewRepository {
     String getLastReviewIdx(ReviewDTO dto);
 
     String findUserNameByIdx(String userIdx);
+
+    void updateReview(ReviewDTO dto);
+    
+    void deleteReview(String reviewIdx);
+
 }

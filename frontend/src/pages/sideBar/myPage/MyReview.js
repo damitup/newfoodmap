@@ -9,16 +9,18 @@ export default function MyReview({ data }) {
         <p className="no-favorite">등록된 리뷰가 없습니다.</p>
       ) : (
         data.map((item, idx) => (
-          <div key={item.reviewId || idx} className="section">
+          <div key={item.reviewId || idx} className="section review">
             <div className="container title">
               <span className="sectionTitle">{item.resName}</span>
             </div>
             <div className="container title ">
               <p className="reviewContent">{item.reviewContent}</p>
             </div>
+            <div className="container">
               <span className="resType review">
                 {item.reviewDate?.slice(0, 16)}
               </span>
+              </div>
           </div>
         ))
       )}

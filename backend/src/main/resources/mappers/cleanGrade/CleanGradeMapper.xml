@@ -8,17 +8,17 @@
   <!-- 1. INSERT -->
   <insert id="insertClean" parameterType="kr.map.food.domain.cleanGrade.CleanGradeDTO">
     INSERT INTO cleangrade (
-      CLIDX, CLNAME, ASSIGNGRADE, ASSIGNYEAR, ADDRGU, ADDRDONG, OLDADDR, NEWADDR, NUMADDR, XPOS, YPOS, DELYN
+      RESIDX, RESNAME, RESCLEANSCORE, ASSIGNYEAR, ADDRGU, ADDRDONG, OLDADDR, NEWADDR, NUMADDR, XPOS, YPOS, DELYN
     ) 
     VALUES (
-      #{CLIDX}, #{CLNAME}, #{ASSIGNGRADE}, #{ASSIGNYEAR}, #{ADDRGU}, #{ADDRDONG}, #{OLDADDR}, #{NEWADDR}, #{NUMADDR}, #{XPOS}, #{YPOS}, #{DELYN}
+      #{RESIDX}, #{RESNAME}, #{RESCLEANSCORE}, #{ASSIGNYEAR}, #{ADDRGU}, #{ADDRDONG}, #{OLDADDR}, #{NEWADDR}, #{NUMADDR}, #{XPOS}, #{YPOS}, #{DELYN}
     )
   </insert>
 
   <!-- 2. 중복 확인 -->
   <select id="existsClean" parameterType="kr.map.food.domain.cleanGrade.CleanGradeDTO" resultType="int">
     SELECT COUNT(*) FROM CLEANGRADE
-    WHERE CLNAME = #{CLNAME}
+    WHERE RESNAME = #{RESNAME}
       AND NEWADDR = #{NEWADDR}
       AND ASSIGNYEAR = #{ASSIGNYEAR}
   </select>
@@ -33,22 +33,22 @@
   <update id="markAlive" parameterType="kr.map.food.domain.cleanGrade.CleanGradeDTO">
     UPDATE CLEANGRADE
     SET clDelYn = 'N'
-    WHERE CLNAME = #{CLNAME}
+    WHERE RESNAME = #{RESNAME}
       AND NEWADDR = #{NEWADDR}        <!-- 수정 필요 -->
       AND ASSIGNYEAR = #{ASSIGNYEAR}
   </update>
 
   <!-- 5. 가장 큰 CLEANIDX 가져오기 -->
   <select id="getMaxCleanIdx" resultType="String">
-    SELECT MAX(CLIDX) FROM CLEANGRADE
+    SELECT MAX(RESIDX) FROM CLEANGRADE
   </select>
 
     <!-- 6. Update 지정등급 변경된 업소 -->
   <update id="updateClean" parameterType="kr.map.food.domain.cleanGrade.CleanGradeDTO">
     UPDATE CLEANGRADE
-    SET ASSIGNGRADE = #{ASSIGNGRADE},
+    SET RESCLEANSCORE = #{RESCLEANSCORE},
         DELYN = 'N'
-    WHERE CLNAME = #{CLNAME}
+    WHERE RESNAME = #{RESNAME}
       AND NEWADDR = #{NEWADDR}
       AND ASSIGNYEAR = #{ASSIGNYEAR}
   </update>

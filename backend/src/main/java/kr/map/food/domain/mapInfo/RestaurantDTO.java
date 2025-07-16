@@ -10,6 +10,7 @@ public class RestaurantDTO {
     private int RESRUN;
     private String RESNUM;
     private int TYPEIDX;
+    private String TypeNAME;
     private String RESCLEANSCORE;
     private String ADDRGU;
     private String ADDRDONG;

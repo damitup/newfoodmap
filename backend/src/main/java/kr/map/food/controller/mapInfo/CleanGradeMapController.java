@@ -23,9 +23,9 @@ public class CleanGradeMapController {
         return cleanGradeMapService.getAllCleanGrade();
     }
 
-    @GetMapping("/{CLIDX}")
-    public CleanGradeMapDTO getById(@PathVariable String CLIDX) {
-        return cleanGradeMapService.getCleanGradeById(CLIDX);
+    @GetMapping("/{RESIDX}")
+    public CleanGradeMapDTO getById(@PathVariable String RESIDX) {
+        return cleanGradeMapService.getCleanGradeById(RESIDX);
     }  
     
 }

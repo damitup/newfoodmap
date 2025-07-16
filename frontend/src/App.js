@@ -10,6 +10,8 @@ import './styles/components/tabMenu.css';
 import './styles/components/sideBar.css';
 import './styles/components/managePage.css';
 import './styles/DetailPage.css';
+import './styles/map/restaurant/RestaurantOverlay.css';
+
 
 // Page import
 import MainMap from './pages/map/MainMap.js'
@@ -23,8 +25,6 @@ import BarPenal from './pages/sideBar/TabPenal.js';
 import BarSearch from './pages/sideBar/TabSearch.js';
 import ManagePage from './components/ManagePage.js';
 import DetailPage from './pages/DetailPage.js';
-import RestaurantsMapPage from './pages/map/RestaurantsMapPage.js';
-import BestRestaurantsMapPage from './pages/map/BestRestaurantsMapPage.js';
 
 function Layout() {
   const location = useLocation();
@@ -37,6 +37,7 @@ function Layout() {
   const [searchKeyword, setSearchKeyword] = useState("");
   const [moveMapToFitBounds,setMoveToFitBounds] = useState(null);
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
+  const [filteredList, setFilteredList] = useState([]);
 
   const handleSearch = (keyword) => {
     setSearchKeyword(keyword);        // 검색어 저장
@@ -65,6 +66,7 @@ function Layout() {
               setSearchKeyword={setSearchKeyword}
               setSelectedRestaurant={setSelectedRestaurant}
               handleSearch={handleSearch} // ✅ 여기 추가!
+              onFilteredListChange={setFilteredList}
             />
           )}
           {isExpanded && selectedTab === "best" && <BarBest 
@@ -75,6 +77,7 @@ function Layout() {
               setSearchKeyword={setSearchKeyword}
               setSelectedRestaurant={setSelectedRestaurant}
               handleSearch={handleSearch} // ✅ 여기 추가!/
+              onFilteredListChange={setFilteredList}
               />}
           {isExpanded && selectedTab === "clean" && <BarClean 
               selectedTab={selectedTab}
@@ -83,7 +86,8 @@ function Layout() {
               searchKeyword={searchKeyword}
               setSearchKeyword={setSearchKeyword}
               setSelectedRestaurant={setSelectedRestaurant}
-              handleSearch={handleSearch} // ✅ 여기 추가!
+              handleSearch={handleSearch} // ✅ 여기 추가!\
+              onFilteredListChange={setFilteredList}
               />}
           {isExpanded && selectedTab === "penal" && <BarPenal 
               selectedTab={selectedTab}
@@ -93,6 +97,7 @@ function Layout() {
               setSearchKeyword={setSearchKeyword}
               setSelectedRestaurant={setSelectedRestaurant}
               handleSearch={handleSearch}
+              onFilteredListChange={setFilteredList}
           />}
           {isExpanded && selectedTab === "mypage" && <BarMy 
               selectedTab={selectedTab}
@@ -102,6 +107,7 @@ function Layout() {
               setSearchKeyword={setSearchKeyword}
               setSelectedRestaurant={setSelectedRestaurant}
               handleSearch={handleSearch}
+              onFilteredListChange={setFilteredList}
           />}
         </div>
       </div>
@@ -116,13 +122,14 @@ function Layout() {
                 setBounds={setBounds} // ✅ MainMap으로 전달
                 setSearchKeyword
                 selectedRestaurant={selectedRestaurant}
+                filteredList={filteredList}
               />
             }
           />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/regist" element={<RegistUserPage />} />
           <Route path="/manage" element={<ManagePage />} />
-          <Route path="/restaurant/:residx" element={<DetailPage />} />
+          <Route path="/restaurant/:residx" element={<DetailPage selectedRestaurant={selectedRestaurant} handleSearch={handleSearch}/>} />
         </Routes>
       </div>
     </div>

@@ -8,19 +8,19 @@
     <select id="findCleanGradeCount" parameterType="String" resultType="kr.map.food.domain.stats.CleanGradeCountDTO">
         SELECT
             ADDRDONG,
-            ASSIGNGRADE,
+            RESCLEANSCORE,
             COUNT(*) AS gradeCount
         FROM
             CLEANGRADE
         WHERE
             ADDRGU = #{ADDRGU}
-            AND ASSIGNGRADE IN ('매우 우수', '우수', '좋음')
+            AND RESCLEANSCORE IN ('매우 우수', '우수', '좋음')
         GROUP BY
             ADDRDONG,
-            ASSIGNGRADE
+            RESCLEANSCORE
         ORDER BY
             ADDRDONG,
-            FIELD(ASSIGNGRADE, '매우 우수', '우수', '좋음')
+            FIELD(RESCLEANSCORE, '매우 우수', '우수', '좋음')
     </select>
 
 </mapper>

@@ -2,6 +2,7 @@ package kr.map.food.controller.mapInfo;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,6 +38,10 @@ public class RestaurantController {
         @RequestParam double urX ) {
         return restaurantService.getRestaurantByLocation(blY, urY, blX, urX);
     }
-
+    @GetMapping("/search/{keyword}")
+    public ResponseEntity<?> searchRestaurants(@PathVariable String keyword) {
+        // keyword는 자동으로 디코딩됨 (Spring Boot 기본 설정일 경우)
+        return ResponseEntity.ok(restaurantService.searchByKeyword(keyword));
+    }
     
 }

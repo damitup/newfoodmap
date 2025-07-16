@@ -7,9 +7,9 @@
 
     <select id="findAllCleanGrade" resultType="kr.map.food.domain.mapInfo.CleanGradeMapDTO">
         SELECT
-            CLEANIDX,
-            CLNAME,
-            ASSIGNGRADE,
+            CLIDX as RESIDX,
+            CLNAME as RESNAME,
+            ASSIGNGRADE as RESCLEANSCORE,
             ASSIGNYEAR,
             ADDRGU,
             ADDRDONG,
@@ -25,9 +25,9 @@
 
     <select id="findByCleanIdx" parameterType="String" resultType="kr.map.food.domain.mapInfo.CleanGradeMapDTO">
         SELECT
-            CLEANIDX,
-            CLNAME,
-            ASSIGNGRADE,
+            CLIDX as RESIDX,
+            CLNAME as RESNAME,
+            ASSIGNGRADE as RESCLEANSCORE,
             ASSIGNYEAR,
             ADDRGU,
             ADDRDONG,
@@ -39,7 +39,7 @@
             DELYN
         FROM CLEANGRADE
         WHERE
-            CLEANIDX = #{CLEANIDX}
+            CLIDX = #{RESIDX}
     </select>
 
 </mapper>

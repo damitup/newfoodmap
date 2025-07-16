@@ -39,5 +39,16 @@ public class ReviewService {
         }
         return String.format("REV%06d", num); // REV000024
     }
+
+    public void updateReview(String reviewIdx, String content) {
+        ReviewDTO dto = new ReviewDTO();
+        dto.setReviewIdx(reviewIdx);
+        dto.setReviewContent(content);
+        reviewRepository.updateReview(dto);
+    }
+
+    public void deleteReview(String reviewIdx) {
+        reviewRepository.deleteReview(reviewIdx);
+    }
     
 }

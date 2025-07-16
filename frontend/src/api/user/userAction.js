@@ -32,5 +32,15 @@ export const selReviewUser = (userIdx, data={}) => {
   return api.get(`/review/my/${userIdx}`,data);
 } 
 
+// 리뷰 수정
+export const updateReview = (reviewIdx, content) => {
+  return api.put(`/review/${reviewIdx}`, { reviewContent: content });
+};
+
+// 리뷰 삭제
+export const deleteReview = (reviewId) => {
+  return api.delete(`/review/${reviewId}`);
+};
+
 
 

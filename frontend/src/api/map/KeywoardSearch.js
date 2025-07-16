@@ -6,7 +6,7 @@ import mapApi from "../MapApiClient";
  * @returns {Promise} - 음식점 리스트 (resname, xpos, ypos 등 포함)
  */
 export const searchRestaurants = (keyword) => {
-  return mapApi.get(`/restaurants/search/${keyword}`);
-  
-};
+  const encodedKeyword = encodeURIComponent(keyword);
+  return mapApi.get(`/restaurants/search/${encodedKeyword}`);
+}
 

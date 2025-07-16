@@ -31,9 +31,9 @@ public class CleanGradeExcel {
 
             if(row == null) continue;
 
-            String CLNAME = getCellValue(row.getCell(1));
+            String RESNAME = getCellValue(row.getCell(1));
             String rawAddress = getCellValue(row.getCell(2));
-            String ASSIGNGRAD = getCellValue(row.getCell(3));
+            String RESCLEANSCORE = getCellValue(row.getCell(3));
             String assignDate = getCellValue(row.getCell(5));
 
             if(!rawAddress.startsWith("서울특별시")) continue;
@@ -54,8 +54,8 @@ public class CleanGradeExcel {
             
             CleanGradeDTO dto = new CleanGradeDTO();
             
-                dto.setCLNAME(CLNAME);
-                dto.setASSIGNGRADE(ASSIGNGRAD);
+                dto.setRESNAME(RESNAME);
+                dto.setRESCLEANSCORE(RESCLEANSCORE);
                 dto.setASSIGNYEAR(ASSIGNYEAR);
 
                 dto.setOLDADDR(kakaoInfo.getJibunAddress());

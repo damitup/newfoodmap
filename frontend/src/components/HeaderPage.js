@@ -3,28 +3,38 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { userLoginCheck, userLogout } from "../api/user/userLoginCheck";
 import { useState, useEffect } from 'react';
 
-export default function HeaderPage({ name }) {
+export default function HeaderPage({ name, onSearch}) {
   const [inputValue, setInputValue] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
   const location = useLocation(); // React Router에서 현재 경로
   const path = location.pathname + location.search;
+const isTyping = inputValue !== "";
 
-  // 입력 값이 있을 때만 삭제 버튼 표시
-  const isTyping = inputValue !== "";
+    const handleChange = (e) => {
+        setInputValue(e.target.value);
+    };
 
-  const handleChange = (e) => {
-    setInputValue(e.target.value);
-  };
+    const delText = () => {
+        setInputValue("");
+        onSearch(""); // 검색 초기화
+    };
 
-  const delText = () => {
-    setInputValue("");
-  };
+    const resSearch = () => {
+        const keyword = inputValue.trim();
+        if (keyword === "") return;
 
-  const resSearch = () => {
-    if (inputValue.trim() === "") return;
-    navigate(`/sidebar?${encodeURIComponent(inputValue)}`);
-  };
+        if (typeof onSearch === "function") {
+            navigate("/");
+            onSearch(keyword); // ✅ 함수인 경우만 실행
+        } else {
+            console.warn("onSearch prop is not a function:", onSearch);
+        }
+    };
+
+    const handleKeyDown = (e) => {
+        if (e.key === "Enter") resSearch();
+    };
 
   // 로그인 여부 확인
   useEffect(() => {
@@ -71,11 +81,12 @@ export default function HeaderPage({ name }) {
         <div className="inputWrapper">
           <input
             id="searchKeyword"
-            type="text"
-            className="search"
-            placeholder="지도 검색"
-            value={inputValue}
-            onChange={handleChange}
+              type="text"
+              className="searchInput"
+              placeholder="지도 검색"
+              value={inputValue}
+              onChange={handleChange}
+              onKeyDown={handleKeyDown}
           />
           {isTyping && <div className="typing" onClick={delText} />}
         </div>

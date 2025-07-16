@@ -23,7 +23,7 @@ public class PenaltyRestaurantController {
         return penaltyRestaurantService.getAllPenaltyRestaurant();
     }
 
-    @GetMapping("/{CLEANIDX}")
+    @GetMapping("/{RESIDX}")
     public PenaltyRestaurantDTO getById(@PathVariable String RESIDX) {
         return penaltyRestaurantService.getPenaltyRestaurantById(RESIDX);
     }  

@@ -21,7 +21,7 @@ export default function TabSearch({ selectedTab,bounds, moveMapToFitBounds, sear
     // ✅ 전체 음식점 초기 로드
     
     useEffect(() => {
-        nomalResFindAll({'num': 0})
+        nomalResFindAll({ page: 1, size: 200 })
         .then((response) => {
             console.log(response.data);
             setRestaurantList(response.data);
@@ -30,28 +30,7 @@ export default function TabSearch({ selectedTab,bounds, moveMapToFitBounds, sear
             console.error("음식점 목록을 불러오는 중 오류 발생:", error);
         });
 }, []);
-   /*
-    useEffect(() => {
-        const fetchAllRestaurants = async () => {
-            const allData = [];
-
-            for (let i = 0; i < 1; i++) {
-            try {
-                const response = await nomalResFindAll({ num: i });
-                allData.push(...response.data);
-                console.log(response.data);
-            } catch (error) {
-                console.error(요청 ${i} 실패:, error);
-            }
-            }
-            console.log('allData: ', allData);
-            setRestaurantList(allData);
-        };
-
-        fetchAllRestaurants();
-    }, []);
-    */
-
+  
     // ✅ bounds 내의 음식점만 필터링해서 보여주기
     useEffect(() => {
     if (!bounds || searchKeyword.trim() !== "") return; // 검색어가 있을 때는 필터링 X
@@ -176,7 +155,7 @@ export default function TabSearch({ selectedTab,bounds, moveMapToFitBounds, sear
                 <div key={item.residx} className="section" onClick={() => handleDetailPage(item)}>
                     <div className="container title">
                         <span className="sectionTitle">{item.resname}</span>
-                        <span className="resType">{item.typeidx}</span>
+                        <span className="resType">{item.typeNAME}</span>
                         {isLoggedIn && (
                             <button
                                 type="button"

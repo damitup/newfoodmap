@@ -13,6 +13,7 @@
         )
     </insert>
 
+
     <!-- 가게리뷰 조회-->
     <select id="getReviewsByResidx" parameterType="kr.map.food.domain.user.ReviewDTO" resultType="kr.map.food.domain.user.ReviewDTO">
         SELECT 
@@ -56,4 +57,16 @@
     <select id="findUserNameByIdx" parameterType="string" resultType="string">
         SELECT USERNAME FROM USER WHERE USERIDX = #{userIdx}
     </select>
+      <!-- 리뷰 수정 -->
+    <update id="updateReview" parameterType="kr.map.food.domain.user.ReviewDTO">
+        UPDATE review
+        SET reviewContent = #{reviewContent}
+        WHERE reviewIdx = #{reviewIdx}
+    </update>
+
+    <!-- 리뷰 삭제 -->
+    <delete id="deleteReview" parameterType="string">
+        DELETE FROM review
+        WHERE reviewIdx = #{reviewIdx}
+    </delete>
 </mapper>

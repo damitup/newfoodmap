@@ -6,7 +6,7 @@ import lombok.Data;
 public class CleanGradeCountDTO {
 
     private String ADDRDONG;
-    private String ASSIGNGRADE;
+    private String RESCLEANSCORE;
     private int gradeCount;
     
 }

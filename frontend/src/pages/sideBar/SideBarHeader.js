@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function SideBarHeader({ onSearch }) {
+    const navigate =useNavigate();
     const [inputValue, setInputValue] = useState("");
     const isTyping = inputValue !== "";
 
@@ -15,9 +17,9 @@ export default function SideBarHeader({ onSearch }) {
 
     const resSearch = () => {
         const keyword = inputValue.trim();
-        if (keyword === "") return;
 
         if (typeof onSearch === "function") {
+            navigate("/");
             onSearch(keyword); // ✅ 함수인 경우만 실행
         } else {
             console.warn("onSearch prop is not a function:", onSearch);

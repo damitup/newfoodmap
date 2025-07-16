@@ -11,6 +11,6 @@ public interface CleanGradeMapMapper {
 
     List<CleanGradeMapDTO> findAllCleanGrade();
 
-    CleanGradeMapDTO findByCleanIdx(String CLIDX);
+    CleanGradeMapDTO findByCleanIdx(String resIdx);
     
 }

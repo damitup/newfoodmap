@@ -43,19 +43,19 @@ public class CleanGradeServiceImpl {
             if(mapper.existsClean(dto) > 0) {
                 mapper.updateClean(dto);
                 log.info("업데이트: {} / {} / {} → {}", 
-                            dto.getCLNAME(), 
+                            dto.getRESNAME(), 
                             dto.getASSIGNYEAR(), 
                             dto.getADDRGU(), 
-                            dto.getASSIGNGRADE()
+                            dto.getRESCLEANSCORE()
                         );
             } else {
-                dto.setCLIDX(generateNextCleanIdx());
+                dto.setRESIDX(generateNextCleanIdx());
                 mapper.insertClean(dto);
                 log.info("삽입: {} / {} / {} → {}", 
-                            dto.getCLNAME(), 
+                            dto.getRESNAME(), 
                             dto.getASSIGNYEAR(), 
                             dto.getADDRGU(), 
-                            dto.getASSIGNGRADE());
+                            dto.getRESCLEANSCORE());
             }
         }
         log.info("업로드 완료. 총 {}건 처리됨", list.size());

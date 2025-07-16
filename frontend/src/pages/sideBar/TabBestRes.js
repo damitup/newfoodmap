@@ -1,63 +1,115 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import SideBarHeader from "./SideBarHeader";
-import { bestResFindAll } from "../../api/map/MapList";
+import { bestResFindAll,bestResGoDetail } from "../../api/map/MapList";
 import { addFavorite, removeFavorite, FavoriteCheck } from "../../api/user/userAction"; // 추가
 import { getCookie } from "../../util/cookie";
 
-export default function TabSearch(selectedTab){
+export default function TabSearch({selectedTab,bounds, moveMapToFitBounds, searchKeyword, handleSearch ,setSelectedRestaurant}){
     const navigate = useNavigate();
-    
-        const [restaurantList, setRestaurantList] = useState([]);
-        const [favoriteList, setFavoriteList] = useState([]);
-        const [favorite, setFavorite] = useState(true);
-        const [showOldList, setShowOldList] = useState(new Array(restaurantList.length).fill(false));
-    
-        const userIdx = getCookie("userIdx"); // 사용자 ID
-        const isLoggedIn = !!userIdx;
+    const [restaurantList, setRestaurantList] = useState([]);
+    const [filteredList, setFilteredList] = useState([]);
+    const [favoriteList, setFavoriteList] = useState([]);
+    const [favorite, setFavorite] = useState(true);
+    const [showOldList, setShowOldList] = useState([]);
+
+    const userIdx = getCookie("userIdx");
+    const isLoggedIn = !!userIdx;
     
         //sidebar에 리스트 생성
-        useEffect(() => {
-            bestResFindAll()
-                .then((response) => {
-                    const data = response.data;
-                    setRestaurantList(data);
-                    setFavoriteList(new Array(data.length).fill(false));
-                    setShowOldList(new Array(data.length).fill(false)); 
-                })
-                .catch((error) => {
-                    console.error("음식점 목록을 불러오는 중 오류 발생:", error);
-                });
-
-            }, []);
+        useEffect(() => {bestResFindAll()
+            .then((response) => {
+                console.log(response.data);
+                setRestaurantList(response.data);
+            })
+            .catch((error) => {
+                console.error("음식점 목록을 불러오는 중 오류 발생:", error);
+            });
+        }, []);
             const showOldAddr = (index) => {
                 const updated = [...showOldList];
                 updated[index] = !updated[index];
                 setShowOldList(updated);
             }
+ // ✅ bounds 내의 음식점만 필터링해서 보여주기
+     useEffect(() => {
+     if (!bounds || searchKeyword.trim() !== "") return; // 검색어가 있을 때는 필터링 X
  
-            useEffect(() => {
-            const fetchFavorites = async () => {
-                if (!isLoggedIn) return;
-        
-                const initList = await Promise.all(
-                    restaurantList.map(async (item) => {
-                        try {
-                            const res = await FavoriteCheck(userIdx, item.residx);
-                            return res.data === true; // ← API에서 true/false 반환한다고 가정
-                        } catch (error) {
-                            console.error("즐겨찾기 확인 실패:", item.residx, error);
-                            return false; // 실패한 경우 false 처리
-                        }
-                    })
-            );
-        
-            setFavoriteList(initList);
-            console.log(favoriteList);
-            };
-        
-            fetchFavorites();
-        }, [isLoggedIn, restaurantList, userIdx]);
+     const filtered = restaurantList.filter((item) => {
+         const x = parseFloat(item.xpos);
+         const y = parseFloat(item.ypos);
+         return (
+         x >= bounds.blX && x <= bounds.urX &&
+         y >= bounds.blY && y <= bounds.urY
+         );
+     });
+ 
+     setFilteredList(filtered);
+     setFavoriteList(new Array(filtered.length).fill(false));
+     setShowOldList(new Array(filtered.length).fill(false));
+     }, [bounds, restaurantList, searchKeyword]);
+ 
+ 
+     // ✅ 검색어로 DB에서 검색
+    useEffect(() => {
+     console.log("🧪 TabSearch received handleSearch:", typeof handleSearch);
+     const fetchSearchResult = async () => {
+     if (searchKeyword?.trim() === "") {
+     if (bounds) {
+         const filtered = restaurantList.filter((item) => {
+                 const x = parseFloat(item.xpos);
+                 const y = parseFloat(item.ypos);
+                 return (
+                     x >= bounds.blX && x <= bounds.urX &&
+                     y >= bounds.blY && y <= bounds.urY
+                 );
+             });
+         setFilteredList(filtered);
+         setFavoriteList(new Array(filtered.length).fill(false));
+         setShowOldList(new Array(filtered.length).fill(false));
+     }else {
+         setFilteredList([]); // bounds도 없으면 빈 값
+         setFavoriteList([]);
+         setShowOldList([]);
+     }   
+     return;
+ }
+     try {
+         const res = await bestResGoDetail(searchKeyword);
+         setFilteredList(res.data);
+         setFavoriteList(new Array(res.data.length).fill(false));
+         setShowOldList(new Array(res.data.length).fill(false));
+ 
+         // ✅ 지도 이동 요청
+         if (res.data.length > 0 && moveMapToFitBounds) {
+             moveMapToFitBounds(res.data);
+         }
+         } catch (error) {
+         console.error("검색 실패:", error);
+         }
+     };
+         fetchSearchResult();
+     }, [searchKeyword,restaurantList, bounds]);
+ 
+     // ✅ 즐겨찾기 확인
+     useEffect(() => {
+         const fetchFavorites = async () => {
+             if (!isLoggedIn || filteredList.length === 0) return;
+ 
+             try {
+                 const res = await FavoriteCheck(userIdx);
+                 const favoriteResidxList = res.data.map(fav => fav.resIdx);
+                 const initList = filteredList.map(item =>
+                     favoriteResidxList.includes(item.residx)
+                 );
+                 setFavoriteList(initList);
+             } catch (error) {
+                 console.error("즐겨찾기 목록 확인 실패", error);
+             }
+         };
+ 
+         fetchFavorites();
+     }, [isLoggedIn, filteredList, userIdx]);
   
     const handlerFavoriteClick = async (idx, resIdx) => {
         if (!isLoggedIn) {
@@ -89,21 +141,21 @@ export default function TabSearch(selectedTab){
             setFavoriteList(rollback);
         }
     };
-
     
-        const handleDetailPage = (item) => {
-            navigate(`/detail/${item.residx}`, { state: item });
-        };
+    const handleDetailPage = (item) => {
+        setSelectedRestaurant(item);
+    };
     
     return (
     <div className="sidebar tabSearch">
        
-        <SideBarHeader/>
+        <SideBarHeader onSearch={handleSearch}/>
         <h4>지역 추천</h4>
        
-            {restaurantList.map((item, index) => (
+            {Array.isArray(filteredList) && filteredList.map((item, index) => (
                 <div key={item.residx} className="section" onClick={() => handleDetailPage(item)}>
                     <div className="container title">
+                        <div className="gradeIcon best"/>
                         <span className="sectionTitle">{item.resname}</span>
                         <span className="resType">{item.typeidx}</span>
                         {isLoggedIn && (

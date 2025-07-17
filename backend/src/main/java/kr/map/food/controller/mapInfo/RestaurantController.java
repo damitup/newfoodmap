@@ -19,9 +19,9 @@ public class RestaurantController {
 
     private final RestaurantService restaurantService;
 
-    @GetMapping("/")
-    public List<RestaurantDTO> getAll() {
-        return restaurantService.getAllRestaurants();
+    @GetMapping
+    public List<RestaurantDTO> getAll(@RequestParam(defaultValue = "0") int num) {
+        return restaurantService.getAllRestaurants(num);
     }
 
     @GetMapping("/{RESIDX}")

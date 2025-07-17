@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.map.food.mapper.user.FavoriteRepository">
+
+    <insert id="insertFavorite" parameterType="kr.map.food.domain.user.FavoriteDTO">
+        INSERT INTO FAVORITE (RESIDX, USERIDX)
+        VALUES (#{resIdx},#{userIdx})
+    </insert>
+
+    <delete id="deleteFavorite" parameterType="kr.map.food.domain.user.FavoriteDTO">
+        DELETE FROM FAVORITE
+        WHERE USERIDX = #{userIdx}
+          AND RESIDX = #{resIdx}
+    </delete>
+
+    <select id="getFavoritesByUser" parameterType="String" resultType="kr.map.food.domain.user.FavoriteDTO">
+    SELECT 
+        f.USERIDX,
+        u.USERNAME,
+        f.RESIDX,
+        r.RESNAME,
+        r.NEWADDR,
+        r.OLDADDR,
+        r.RESNUM
+    FROM FAVORITE f
+    JOIN USER u ON f.USERIDX = u.USERIDX
+    JOIN RESTAURANT r ON f.RESIDX = r.RESIDX
+    WHERE f.USERIDX = #{userIdx}
+</select>
+
+</mapper>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.map.food.mapper.user.ReviewRepository">
+
+    <!-- 리뷰 작성 -->
+   <insert id="insertReview" parameterType="kr.map.food.domain.user.ReviewDTO">
+        INSERT INTO REVIEW (REVIEWIDX, USERIDX, RESIDX, REVIEWCONTENT, REVIEWDATE)
+        VALUES (
+            #{reviewIdx}, #{userIdx}, #{resIdx}, #{reviewContent}, NOW()
+        )
+    </insert>
+
+    <!-- 가게리뷰 조회-->
+    <select id="getReviewsByResidx" parameterType="kr.map.food.domain.user.ReviewDTO" resultType="kr.map.food.domain.user.ReviewDTO">
+        SELECT 
+            r.REVIEWIDX,
+            u.USERIDX,
+            u.USERNAME,
+            re.RESNAME,
+            r.REVIEWCONTENT,
+            r.REVIEWDATE,
+            r.RESIDX
+        FROM REVIEW r
+        JOIN USER u ON r.USERIDX = u.USERIDX
+        JOIN RESTAURANT re ON r.RESIDX = re.RESIDX
+        WHERE r.RESIDX = #{resIdx}
+        ORDER BY r.REVIEWDATE DESC
+    </select>
+
+    <!-- ✅ 특정 사용자가 작성한 리뷰 조회 -->
+    <select id="getReviewsByUserIdx" parameterType="String" resultType="kr.map.food.domain.user.ReviewDTO">
+        SELECT 
+            u.USERIDX,
+            u.USERNAME,
+            rev.RESIDX,
+            r.RESNAME,
+            rev.REVIEWCONTENT,
+            rev.REVIEWDATE
+        FROM REVIEW rev
+        JOIN USER u ON rev.USERIDX = u.USERIDX
+        JOIN RESTAURANT r ON r.RESIDX = rev.RESIDX
+        WHERE rev.USERIDX = #{userIdx}
+        ORDER BY rev.REVIEWDATE DESC
+    </select>
+
+    
+    <select id="getLastReviewIdx" parameterType="kr.map.food.domain.user.ReviewDTO" resultType="String">
+        SELECT REVIEWIDX
+        FROM REVIEW
+        ORDER BY REVIEWIDX DESC
+        LIMIT 1
+    </select>
+    <select id="findUserNameByIdx" parameterType="string" resultType="string">
+        SELECT USERNAME FROM USER WHERE USERIDX = #{userIdx}
+    </select>
+</mapper>

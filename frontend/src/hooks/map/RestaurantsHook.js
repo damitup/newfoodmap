@@ -6,6 +6,8 @@ export default function useRestaurants(endpoint) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    if(!endpoint) return;
+    
     apiClient.get(endpoint)
       .then((res) => setData(res.data))
       .catch((err) => setError(err));

@@ -1,11 +1,15 @@
 package kr.map.food.controller.user;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import kr.map.food.domain.user.FavoriteDTO;
 import kr.map.food.domain.user.UserDTO;
+import kr.map.food.service.user.FavoriteService;
 import kr.map.food.service.user.UserLoginService;
 import kr.map.food.service.user.UserRegisterService;
 import lombok.RequiredArgsConstructor;
@@ -26,9 +32,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class UserController {
 
+    @Autowired
+    private final FavoriteService favoriteService;
     private final UserRegisterService userRegisterService;
     private final UserLoginService userLoginService;
 
+  
     
     
      @PostMapping("/register")
@@ -79,5 +88,26 @@ public class UserController {
         response.addCookie(cookie);
         return ResponseEntity.ok().build();
     }
-    
+
+    // 즐겨찾기 추가
+   @PostMapping("/favorite")
+    public ResponseEntity<?> addFavorite(@RequestBody FavoriteDTO dto) {
+        favoriteService.addFavorite(dto);
+        return ResponseEntity.ok().body("즐겨찾기 등록 완료");
+    }
+
+    // ✅ 즐겨찾기 삭제
+    @DeleteMapping("/favorite")
+    public ResponseEntity<?> removeFavorite(@RequestBody FavoriteDTO dto) {
+        favoriteService.removeFavorite(dto);
+        return ResponseEntity.ok().body("즐겨찾기 해제 완료");
+    }
+
+    // ✅ 즐겨찾기 여부 조회 (선택)
+    @GetMapping("/favorite/show/{userIdx}")
+    public ResponseEntity<List<FavoriteDTO>> getFavoritesByUser(@PathVariable String userIdx) {
+        List<FavoriteDTO> favorites = favoriteService.getFavoritesByUser(userIdx);
+        return ResponseEntity.ok(favorites);
+    }
+
 }

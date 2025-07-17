@@ -14,7 +14,9 @@
 
     <!--  로그인    -->
     <select id="loginId" parameterType="UserDTO" resultType="UserDTO">
-        SELECT PASSWORD AS userPassword
+        SELECT 
+            USERIDX AS userIdx,
+            PASSWORD AS userPassword            
         FROM USER
         WHERE USERID = #{userId}
         AND DELYN = 'N'
@@ -29,5 +31,6 @@
     <select id="getUserIdx" resultType="String">
         SELECT MAX(USERIDX) FROM USER
     </select>
+ 
 
 </mapper>

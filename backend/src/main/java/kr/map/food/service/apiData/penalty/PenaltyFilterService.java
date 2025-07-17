@@ -59,6 +59,8 @@ public class PenaltyFilterService {
                 // 업태명 IDX 조회 typeIdx 없으면 필터
                 Integer typeIdx = restaurantTypeTrans.getTypeIdx(raw.getSNT_UPTAE_NM());
 
+                log.info("필터링 시작 for: {}", raw.getUPSO_NM());
+                
                 if (typeIdx == null) {
                     log.debug("업태명 매핑 실패: {}", raw.getSNT_UPTAE_NM());
                     continue;

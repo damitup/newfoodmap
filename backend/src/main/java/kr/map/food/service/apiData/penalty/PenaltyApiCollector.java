@@ -21,8 +21,12 @@ public class PenaltyApiCollector {
     private final RestTemplate restTemplate = new RestTemplate();
     private final XmlMapper xmlMapper = new XmlMapper();
     private static final Logger logger = LoggerFactory.getLogger(PenaltyApiCollector.class);
+    private static final Logger log = LoggerFactory.getLogger(PenaltyFilterService.class);
 
+
+    
     public List<PenaltyRawDTO> collectPenaltyData(PenaltyGuApiInfoENUM guInfo, String apiKey) {
+        log.info("[OpenAPI 요청 시작] {}", guInfo.name());
         List<PenaltyRawDTO> penaltyrawList = new ArrayList<>();
         int page = 1;
 

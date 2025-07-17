@@ -2,9 +2,12 @@ package kr.map.food.service.apiData.penalty;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.map.food.controller.apiData.penalty.PenaltyApiDataController;
 import kr.map.food.domain.apiData.penaltyRestaurant.PenaltyApiDTO;
 import kr.map.food.domain.apiData.penaltyRestaurant.PenaltyFilteredDTO;
 import kr.map.food.domain.apiData.restaurant.RestaurantApiDTO;
@@ -20,6 +23,8 @@ public class ResMatchingService {
 
     private final RestaurantApiDataMapper resMapper;
     private final PenaltyApiDataMapper penaltyMapper;
+
+    private static final Logger log = LoggerFactory.getLogger(PenaltyApiDataController.class);
 
     public ResMatchingService(RestaurantApiDataMapper resMapper, PenaltyApiDataMapper penaltyMapper) {
         this.resMapper = resMapper;
@@ -45,7 +50,7 @@ public class ResMatchingService {
     }
 
 
-    @Transactional
+
     public void matchAndSave(List<PenaltyFilteredDTO> penaltyList) {
         List<RestaurantApiDTO> allRestaurant = resMapper.selectAll();
 
@@ -61,7 +66,14 @@ public class ResMatchingService {
                 insert.setResIdx(match.getRESIDX());
                 insert.setPenaltyContent(penalty.getPENALTYCONTENT());
 
-                penaltyMapper.insertPenalty(insert);
+                try {
+                    penaltyMapper.insertPenalty(insert);
+                    log.info("insert 성공: {}", insert.getPenaltyIdx());
+                } catch (Exception e) {
+                    log.warn("insert 실패: {}", insert.getPenaltyIdx(), e);
+                }
+            } else {
+                log.warn("매칭 실패: {}, 업소명: {}", penalty.getPENALTYCONTENT(), penalty.getSTORENAME());
             }
         }
     }
